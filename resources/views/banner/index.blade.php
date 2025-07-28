@@ -46,13 +46,13 @@
                                         <a href="#" class="btn btn-danger btn-sm">Hapus</a>
                                     </td> --}}
                                     <td>
-                                            <a href="{{ route('banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                            <button type-="button" class="btn btn-danger btn-sm"
+                                        <a href="{{ route('banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <button type-="button" class="btn btn-danger btn-sm"
                                                     data-toggle="modal" data-target="#deleteModal"
                                                     data-url="{{ route('banner.destroy', $banner->id) }}">
                                                 Hapus
-                                            </button>
-                                        </td>
+                                        </button>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

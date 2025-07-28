@@ -28,9 +28,9 @@
           <li class="nav-item"> <a class="nav-link" href="{{ route('kluster.index') }}">Kluster</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('halaman.index') }}">Halaman</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('banner.index') }}">Banner</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Layanan</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Sinergi Program</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Galeri</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('layanan.index') }}">Layanan</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('sinergi-program.index') }}">Sinergi Program</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('galeri.index') }}">Galeri</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Pengumuman</a></li>
         </ul>
       </div>
