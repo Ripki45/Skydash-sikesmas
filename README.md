@@ -1,9 +1,3 @@
-### Instalation
-
-```
-git clone: https://github.com/M-Hidayatullah/base-admin-laravel-10-skydash.git
-```
-
 ### composer install
 
 ```
