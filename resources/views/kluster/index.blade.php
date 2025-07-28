@@ -136,23 +136,39 @@
 </div>
 @endsection
 
+ <script>
+        $(document).ready(function() {
+            // Script untuk modal konfirmasi hapus
+            // Script ini akan otomatis bekerja pada tombol apapun yang memiliki
+            // atribut data-toggle="modal" dan data-target="#deleteModal"
+            $('#deleteModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var url = button.data('url');
+                var modal = $(this);
+                modal.find('#deleteForm').attr('action', url);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Script untuk modal konfirmasi hapus
+            // Script ini akan otomatis bekerja pada tombol apapun yang memiliki
+            // atribut data-toggle="modal" dan data-target="#deleteModal"
+            $('#deleteModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var url = button.data('url');
+                var modal = $(this);
+                modal.find('#deleteForm').attr('action', url);
+            });
+        });
+    </script>
+
 {{--
     REVISI PENTING #3: Penempatan & Perbaikan Script
     Menambahkan blok @section('scripts') terpisah untuk JavaScript.
     Ini memastikan jQuery (dari file JS utama) sudah dimuat sebelum script ini dijalankan.
 --}}
-@section('scripts')
-<script>
-    $(document).ready(function() {
-        $('#deleteModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var url = button.data('url');
-            var modal = $(this);
-            modal.find('#deleteForm').attr('action', url);
-        });
-    });
-</script>
-@endsection
 
 </body>
 </html>

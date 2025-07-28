@@ -19,7 +19,7 @@
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#pengaturan-website" aria-expanded="false" aria-controls="pengaturan-website">
         <i class="icon-cog menu-icon"></i>
-        <span class="menu-title">Pengaturan Website</span>
+        <span class="menu-title">Beranda</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="pengaturan-website">
@@ -27,7 +27,7 @@
           {{-- Nanti kita akan isi href ini dengan route yang benar --}}
           <li class="nav-item"> <a class="nav-link" href="{{ route('kluster.index') }}">Kluster</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('halaman.index') }}">Halaman</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Banner</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('banner.index') }}">Banner</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Layanan</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Sinergi Program</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Galeri</a></li>

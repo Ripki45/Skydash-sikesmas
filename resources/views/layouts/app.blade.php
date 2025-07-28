@@ -41,6 +41,21 @@
     <script src="{{ asset('js/todolist.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
+    <script src="{{ asset('js/file-upload.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Script untuk modal konfirmasi hapus
+            // Script ini akan otomatis bekerja pada tombol apapun yang memiliki
+            // atribut data-toggle="modal" dan data-target="#deleteModal"
+            $('#deleteModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var url = button.data('url');
+                var modal = $(this);
+                modal.find('#deleteForm').attr('action', url);
+            });
+        });
+    </script>
+
 
     {{--
         REVISI UTAMA: Menambahkan @yield('scripts')

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\HalamanController;
 use App\Http\Controllers\KlusterController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,9 @@ Route::middleware('auth')->group(function () {
     // Tambahkan baris ini untuk Pengaturan Website
     Route::resource('kluster', KlusterController::class);
     Route::resource('halaman', HalamanController::class);
-});
+    Route::resource('banner', BannerController::class);
+    // Untuk running text, kita buat rute khusus karena manajemennya lebih simpel
+    Route::post('running-text/update', [BannerController::class, 'updateRunningText'])->name('running-text.update');
+    });
 
 require __DIR__.'/auth.php';

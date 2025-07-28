@@ -1,0 +1,5 @@
+\App\Models\User::create([
+    'name' => 'Super Admin',
+    'email' => 'admin@puskesmas.com',
+    'password' => bcrypt('password')
+]);
