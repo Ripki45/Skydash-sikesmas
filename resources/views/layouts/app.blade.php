@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('js/select.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+  <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
 </head>
 <body>
   <div class="container-scroller">

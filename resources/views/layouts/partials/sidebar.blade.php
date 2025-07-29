@@ -9,12 +9,25 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
-
-    {{-- PEMISAH --}}
+   {{-- PEMISAH BARU --}}
     <li class="nav-item">
         <hr class="mt-2 mb-1">
+        <p class="nav-link" style="color: #999; font-size: 0.8rem; padding-top: 1rem; padding-bottom: 0;">DATA MASTER</p>
     </li>
 
+    {{-- MENU PUSTU BARU --}}
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('pustu.index') }}">
+        <i class="mdi mdi-hospital-building menu-icon"></i>
+        <span class="menu-title">Puskemas Pembantu</span>
+      </a>
+    </li>
+
+    {{-- PEMISAH LAMA --}}
+    <li class="nav-item">
+        <hr class="mt-2 mb-1">
+        <p class="nav-link" style="color: #999; font-size: 0.8rem; padding-top: 1rem; padding-bottom: 0;">PENGATURAN WEBSITE</p>
+    </li>
     {{-- MENU PENGATURAN WEBSITE (BARU) --}}
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#pengaturan-website" aria-expanded="false" aria-controls="pengaturan-website">
@@ -31,7 +44,7 @@
           <li class="nav-item"> <a class="nav-link" href="{{ route('layanan.index') }}">Layanan</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('sinergi-program.index') }}">Sinergi Program</a></li>
           <li class="nav-item"> <a class="nav-link" href="{{ route('galeri.index') }}">Galeri</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Pengumuman</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{ route('pengumuman.index') }}">Pengumuman</a></li>
         </ul>
       </div>
     </li>
