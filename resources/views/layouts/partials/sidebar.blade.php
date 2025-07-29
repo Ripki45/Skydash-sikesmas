@@ -12,7 +12,7 @@
    {{-- PEMISAH BARU --}}
     <li class="nav-item">
         <hr class="mt-2 mb-1">
-        <p class="nav-link" style="color: #999; font-size: 0.8rem; padding-top: 1rem; padding-bottom: 0;">DATA MASTER</p>
+        <p style="color: #999; font-size: 0.8rem; padding-top: 1rem; padding-bottom: 0;">DATA MASTER</p>
     </li>
 
     {{-- MENU PUSTU BARU --}}
@@ -22,11 +22,17 @@
         <span class="menu-title">Puskemas Pembantu</span>
       </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('users.index') }}">
+            <i class="mdi mdi-account-multiple-outline menu-icon"></i>
+            <span class="menu-title">Manajemen Pengguna</span>
+        </a>
+    </li>
 
     {{-- PEMISAH LAMA --}}
     <li class="nav-item">
         <hr class="mt-2 mb-1">
-        <p class="nav-link" style="color: #999; font-size: 0.8rem; padding-top: 1rem; padding-bottom: 0;">PENGATURAN WEBSITE</p>
+        <p style="color: #999; font-size: 0.8rem; padding-top: 1rem; padding-bottom: 0;">PENGATURAN WEBSITE</p>
     </li>
     {{-- MENU PENGATURAN WEBSITE (BARU) --}}
     <li class="nav-item">
@@ -48,6 +54,20 @@
         </ul>
       </div>
     </li>
-
+    {{-- MENU DROPDOWN BARU UNTUK WILAYAH & PUSTU --}}
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="collapse" href="#wilayah-kerja" aria-expanded="false" aria-controls="wilayah-kerja">
+        <i class="mdi mdi-map-marker-radius menu-icon"></i>
+        <span class="menu-title">Wilayah & Pustu</span>
+        <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="wilayah-kerja">
+        <ul class="nav flex-column sub-menu">
+        <li class="nav-item"> <a class="nav-link" href="{{ route('desa.index') }}">Manajemen Desa</a></li>
+        <li class="nav-item"> <a class="nav-link" href="{{ route('dusun.index') }}">Manajemen Dusun</a></li>
+        <li class="nav-item"> <a class="nav-link" href="{{ route('pustu.index') }}">Manajemen Pustu</a></li>
+        </ul>
+    </div>
+    </li>
   </ul>
 </nav>

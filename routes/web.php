@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DusunController;
 use App\Http\Controllers\PustuController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\GaleriController;
@@ -34,6 +37,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //route untuk login
+    Route::resource('users', UserController::class);
+    Route::get('/api/dusuns/{desa}', [App\Http\Controllers\UserController::class, 'getDusunsByDesa'])->name('api.dusuns.by.desa');
+
+    //ini untuk data wilayah kerja
+    Route::resource('desa', DesaController::class);
+    Route::resource('dusun', DusunController::class);
+
     //manajemen puskesmas
     Route::resource('pustu', PustuController::class);
     });

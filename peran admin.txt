@@ -1,0 +1,33 @@
+dalam project dibagi mejadi beberapa peran admin
+
+1. Superadmin
+    Superadmin ini mempunyai peran dalam pengelolaan sistem informasi ini dan alur informasi yang
+    terdapat dalam website ini
+    beberapa yang penting dalam Superadmin:
+    - Pengelolaan Beranda
+    - Pengelolaan Akun
+    - Pengelolaan Pembuatan artikel berita
+    - Pengelolaan Profil Puskesmas
+    - Setting Fasilitas dan Ruangan
+    - Setting Penggelolaan Pengguna
+    - Pengelolaan Data Wilayah Kerja
+    - Setting, Analisis, Dashboard dalam pengelolaan POSBINDU SKILAS se kecamatan
+    - Setting, Analisis, dalam kegiatan kunjungan rumah dan lansia
+2. Bidan
+    Bidan ini mempunyai dalam analisis dashboard hasil dari kegiatan SKILAS (skrining ILP)
+    dalam peran ini bidan bisa mengelola :
+    - Mengelola informasi hasil kegiatan SKILAS (skrining ILP) di Desa
+    - Mengelola informasi hasil kegiatan kujungan rumah balita dan lansia
+    - Setting data input skilas dan data posyandu di Desa
+    - Setting input jadwal posyandu di Desa
+    - Lihat pengumuman terbaru
+3. Ketua Posyandu
+    Dalam peran ini ketua posyandu membuat dan mengelola segala bentuk kegiatan posyandu,
+    maka dalam peran ini ketua posyandu
+    - Mengelola Jadwal Posyandu di dusun
+    - mengelola menginput data kegiatan SKILAS (skrining ILP) di Dusun
+    - Mengelola menginput data kegiatan kunjungan rumah balita dan lansia di Dusun
+4. Anggota Posyandu
+    dalam peran ini anggota posyandu mempunyai peran :
+    - input data skrining SKILAS (skrining-ILP)
+    - Input data kunjungan rumah balita dan lansia
