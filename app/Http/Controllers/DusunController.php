@@ -2,63 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dusun;
+use App\Models\Desa;
 use Illuminate\Http\Request;
 
 class DusunController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        // Ambil semua dusun beserta data desanya menggunakan 'with()'
+        $dusuns = Dusun::with('desa')->latest()->get();
+        return view('dusun.index', compact('dusuns'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // Ambil semua desa untuk ditampilkan di dropdown
+        $desas = Desa::all();
+        return view('dusun.create', compact('desas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'desa_id' => 'required|exists:desas,id',
+            'nama_dusun' => 'required|string|max:255',
+        ]);
+
+        Dusun::create($request->all());
+
+        return redirect()->route('dusun.index')
+                         ->with('success', 'Dusun baru berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Dusun $dusun)
     {
-        //
+        $desas = Desa::all();
+        return view('dusun.edit', compact('dusun', 'desas'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Dusun $dusun)
     {
-        //
+        $request->validate([
+            'desa_id' => 'required|exists:desas,id',
+            'nama_dusun' => 'required|string|max:255',
+        ]);
+
+        $dusun->update($request->all());
+
+        return redirect()->route('dusun.index')
+                         ->with('success', 'Data dusun berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Dusun $dusun)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $dusun->delete();
+        return redirect()->route('dusun.index')
+                         ->with('success', 'Data dusun berhasil dihapus.');
     }
 }

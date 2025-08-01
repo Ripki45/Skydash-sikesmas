@@ -1,17 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DusunController;
 use App\Http\Controllers\PustuController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\HalamanController;
 use App\Http\Controllers\KlusterController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\SinergiProgramController;
 
 /*
@@ -25,9 +30,8 @@ use App\Http\Controllers\SinergiProgramController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/halaman/{slug}', [HomeController::class, 'showHalaman'])->name('halaman.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -41,13 +45,17 @@ Route::middleware('auth')->group(function () {
     //route untuk login
     Route::resource('users', UserController::class);
     Route::get('/api/dusuns/{desa}', [App\Http\Controllers\UserController::class, 'getDusunsByDesa'])->name('api.dusuns.by.desa');
+    Route::get('/api/posyandus/{dusun}', [App\Http\Controllers\UserController::class, 'getPosyandusByDusun'])->name('api.posyandus.by.dusun');
+    Route::get('/api/posyandus/{dusun}', [App\Http\Controllers\UserController::class, 'getPosyandusByDusun'])->name('api.posyandus.by.dusun');
 
     //ini untuk data wilayah kerja
     Route::resource('desa', DesaController::class);
     Route::resource('dusun', DusunController::class);
+    Route::resource('posyandu', PosyanduController::class);
+    Route::resource('pustu', PustuController::class);
 
     //manajemen puskesmas
-    Route::resource('pustu', PustuController::class);
+
     });
     // Tambahkan baris ini untuk Beranda
     Route::resource('kluster', KlusterController::class);
@@ -59,6 +67,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('sinergi-program', SinergiProgramController::class);
     Route::resource('galeri', GaleriController::class);
     Route::resource('pengumuman', PengumumanController::class);
+
+    //berita
+    Route::resource('kategori', KategoriController::class);
+    Route::resource('tag', TagController::class);
+    Route::resource('berita', BeritaController::class);
 
 
 require __DIR__.'/auth.php';

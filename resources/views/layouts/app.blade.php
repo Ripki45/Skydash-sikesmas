@@ -21,6 +21,7 @@
     {{-- REVISI: Menghapus include right-sidebar yang duplikat dengan setting --}}
     <div class="container-fluid page-body-wrapper">
       @include('layouts.partials.setting')
+      @include('layouts.partials.right-sidebar')
       @include('layouts.partials.sidebar')
       <div class="main-panel">
         <div class="content-wrapper">

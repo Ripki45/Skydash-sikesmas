@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Desa;
 use App\Models\Role;
+use App\Models\Dusun;
+use App\Models\Posyandu;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +25,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'desa_id',     // <-- TAMBAHKAN INI
+        'dusun_id',    // <-- TAMBAHKAN INI
+        'posyandu_id', // <-- TAMBAHKAN INI
     ];
 
     /**
@@ -48,6 +54,26 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class);
+    }
+
+    public function dusun()
+    {
+        return $this->belongsTo(Dusun::class);
+    }
+
+    public function posyandu()
+    {
+        return $this->belongsTo(Posyandu::class);
+    }
+
+    public function beritas()
+    {
+        return $this->hasMany(Berita::class);
+}
 
 
 }

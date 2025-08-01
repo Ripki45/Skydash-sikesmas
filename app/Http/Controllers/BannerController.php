@@ -43,7 +43,7 @@ class BannerController extends Controller
     {
         // Validasi input
         $request->validate([
-            'gambar_banner' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar_banner' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
             'urutan_tampil' => 'required|integer',
         ]);
 
@@ -82,7 +82,7 @@ class BannerController extends Controller
     public function update(Request $request, Banner $banner)
     {
         $request->validate([
-            'gambar_banner' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar_banner' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
             'urutan_tampil' => 'required|integer',
         ]);
 

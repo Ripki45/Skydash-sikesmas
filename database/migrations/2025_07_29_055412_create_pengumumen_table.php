@@ -9,15 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+   public function up(): void
     {
         Schema::create('pengumumans', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
             $table->text('isi');
-            $table->date('tanggal_mulai'); // Tanggal pengumuman mulai ditampilkan
-            $table->date('tanggal_selesai'); // Tanggal pengumuman berakhir
-            $table->string('lampiran')->nullable(); // Untuk file lampiran (misal: PDF)
+            $table->string('lampiran')->nullable();
+            $table->enum('tipe', ['info', 'popup', 'banner'])->default('info'); // <-- Pastikan baris ini ada
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->enum('status', ['published', 'draft'])->default('draft');
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Desa;
 use Illuminate\Http\Request;
 
 class DesaController extends Controller
@@ -11,7 +12,11 @@ class DesaController extends Controller
      */
     public function index()
     {
-        //
+        // Ambil semua data desa, urutkan dari yang paling baru
+        $desas = Desa::latest()->get();
+
+        // Kirim data ke view 'desa.index'
+        return view('desa.index', compact('desas'));
     }
 
     /**
@@ -19,7 +24,7 @@ class DesaController extends Controller
      */
     public function create()
     {
-        //
+        return view('desa.create');
     }
 
     /**
@@ -27,7 +32,14 @@ class DesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_desa' => 'required|string|max:255|unique:desas',
+        ]);
+
+        Desa::create($request->all());
+
+        return redirect()->route('desa.index')
+                         ->with('success', 'Desa baru berhasil ditambahkan.');
     }
 
     /**
@@ -41,24 +53,36 @@ class DesaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Desa $desa)
     {
-        //
+        return view('desa.edit', compact('desa'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Desa $desa)
     {
-        //
+        $request->validate([
+            // 'unique' akan mengabaikan data desa yang sedang diedit
+            'nama_desa' => 'required|string|max:255|unique:desas,nama_desa,' . $desa->id,
+        ]);
+
+        $desa->update($request->all());
+
+        return redirect()->route('desa.index')
+                         ->with('success', 'Data desa berhasil diperbarui.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Desa $desa)
     {
-        //
+        $desa->delete();
+
+        return redirect()->route('desa.index')
+                        ->with('success', 'Desa berhasil dihapus.');
     }
 }
