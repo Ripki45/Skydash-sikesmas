@@ -81,7 +81,16 @@ class KategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
+        // REVISI: Cek dulu apakah kategori ini punya berita
+        if ($kategori->beritas()->count() > 0) {
+            // Jika ada, kembalikan dengan pesan error
+            return redirect()->route('kategori.index')
+                             ->with('error', 'Kategori ini tidak dapat dihapus karena masih digunakan oleh berita.');
+        }
+
+        // Jika tidak ada berita yang terhubung, barulah hapus
         $kategori->delete();
+
         return redirect()->route('kategori.index')
                          ->with('success', 'Kategori berhasil dihapus.');
     }

@@ -23,12 +23,14 @@ class HomeController extends Controller
         $layanans = Layanan::where('is_active', true)->orderBy('urutan')->get();
         $sinergiPrograms = SinergiProgram::where('is_active', true)->orderBy('urutan')->get();
 
-        // Ambil 3 berita terbaru yang sudah 'published'
-        $beritas = Berita::with('kategori', 'user')
+        // REVISI TOTAL UNTUK QUERY BERITA
+         $beritas = Berita::with('kategori', 'user')
                          ->where('status', 'published')
-                         ->latest('published_at')
-                         ->take(3)
+                         ->whereDate('published_at', '<=', now()) // Pastikan tanggalnya hari ini atau sebelumnya
+                         ->orderBy('published_at', 'desc') // Urutkan dari yang terbaru
+                         ->take(5) // Ambil 5 berita
                          ->get();
+
         $pengumumans = Pengumuman::where('status', 'published')
                                  ->where('tipe', 'info')
                                  ->whereDate('tanggal_selesai', '>=', now())
@@ -50,6 +52,10 @@ class HomeController extends Controller
     public function showHalaman($slug)
     {
         $halaman = Halaman::where('slug', $slug)->where('status', 'published')->firstOrFail();
-        return view('halaman-detail', compact('halaman'));
+
+        // REVISI: Ambil juga data untuk layout
+        $runningText = RunningText::where('is_active', true)->first();
+
+        return view('halaman-detail', compact('halaman', 'runningText'));
     }
 }

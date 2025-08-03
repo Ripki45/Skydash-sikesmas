@@ -27,75 +27,20 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>Kluster</th>
-                                <th>Halaman Terhubung</th>
-                                <th>Link Manual</th>
+                                {{-- Kita hapus kolom "No." karena penomoran menjadi rumit dengan sistem bertingkat --}}
+                                <th>Nama Menu/Sub-Menu</th>
+                                <th>Terhubung Ke</th>
                                 <th>Urutan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- Kita gunakan variabel counter manual karena $loop->iteration akan reset di loop dalam --}}
-                            @php $no = 1; @endphp
-
                             @forelse ($klusters as $kluster)
-                                {{-- Tampilkan Menu Induk --}}
-                                <tr style="background-color: #f3f3f3;">
-                                    <td>{{ $no++ }}</td>
-                                    <td><strong>{{ $kluster->title }}</strong></td>
-                                    <td>
-                                        @if($kluster->halaman_id)
-                                            <span class="badge badge-info">Terhubung ke Halaman</span>
-                                        @else
-                                            <span class="badge badge-secondary">-</span>
-                                        @endif
-                                    </td>
-                                    <td>{{ $kluster->url ?? '-' }}</td>
-                                    <td>{{ $kluster->order }}</td>
-                                    <td>
-                                        <a href="{{ route('kluster.edit', $kluster->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                                data-toggle="modal" data-target="#deleteModal"
-                                                data-url="{{ route('kluster.destroy', $kluster->id) }}">
-                                            Hapus
-                                        </button>
-                                    </td>
-                                </tr>
-
-                                {{-- Tampilkan semua Sub-Menu (Anak) dari menu induk ini --}}
-                                @if($kluster->children->isNotEmpty())
-                                    @foreach($kluster->children as $child)
-                                    <tr>
-                                        <td></td>
-                                        {{-- Kita beri sedikit indentasi agar terlihat seperti sub-menu --}}
-                                        <td style="padding-left: 2rem;">
-                                            <i class="mdi mdi-arrow-right-bold-circle-outline"></i> {{ $child->title }}
-                                        </td>
-                                        <td>
-                                            @if($child->halaman_id)
-                                                <span class="badge badge-info">Terhubung ke Halaman</span>
-                                            @else
-                                                <span class="badge badge-secondary">-</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $child->url ?? '-' }}</td>
-                                        <td>{{ $child->order }}</td>
-                                        <td>
-                                            <a href="{{ route('kluster.edit', $child->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                            <button type-="button" class="btn btn-danger btn-sm"
-                                                    data-toggle="modal" data-target="#deleteModal"
-                                                    data-url="{{ route('kluster.destroy', $child->id) }}">
-                                                Hapus
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                @endif
-
+                                {{-- Panggil "template mini" untuk setiap menu level teratas --}}
+                                @include('kluster.partials._row', ['kluster' => $kluster, 'level' => 0])
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center">Data Kluster masih kosong.</td>
+                                    <td colspan="4" class="text-center">Belum ada kluster/menu yang ditambahkan.</td>
                                 </tr>
                             @endforelse
                         </tbody>

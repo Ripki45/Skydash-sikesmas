@@ -22,7 +22,7 @@
 
         <!-- Banner Start -->
         @if($banners->isNotEmpty())
-            <div class="container-fluid-full mt-2">
+            <div class="container-fluid-full">
                 <div class="banner-carousel owl-carousel">
                     @foreach($banners as $banner)
                     <div class="item">
@@ -33,12 +33,35 @@
             </div>
         @endif
         <!-- Features End -->
+        <div class="container-fluid py-2" style="background-color: #f8f9fa;">
+            <div class="container py-1">
+                <div class="sinergi-carousel owl-carousel">
+                    @forelse ($sinergiPrograms as $program)
+                        <div class="item">
+                            <a href="{{ $program->link }}" target="_blank" class="sinergi-card-link">
+                                {{-- REVISI: Ubah class agar tidak sama dengan layanan --}}
+                                <div class="sinergi-item text-center p-2">
+                                    <div class="sinergi-icon mb-2">
+                                        <img src="{{ asset('storage/' . $program->gambar_icon) }}" alt="{{ $program->nama_program }}">
+                                    </div>
+                                    <h6 class="mb-0">{{ $program->nama_program }}</h6>
+                                </div>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="item text-center">
+                            <p>Data Sinergi Program belum tersedia.</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
 
         {{-- Layanan Start --}}
-        <div class="container-fluid py-2">
-            <div class="container py-4">
+        <div class="container-fluid py-4">
+            <div class="container py-3">
                 <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                    <h3 class="display-6">Layanan Unggulan</h3>
+                    <h3 class="display-7">Layanan Unggulan</h3>
                     <p>Geser untuk mendapatkan Informasi dan akses cepat ke berbagai layanan kesehatan kami.</p>
                 </div>
                 {{-- REVISI: Menggunakan div untuk Owl Carousel --}}
@@ -55,7 +78,7 @@
                                 </div>
                             </a>
                         </div>
-                    @empty
+                        @empty
                         <div class="col-12 text-center">
                             <p>Data layanan belum tersedia.</p>
                         </div>
@@ -66,47 +89,55 @@
         {{-- layanan End --}}
 
         {{-- pengumuman dan slider berita --}}
-        <div class="container-fluid py-5">
-            <div class="container py-5">
+        <div class="container-fluid py-3">
+            <div class="container py-3">
                 <div class="row">
                     {{-- KOLOM KIRI: SLIDER BERITA --}}
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                         <div class="mb-4">
-                            <h3 class="display-6">Berita Terkini</h3>
+                            <h3 class="display-7">Berita Terkini</h3>
                         </div>
-                        <div class="berita-carousel owl-carousel">
-                            @forelse($beritas as $berita)
-                            <div class="item">
-                                <div class="berita-item">
-                                    <div class="berita-img">
-                                        <img src="{{ asset('storage/' . $berita->gambar_unggulan) }}" class="img-fluid w-100 rounded" alt="{{ $berita->judul }}">
-                                    </div>
-                                    <div class="berita-content bg-light p-4 rounded-bottom">
-                                        <a href="#" class="badge badge-primary-soft mb-3">{{ $berita->kategori->nama_kategori }}</a>
-                                        <a href="#" class="h4 d-block mb-3">{{ Str::limit($berita->judul, 60) }}</a>
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#" class="small text-body link-hover">by {{ $berita->user->name }}</a>
-                                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->format('d M Y') }}</small>
+
+                        {{-- REVISI: Tambahkan kondisi jika berita tidak kosong --}}
+                        @if($beritas->isNotEmpty())
+                            <div class="berita-carousel owl-carousel">
+                                @foreach($beritas as $berita)
+                                <div class="item">
+                                    <div class="berita-item">
+                                        <div class="berita-img">
+
+                                            <img src="{{ asset('storage/' . $berita->gambar_unggulan) }}" class="img-fluid w-100 rounded" alt="{{ $berita->judul }}">
+                                        </div>
+                                        <div class="berita-content bg-light p-5 rounded-bottom">
+                                            <a href="#" class="badge badge-primary-soft mb-3">{{ $berita->kategori->nama_kategori }}</a>
+                                            <a href="#" class="h4 d-block mb-3">{{ Str::limit($berita->judul, 60) }}</a>
+                                            <div class="d-flex justify-content-between">
+                                                <a href="#" class="small text-body link-hover">by {{ $berita->user->name }}</a>
+                                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->format('d M Y') }}</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @empty
-                            <div class="item"><p>Belum ada berita untuk ditampilkan.</p></div>
-                            @endforelse
-                        </div>
+                        @else
+                            {{-- REVISI: Tampilkan pesan ini jika berita kosong --}}
+                            <div class="alert alert-secondary text-center">
+                                Belum ada berita untuk ditampilkan.
+                            </div>
+                        @endif
                     </div>
 
                     {{-- KOLOM KANAN: DAFTAR PENGUMUMAN --}}
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="mb-4">
-                            <h3 class="display-6">Pengumuman</h3>
+                            <h3 class="display-7">Pengumuman</h3>
                         </div>
                         <div class="pengumuman-list">
                             @forelse($pengumumans as $item)
                             <div class="pengumuman-item">
                                 <div class="pengumuman-content">
-                                    <a href="#" class="h6">{{ $item->judul }}</a>
+                                    <a href="#" class="h5">{{ $item->judul }}</a>
                                     <small class="text-muted d-block"><i class="fas fa-calendar-alt me-1"></i> Berlaku s/d {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}</small>
                                 </div>
                             </div>
@@ -118,6 +149,8 @@
                 </div>
             </div>
         </div>
+
+
 
          <!-- Main Post Section Start -->
         <div class="container-fluid py-5">
@@ -278,90 +311,4 @@
         <!-- Main Post Section End -->
 @endsection
 
-@push('custom-scripts')
-    <script>
-        // Inisialisasi Banner Carousel
-        $('.banner-carousel').owlCarousel({
-            autoplay: true,
-            smartSpeed: 1000,
-            center: true,
-            dots: true,
-            loop: true,
-            margin: 0,
-            nav : false,
-            responsiveClass: true,
-            responsive: {
-                0:{
-                    items:1
-                },
-                0:{
-                    items:1
-                },
-                0:{
-                    items:1
-                },
-                0:{
-                    items:1
-                }
-            }
-        });
-    </script>
-@endpush
-
-@push('custom-scripts')
-<script>
-    // Inisialisasi Banner Carousel (yang sudah ada)
-    $('.banner-carousel').owlCarousel({
-        // ... opsi untuk banner ...
-    });
-
-    // =======================================================
-    // TAMBAHKAN KODE BARU INI UNTUK SLIDER LAYANAN
-    // =======================================================
-    $('.layanan-carousel').owlCarousel({
-        autoplay: true,
-        smartSpeed: 1000,
-        margin: 25,
-        loop: true,
-        center: false,
-        dots: false,
-        responsiveClass: true,
-        responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:2
-            },
-            768:{
-                items:3
-            },
-            992:{
-                items:4
-            }
-        }
-    });
-</script>
-@endpush
-
-@push('costum-script')
-    $('.berita-carousel').owlCarousel({
-    autoplay: true,
-    smartSpeed: 1000,
-    margin: 25,
-    loop: true,
-    center: false,
-    dots: false,
-    nav: true,
-    navText : [
-        '<i class="bi bi-chevron-left"></i>',
-        '<i class="bi bi-chevron-right"></i>'
-    ],
-    responsive: {
-        0:{ items:1 },
-        768:{ items:2 },
-        992:{ items:2 }
-    }
-});
-@endpush
 

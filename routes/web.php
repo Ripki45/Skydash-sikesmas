@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('posyandu', PosyanduController::class);
     Route::resource('pustu', PustuController::class);
 
+
     //manajemen puskesmas
 
     });
@@ -71,7 +72,9 @@ Route::middleware('auth')->group(function () {
     //berita
     Route::resource('kategori', KategoriController::class);
     Route::resource('tag', TagController::class);
-    Route::resource('berita', BeritaController::class);
+    Route::resource('berita', BeritaController::class)->parameters([
+    'berita' => 'berita'
+    ]);
 
 
 require __DIR__.'/auth.php';

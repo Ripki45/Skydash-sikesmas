@@ -118,15 +118,20 @@ class BeritaController extends Controller
     /**
      * REVISI: Fungsi destroy() yang sudah diisi
      */
-    public function destroy(Berita $berita)
+    public function destroy($id)
     {
-        // Hapus gambar dari storage
+        // 1. Cari berita di database berdasarkan ID. Jika tidak ada, akan gagal.
+        $berita = Berita::findOrFail($id);
+
+        // 2. Hapus gambar dari storage terlebih dahulu, jika ada
         if ($berita->gambar_unggulan) {
             Storage::disk('public')->delete($berita->gambar_unggulan);
         }
-        // Hapus data berita dari database
+
+        // 3. Hapus data berita dari database
         $berita->delete();
 
+        // 4. Kembali ke halaman index dengan pesan sukses
         return redirect()->route('berita.index')
                          ->with('success', 'Berita berhasil dihapus.');
     }
