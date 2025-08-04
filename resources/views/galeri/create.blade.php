@@ -22,13 +22,15 @@
                         <label for="judul">Judul Foto</label>
                         <input type="text" class="form-control" id="judul" name="judul" placeholder="Contoh: Kegiatan Posyandu Mei 2024" required>
                     </div>
-                     <div class="form-group">
-                        <label for="kategori">Kategori (Opsional)</label>
-                        <input type="text" class="form-control" id="kategori" name="kategori" placeholder="Contoh: Kegiatan Posyandu">
-                    </div>
                     <div class="form-group">
-                        <label for="keterangan">Keterangan (Opsional)</label>
-                        <textarea class="form-control" name="keterangan" id="keterangan" rows="4"></textarea>
+                        <label for="galeri_kategori_id">Kategori</label>
+                        <select class="form-control" name="galeri_kategori_id" id="galeri_kategori_id">
+                            <option value="">-- Pilih Kategori --</option>
+                            @foreach($kategoris as $kategori)
+                                {{-- Untuk form edit, tambahkan logika 'selected' di sini --}}
+                                <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="urutan">Urutan</label>

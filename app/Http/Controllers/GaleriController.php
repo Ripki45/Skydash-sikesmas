@@ -3,33 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Galeri;
+use App\Models\GaleriKategori; // <-- Pastikan ini ada
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Ambil semua data galeri, urutkan berdasarkan 'urutan'
-        $galeris = Galeri::orderBy('urutan')->get();
-
-        // Kirim data ke view 'galeri.index'
+        // 'with('kategori')' akan mengambil relasi kategori secara efisien
+        $galeris = Galeri::with('kategori')->orderBy('urutan')->get();
         return view('galeri.index', compact('galeris'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('galeri.create');
+        $kategoris = GaleriKategori::all();
+        return view('galeri.create', compact('kategoris'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * REVISI UTAMA: Fungsi store() yang sudah diperbarui
      */
     public function store(Request $request)
     {
@@ -37,7 +31,7 @@ class GaleriController extends Controller
             'path_gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'judul' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
-            'kategori' => 'nullable|string|max:255',
+            'galeri_kategori_id' => 'nullable|exists:galeri_kategoris,id', // <-- Validasi baru
             'urutan' => 'required|integer',
         ]);
 
@@ -47,7 +41,7 @@ class GaleriController extends Controller
             'path_gambar' => $gambarPath,
             'judul' => $request->judul,
             'keterangan' => $request->keterangan,
-            'kategori' => $request->kategori,
+            'galeri_kategori_id' => $request->galeri_kategori_id, // <-- Simpan ID kategori
             'urutan' => $request->urutan,
         ]);
 
@@ -55,25 +49,14 @@ class GaleriController extends Controller
                          ->with('success', 'Foto baru berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Galeri $galeri)
     {
-        // Menampilkan form edit dengan data foto yang dipilih
-        return view('galeri.edit', compact('galeri'));
+        $kategoris = GaleriKategori::all();
+        return view('galeri.edit', compact('galeri', 'kategoris'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * REVISI UTAMA: Fungsi update() yang sudah diperbarui
      */
     public function update(Request $request, Galeri $galeri)
     {
@@ -81,42 +64,30 @@ class GaleriController extends Controller
             'path_gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'judul' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
-            'kategori' => 'nullable|string|max:255',
+            'galeri_kategori_id' => 'nullable|exists:galeri_kategoris,id', // <-- Validasi baru
             'urutan' => 'required|integer',
         ]);
 
         $galeriData = $request->except('path_gambar');
 
         if ($request->hasFile('path_gambar')) {
-            // Hapus gambar lama jika ada
-            if ($galeri->path_gambar) {
-                Storage::disk('public')->delete($galeri->path_gambar);
-            }
-            // Upload dan simpan path gambar baru
+            Storage::disk('public')->delete($galeri->path_gambar);
             $galeriData['path_gambar'] = $request->file('path_gambar')->store('galeri_images', 'public');
         }
 
-        // Update data di database
         $galeri->update($galeriData);
 
         return redirect()->route('galeri.index')
                          ->with('success', 'Data foto berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Galeri $galeri)
     {
-        // Hapus file gambar dari storage
         if ($galeri->path_gambar) {
             Storage::disk('public')->delete($galeri->path_gambar);
         }
-
-        // Hapus data dari database
         $galeri->delete();
-
         return redirect()->route('galeri.index')
-                        ->with('success', 'Foto berhasil dihapus.');
+                         ->with('success', 'Foto berhasil dihapus.');
     }
 }

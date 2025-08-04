@@ -84,7 +84,21 @@
                 0: { items: 2 },
                 576: { items: 2 },
                 768: { items: 3 },
-                992: { items: 4 },
+                992: { items: 5 },
+            },
+        });
+        $(".tenaga-kesehatan-carousel").owlCarousel({
+            autoplay: true,
+            smartSpeed: 1000,
+            margin: 25,
+            loop: true,
+            dots: true, // Kita tampilkan titik-titik navigasi
+            nav: false, // Sembunyikan panah
+            responsive: {
+                0: { items: 2 },
+                576: { items: 2 },
+                768: { items: 3 },
+                992: { items: 5 },
             },
         });
     });

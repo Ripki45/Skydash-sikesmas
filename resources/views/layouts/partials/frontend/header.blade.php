@@ -1,33 +1,5 @@
 <!-- Navbar start -->
 <div class="container-fluid sticky-top px-0">
-    <div class="container-fluid topbar bg-dark d-none d-lg-block">
-        <div class="container px-0">
-            <div class="topbar-top d-flex justify-content-between flex-lg-wrap">
-                <div class="top-info flex-grow-0">
-                    <span class="rounded-circle btn-sm-square bg-primary me-2">
-                        <i class="fas fa-bolt text-white"></i>
-                    </span>
-                    <div class="pe-2 me-3 border-end border-white d-flex align-items-center">
-                        <p class="mb-0 text-white fs-6 fw-normal">Info</p>
-                    </div>
-                    {{-- Menampilkan Running Text Dinamis --}}
-                    @if($runningText)
-                        <div class="overflow-hidden" style="width: 735px;">
-                            <div id="note" class="ps-2">
-                                <a href="{{ $runningText->link ?? '#' }}" target="_blank"><p class="text-white mb-0 link-hover">{{ $runningText->teks }}</p></a>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <div class="top-link flex-lg-wrap">
-                    <i class="fas fa-calendar-alt text-white border-end border-secondary pe-2 me-2">
-                        {{-- Menampilkan tanggal hari ini --}}
-                        <span class="text-body text-white ">{{ \Carbon\Carbon::now()->translatedFormat('l, d M Y') }}</span>
-                    </i>
-                </div>
-            </div>
-        </div>
-    </div>
     {{-- <div class="container-fluid bg-light">
         <div class="container px-0">
             <nav class="navbar navbar-expand-xl navbar-light bg-light sticky-top py-3">
@@ -99,72 +71,81 @@
         </div>
     </div> --}}
 
+
     <div class="container-fluid bg-light">
-    <div class="container px-0">
-        <nav class="navbar navbar-expand-xl navbar-light bg-light sticky-top py-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ route('home') }}">
-                    <span class="text-primary display-6">Puskesmas</span><br>
-                    <small class="text-secondary">NAMA KECAMATAN</small>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars text-primary"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto">
+        <div class="container px-0">
+            <nav class="navbar navbar-expand-xl navbar-light bg-light sticky-top py-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
+                        {{-- Tampilkan logo jika ada --}}
+                        @if(isset($settings['logo_puskesmas']) && $settings['logo_puskesmas'])
+                            <img src="{{ asset('storage/' . $settings['logo_puskesmas']) }}" alt="Logo Puskesmas" style="height: 75px; margin-right: 20px;">
+                        @endif
+                        <div>
+                                    {{-- Tampilkan nama puskesmas dan kecamatan --}}
+                            <p class="text-primary mb-0 display-6">{{ $settings['nama_puskesmas'] ?? 'Puskesmas' }}</p>
+                            <small class="text-secondary" style="letter-spacing: 2px; line-height: 2;">{{ $settings['kecamatan'] ?? 'Kecamatan' }}</small>
+                        </div>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
 
-                        {{-- =============================================== --}}
-                        {{-- REVISI UTAMA: NAVIGASI DINAMIS DENGAN MEGA MENU --}}
-                        {{-- =============================================== --}}
-                        <a href="{{ route('home') }}" class="nav-item nav-link fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
+                            {{-- =============================================== --}}
+                            {{-- REVISI UTAMA: NAVIGASI DINAMIS DENGAN MEGA MENU --}}
+                            {{-- =============================================== --}}
+                            <a href="{{ route('home') }}" class="nav-item nav-link fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
 
-                        @foreach($klusters as $kluster)
-                            {{-- Cek apakah menu ini adalah menu induk yang punya sub-menu --}}
-                            @if($kluster->childrenRecursive->isNotEmpty())
-                                <div class="nav-item dropdown position-static">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ $kluster->title }}</a>
-                                    <div class="dropdown-menu w-100 shadow mt-0 border-0 rounded-0">
-                                        <div class="row px-4 py-3">
-                                            {{-- Loop untuk setiap sub-menu (anak) sebagai kolom --}}
-                                            @foreach($kluster->childrenRecursive as $child)
-                                                <div class="col-md-3 mega-menu-column">
-                                                    <h6 class="text-uppercase">{{ $child->title }}</h6>
-                                                    {{-- Cek apakah sub-menu ini punya anak-anaknya (cicit) --}}
-                                                    @if($child->childrenRecursive->isNotEmpty())
-                                                        @foreach($child->childrenRecursive as $grandchild)
-                                                            @php
-                                                                $url = $grandchild->url ?? ($grandchild->halaman ? route('halaman.show', $grandchild->halaman->slug) : '#');
-                                                            @endphp
-                                                            <a class="dropdown-item" href="{{ $url }}">{{ $grandchild->title }}</a>
-                                                        @endforeach
-                                                    @endif
-                                                </div>
-                                            @endforeach
+                            @foreach($klusters as $kluster)
+                                {{-- Cek apakah menu ini adalah menu induk yang punya sub-menu --}}
+                                @if($kluster->childrenRecursive->isNotEmpty())
+                                    <div class="nav-item dropdown position-static">
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ $kluster->title }}</a>
+                                        <div class="dropdown-menu w-100 shadow mt-0 border-0 rounded-0">
+                                            <div class="row px-4 py-3">
+                                                {{-- Loop untuk setiap sub-menu (anak) sebagai kolom --}}
+                                                @foreach($kluster->childrenRecursive as $child)
+                                                    <div class="col-md-3 mega-menu-column">
+                                                        <h6 class="text-uppercase">{{ $child->title }}</h6>
+                                                        {{-- Cek apakah sub-menu ini punya anak-anaknya (cicit) --}}
+                                                        @if($child->childrenRecursive->isNotEmpty())
+                                                            @foreach($child->childrenRecursive as $grandchild)
+                                                                @php
+                                                                    $url = $grandchild->url ?? ($grandchild->halaman ? route('halaman.show', $grandchild->halaman->slug) : '#');
+                                                                @endphp
+                                                                <a class="dropdown-item" href="{{ $url }}">{{ $grandchild->title }}</a>
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @else
-                                {{-- Jika ini menu tunggal (tidak punya anak) --}}
-                                @php
-                                    $url = $kluster->url ?? ($kluster->halaman ? route('halaman.show', $kluster->halaman->slug) : '#');
-                                @endphp
-                                <a href="{{ $url }}" class="nav-item nav-link">{{ $kluster->title }}</a>
-                            @endif
-                        @endforeach
-                        {{-- =============================================== --}}
+                                @else
+                                    {{-- Jika ini menu tunggal (tidak punya anak) --}}
+                                    @php
+                                        $url = $kluster->url ?? ($kluster->halaman ? route('halaman.show', $kluster->halaman->slug) : '#');
+                                    @endphp
+                                    <a href="{{ $url }}" class="nav-item nav-link">{{ $kluster->title }}</a>
+                                @endif
+                            @endforeach
+                            {{-- =============================================== --}}
+                        </div>
 
-                    </div>
-
-                    <div class="d-flex align-items-center border-top pt-3 pt-xl-0">
-                         <a href="{{ route('login') }}" class="btn btn-primary rounded-pill text-white py-2 px-4 me-3">Login</a>
-                        <button class="btn border border-primary btn-md-square rounded-circle bg-white" data-bs-toggle="modal" data-bs-target="#searchModal">
-                            <i class="fas fa-search text-primary"></i>
-                        </button>
+                        <div class="d-flex align-items-center border-top pt-3 pt-xl-0">
+                            <a href="{{ route('login') }}" class="btn btn-primary rounded-pill text-white py-2 px-4 me-3">Login</a>
+                            <button class="btn border border-primary btn-md-square rounded-circle bg-white" data-bs-toggle="modal" data-bs-target="#searchModal">
+                                <i class="fas fa-search text-primary"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </div>
-</div>
+
 </div>
 <!-- Navbar End -->
+

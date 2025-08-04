@@ -1,0 +1,24 @@
+
+Kebutuhan untuk Profile Puskesmas
+
+1. Logo Puskesmas
+2. Nama Puskesmas
+3. Photo Puskesmas
+4. Deskripsi tentang Kami
+5. Visi dan Misi
+  - Tampilkan satu kalimat visi
+  - Daftar misi (bisa bullet point atau list)
+6. Kecamatan
+7. Kepala Puskesmas
+8. Alamat Lengkap
+9. Kontak
+  - Email
+  - Nomor Wa/telp
+10. Sosial Media
+  - Facebook
+  - Instagram
+  - Tiktok
+  - Youtube
+11. Lokasi Google Maps
+12. Legalitas / SK
+   - Nomor registrasi, SK pendirian, izin operasional

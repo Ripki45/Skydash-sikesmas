@@ -13,11 +13,15 @@ use App\Http\Controllers\HalamanController;
 use App\Http\Controllers\KlusterController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\GaleriKategoriController;
+use App\Http\Controllers\JadwalPosyanduController;
 use App\Http\Controllers\SinergiProgramController;
+use App\Http\Controllers\TenagaKesehatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +36,9 @@ use App\Http\Controllers\SinergiProgramController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/halaman/{slug}', [HomeController::class, 'showHalaman'])->name('halaman.show');
+Route::get('/api/jadwal', [HomeController::class, 'getJadwalByFilter'])->name('api.jadwal.filter');
+Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -67,7 +74,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('layanan', LayananController::class);
     Route::resource('sinergi-program', SinergiProgramController::class);
     Route::resource('galeri', GaleriController::class);
+    Route::resource('galeri-kategori', GaleriKategoriController::class);
     Route::resource('pengumuman', PengumumanController::class);
+    Route::resource('tenaga-kesehatan', TenagaKesehatanController::class);
+    Route::resource('jadwal-posyandu', JadwalPosyanduController::class);
 
     //berita
     Route::resource('kategori', KategoriController::class);

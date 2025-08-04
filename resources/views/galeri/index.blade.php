@@ -44,7 +44,8 @@
                                     </td>
                                     <td>{{ $galeri->judul }}</td>
                                     <td>
-                                        <span class="badge badge-info">{{ $galeri->kategori ?? 'Umum' }}</span>
+                                        {{-- REVISI: Panggil nama kategori dari relasi --}}
+                                        <span class="badge badge-info">{{ $galeri->kategori->nama_kategori ?? 'Umum' }}</span>
                                     </td>
                                     <td>{{ $galeri->urutan }}</td>
                                     <td>

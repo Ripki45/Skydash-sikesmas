@@ -330,10 +330,10 @@ button,
 [type="submit"] {
     -webkit-appearance: button;
 }
-button:not(:disabled),
-[type="button"]:not(:disabled),
-[type="reset"]:not(:disabled),
-[type="submit"]:not(:disabled) {
+button:not(:enabled),
+[type="button"]:not(:enabled),
+[type="reset"]:not(:enabled),
+[type="submit"]:not(:enabled) {
     cursor: pointer;
 }
 ::-moz-focus-inner {

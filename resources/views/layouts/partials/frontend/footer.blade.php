@@ -2,16 +2,25 @@
             <div class="container py-5">
                 <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
                     <div class="row g-4">
-                        <div class="col-lg-3">
-                            <a href="#" class="d-flex flex-column flex-wrap">
-                                <p class="text-white mb-0 display-6">Newsers</p>
-                                <small class="text-light" style="letter-spacing: 11px; line-height: 0;">Newspaper</small>
+                        <div class="col-lg-4">
+                            {{-- REVISI: Menggunakan data dinamis untuk logo dan nama --}}
+                            <a href="{{ route('home') }}" class="d-flex align-items-center text-decoration-none">
+                                {{-- Tampilkan logo jika ada --}}
+                                @if(!empty($settings['logo_puskesmas']))
+                                    <img src="{{ asset('storage/' . $settings['logo_puskesmas']) }}" alt="Logo Puskesmas" style="height: 60px; margin-right: 15px;">
+                                @endif
+
+                                <div>
+                                    {{-- Tampilkan nama puskesmas dan kecamatan --}}
+                                    <p class="text-white mb-0 display-6">{{ $settings['nama_puskesmas'] ?? 'Puskesmas' }}</p>
+                                    <small class="text-light" style="letter-spacing: 2px; line-height: 2;">{{ $settings['kecamatan'] ?? 'Kecamatan' }}</small>
+                                </div>
                             </a>
                         </div>
-                        <div class="col-lg-9">
+                        <div class="col-lg-8">
                             <div class="d-flex position-relative rounded-pill overflow-hidden">
                                 <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" placeholder="example@gmail.com">
-                                <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Subscribe Now</button>
+                                <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Ikuti Kami</button>
                             </div>
                         </div>
                     </div>
@@ -19,58 +28,21 @@
                 <div class="row g-5">
                     <div class="col-lg-6 col-xl-3">
                         <div class="footer-item-1">
-                            <h4 class="mb-4 text-white">Get In Touch</h4>
-                            <p class="text-secondary line-h">Address: <span class="text-white">123 Streat, New York</span></p>
-                            <p class="text-secondary line-h">Email: <span class="text-white">Example@gmail.com</span></p>
-                            <p class="text-secondary line-h">Phone: <span class="text-white">+0123 4567 8910</span></p>
+                            <h4 class="mb-4 text-white">Hubungi Kami</h4>
+                            <p class="text-secondary line-h">Alamat: <span class="text-white">{{ $settings['alamat_lengkap'] ?? 'Alamat belum diisi' }}</span></p>
+                            <p class="text-secondary line-h">Email: <span class="text-white">{{ $settings['email'] ?? 'Email belum diisi' }}</span></p>
+                            <p class="text-secondary line-h">Telepon: <span class="text-white">{{ $settings['telepon'] ?? 'Telepon belum diisi' }}</p>
                             <div class="d-flex line-h">
-                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter text-dark"></i></a>
-                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f text-dark"></i></a>
-                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube text-dark"></i></a>
-                                <a class="btn btn-light btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in text-dark"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-3">
-                        <div class="footer-item-2">
-                            <div class="d-flex flex-column mb-4">
-                                <h4 class="mb-4 text-white">Recent Posts</h4>
-                                <a href="#">
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle border border-2 border-primary overflow-hidden">
-                                            <img src="{{ asset('frontend/img/footer-1.jpg') }}" class="img-zoomin img-fluid rounded-circle w-100" alt="">
-                                        </div>
-                                        <div class="d-flex flex-column ps-4">
-                                            <p class="text-uppercase text-white mb-3">Life Style</p>
-                                            <a href="#" class="h6 text-white">
-                                                Get the best speak market, news.
-                                            </a>
-                                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle border border-2 border-primary overflow-hidden">
-                                            <img src="{{ asset('frontend/img/footer-2.jpg') }}" class="img-zoominimg-fluid rounded-circle w-100" alt="">
-                                        </div>
-                                        <div class="d-flex flex-column ps-4">
-                                            <p class="text-uppercase text-white mb-3">Sports</p>
-                                            <a href="#" class="h6 text-white">
-                                                Get the best speak market, news.
-                                            </a>
-                                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </a>
+                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ $settings['sosmed_facebook'] ?? '#' }}"><i class="fab fa-facebook-f text-dark"></i></a>
+                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ $settings['sosmed_instagram'] ?? '#' }}"><i class="fab fa-instagram text-dark"></i></a>
+                                <a class="btn btn-light me-2 btn-md-square rounded-circle" href="{{ $settings['sosmed_youtube'] ?? '#' }}"><i class="fab fa-youtube text-dark"></i></a>
+                                <a class="btn btn-light btn-md-square rounded-circle" href="{{ $settings['sosmed_tiktok'] ?? '#' }}"><i class="fab fa-tiktok text-dark"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-xl-3">
                         <div class="d-flex flex-column text-start footer-item-3">
-                            <h4 class="mb-4 text-white">Categories</h4>
+                            <h4 class="mb-4 text-white">Kembali Ke Atas</h4>
                             <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Sports</a>
                             <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Magazine</a>
                             <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Lifestyle</a>

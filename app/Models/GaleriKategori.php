@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Galeri extends Model
+class GaleriKategori extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function kategori()
+    public function galeris()
     {
-        return $this->belongsTo(GaleriKategori::class, 'galeri_kategori_id');
+        return $this->hasMany(Galeri::class);
     }
 }
