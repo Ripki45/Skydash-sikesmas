@@ -9,13 +9,22 @@ class Halaman extends Model
 {
     use HasFactory;
 
-    // **
-    //  * Secara eksplisit memberitahu Laravel nama tabel yang benar.
-    //  */
-    protected $table = 'halamans'; // <--- TAMBAHKAN INI
+    /**
+     * REVISI UTAMA: Secara eksplisit memberitahu Laravel nama tabel yang benar.
+     * Ini akan menyelesaikan error Anda di semua controller.
+     */
+    protected $table = 'halamans';
 
     /**
-     * Mengizinkan semua kolom untuk diisi saat membuat data baru.
+     * Izinkan semua kolom untuk diisi secara massal.
      */
-    protected $guarded = ['id']; // <--- TAMBAHKAN INI JUGA
+    protected $guarded = ['id'];
+
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

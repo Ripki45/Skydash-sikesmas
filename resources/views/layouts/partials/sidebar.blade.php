@@ -33,6 +33,12 @@
             <span class="menu-title">Manajemen SDM</span>
         </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('skrining-skilas.index') }}">
+        <i class="mdi mdi-file-document-box-multiple-outline menu-icon"></i>
+        <span class="menu-title">Skrining SKILAS</span>
+      </a>
+    </li>
 
     {{-- PEMISAH LAMA --}}
     <li class="nav-item">

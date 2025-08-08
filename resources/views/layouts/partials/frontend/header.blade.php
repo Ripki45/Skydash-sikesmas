@@ -97,7 +97,7 @@
                             {{-- REVISI UTAMA: NAVIGASI DINAMIS DENGAN MEGA MENU --}}
                             {{-- =============================================== --}}
                             <a href="{{ route('home') }}" class="nav-item nav-link fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
-
+                            <a href="{{ route('berita.semua') }}" class="nav-item nav-link fw-bold {{ request()->routeIs('berita.semua') ? 'active' : '' }}">Artikel</a>
                             @foreach($klusters as $kluster)
                                 {{-- Cek apakah menu ini adalah menu induk yang punya sub-menu --}}
                                 @if($kluster->childrenRecursive->isNotEmpty())
@@ -113,7 +113,7 @@
                                                         @if($child->childrenRecursive->isNotEmpty())
                                                             @foreach($child->childrenRecursive as $grandchild)
                                                                 @php
-                                                                    $url = $grandchild->url ?? ($grandchild->halaman ? route('halaman.show', $grandchild->halaman->slug) : '#');
+                                                                    $url = $grandchild->url ?? ($grandchild->halaman ? route('halaman.tampil', $grandchild->halaman->slug) : '#');
                                                                 @endphp
                                                                 <a class="dropdown-item" href="{{ $url }}">{{ $grandchild->title }}</a>
                                                             @endforeach
@@ -126,7 +126,7 @@
                                 @else
                                     {{-- Jika ini menu tunggal (tidak punya anak) --}}
                                     @php
-                                        $url = $kluster->url ?? ($kluster->halaman ? route('halaman.show', $kluster->halaman->slug) : '#');
+                                        $url = $kluster->url ?? ($kluster->halaman ? route('halaman.tampil', $kluster->halaman->slug) : '#');
                                     @endphp
                                     <a href="{{ $url }}" class="nav-item nav-link">{{ $kluster->title }}</a>
                                 @endif

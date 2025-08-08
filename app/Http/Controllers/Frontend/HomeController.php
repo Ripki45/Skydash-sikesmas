@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Tag;
 use App\Models\Desa;
 use App\Models\Banner;
 use App\Models\Berita;
 use App\Models\Galeri;
 use App\Models\Halaman;
 use App\Models\Layanan;
+use App\Models\Kategori;
 use App\Models\Pengumuman;
 use App\Models\RunningText;
 use Illuminate\Http\Request;
@@ -68,10 +70,20 @@ class HomeController extends Controller
         ));
     }
 
-    public function showHalaman($slug)
+    public function tampilHalamanPublik(Halaman $halaman)
     {
-        $halaman = Halaman::where('slug', $slug)->where('status', 'published')->firstOrFail();
-        return view('halaman-detail', compact('halaman'));
+        // Pastikan halaman yang diminta sudah di-publish
+        if ($halaman->status !== 'published') {
+            abort(404);
+        }
+
+        $beritaTerbaru = Berita::where('status', 'published')
+                            ->whereDate('published_at', '<=', now())
+                            ->latest('published_at')
+                            ->take(5)
+                            ->get();
+
+        return view('halaman-detail', compact('halaman', 'beritaTerbaru'));
     }
 
     public function getJadwalByFilter(Request $request)
@@ -132,4 +144,46 @@ class HomeController extends Controller
             'list_html' => $listHtml,
         ]);
     }
+    public function semuaBerita()
+    {
+        // 1. Ambil semua berita utama dengan pagination
+        $beritas = Berita::with('kategori', 'user')
+                        ->where('status', 'published')
+                        ->whereDate('published_at', '<=', now())
+                        ->orderBy('published_at', 'desc')
+                        ->paginate(9); // 9 berita per halaman
+
+        // 2. Ambil semua kategori untuk sidebar
+        $kategoris = Kategori::has('beritas')->withCount('beritas')->get();
+
+        // 3. Ambil layanan untuk carousel di sidebar
+        $layanans = Layanan::where('is_active', true)->orderBy('urutan')->get();
+
+        // 4. Ambil tags yang paling banyak digunakan (trending)
+        $trendingTags = Tag::has('beritas')->withCount('beritas')->orderBy('beritas_count', 'desc')->take(10)->get();
+
+        // 5. Kirim semua data ke view
+        return view('berita', compact('beritas', 'kategoris', 'layanans', 'trendingTags'));
+    }
+
+    public function showBerita(Berita $berita)
+    {
+        // Pastikan berita yang diakses sudah di-publish
+        if ($berita->status !== 'published' || $berita->published_at > now()) {
+            abort(404);
+        }
+
+        // Ambil data untuk sidebar
+        $kategoris = Kategori::has('beritas')->withCount('beritas')->get();
+        $trendingTags = Tag::has('beritas')->withCount('beritas')->orderBy('beritas_count', 'desc')->take(10)->get();
+        $beritaTerkait = Berita::where('kategori_id', $berita->kategori_id)
+                                ->where('id', '!=', $berita->id) // Jangan tampilkan berita yang sedang dibaca
+                                ->where('status', 'published')
+                                ->latest('published_at')
+                                ->take(2)
+                                ->get();
+
+        return view('berita-detail', compact('berita', 'kategoris', 'trendingTags', 'beritaTerkait'));
+    }
+
 }

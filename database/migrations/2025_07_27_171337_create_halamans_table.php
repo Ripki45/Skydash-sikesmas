@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // PASTIKAN NAMA TABEL DI SINI ADALAH 'halamans'
         Schema::create('halamans', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
             $table->string('slug')->unique();
             $table->longText('konten');
-            $table->string('gambar_unggulan')->nullable(); // Dibuat nullable agar tidak wajib diisi
-            $table->string('status')->default('draft'); // 'draft' atau 'published'
-
-            // Menghubungkan ke tabel klusters. onDelete('set null') artinya jika kluster dihapus,
-            // halaman ini tidak ikut terhapus, hanya induknya menjadi kosong.
+            $table->string('gambar_unggulan')->nullable();
+            $table->enum('status', ['published', 'draft'])->default('draft');
             $table->foreignId('kluster_id')->nullable()->constrained('klusters')->onDelete('set null');
-
-            $table->timestamps(); // Ini akan membuat kolom 'created_at' (Tanggal) dan 'updated_at'
+            $table->timestamps();
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('halamen');
+        Schema::dropIfExists('halamans');
     }
 };

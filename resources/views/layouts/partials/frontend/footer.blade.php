@@ -43,12 +43,8 @@
                     <div class="col-lg-6 col-xl-3">
                         <div class="d-flex flex-column text-start footer-item-3">
                             <h4 class="mb-4 text-white">Kembali Ke Atas</h4>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Sports</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Magazine</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Lifestyle</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Politician</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Technology</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Intertainment</a>
+                            <a class="btn-link text-white"href="{{ route('home') }}" class="nav-item nav-link fw-bold {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a>
+                            <a class="btn-link text-white"href="{{ route('berita.semua') }}" class="nav-item nav-link fw-bold {{ request()->routeIs('berita.semua') ? 'active' : '' }}">Artikel</a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-xl-3">
@@ -99,13 +95,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
-                    </div>
-                    <div class="col-md-6 my-auto text-center text-md-end text-white">
-                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Puskesmas Panjalu</a>, All right reserved.</span>
                     </div>
                 </div>
             </div>

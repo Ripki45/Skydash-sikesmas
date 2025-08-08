@@ -21,6 +21,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\GaleriKategoriController;
 use App\Http\Controllers\JadwalPosyanduController;
 use App\Http\Controllers\SinergiProgramController;
+use App\Http\Controllers\SkriningSkilasController;
 use App\Http\Controllers\TenagaKesehatanController;
 
 /*
@@ -35,7 +36,12 @@ use App\Http\Controllers\TenagaKesehatanController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/halaman/{slug}', [HomeController::class, 'showHalaman'])->name('halaman.show');
+Route::get('/artikel', [HomeController::class, 'semuaBerita'])->name('berita.semua');
+Route::get('/artikel/{berita:slug}', [HomeController::class, 'showBerita'])->name('artikel.show');
+Route::get('/lihat/{halaman:slug}', [HomeController::class, 'tampilHalamanPublik'])->name('halaman.tampil');
+
+
+
 Route::get('/api/jadwal', [HomeController::class, 'getJadwalByFilter'])->name('api.jadwal.filter');
 Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
 Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
@@ -49,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
     //route untuk login
     Route::resource('users', UserController::class);
     Route::get('/api/dusuns/{desa}', [App\Http\Controllers\UserController::class, 'getDusunsByDesa'])->name('api.dusuns.by.desa');
@@ -56,18 +63,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/posyandus/{dusun}', [App\Http\Controllers\UserController::class, 'getPosyandusByDusun'])->name('api.posyandus.by.dusun');
 
     //ini untuk data wilayah kerja
+    Route::resource('halaman', HalamanController::class);
     Route::resource('desa', DesaController::class);
     Route::resource('dusun', DusunController::class);
     Route::resource('posyandu', PosyanduController::class);
     Route::resource('pustu', PustuController::class);
 
-
-    //manajemen puskesmas
-
-    });
-    // Tambahkan baris ini untuk Beranda
     Route::resource('kluster', KlusterController::class);
-    Route::resource('halaman', HalamanController::class);
+    Route::resource('skrining-skilas', SkriningSkilasController::class);
+
+
+
     Route::resource('banner', BannerController::class);
     // Untuk running text, kita buat rute khusus karena manajemennya lebih simpel
     Route::post('running-text/update', [BannerController::class, 'updateRunningText'])->name('running-text.update');
@@ -85,6 +91,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('berita', BeritaController::class)->parameters([
     'berita' => 'berita'
     ]);
+
+
+
+    //manajemen puskesmas
+
+    });
+    // Tambahkan baris ini untuk Beranda
+
 
 
 require __DIR__.'/auth.php';

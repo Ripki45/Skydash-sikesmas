@@ -90,7 +90,8 @@
 
         <section class="bg-light py-5">
             <div class="container">
-                <h2 class="text-center fw-bold text-primary mb-4">Tentang Kami</h2>
+                <h3 class="display-7 text-center fw-bold">Tentang Kami</h3>
+                {{-- <h3 class="display-7">Layanan Unggulan</h3> --}}
 
                 {{-- Menampilkan Deskripsi dari database --}}
                 <p class="text-center mb-5" style="max-width: 1000px; margin: auto;">
@@ -148,7 +149,7 @@
                                         </div>
                                         <div class="berita-content bg-light p-5 rounded-bottom">
                                             <a href="#" class="badge badge-primary-soft mb-3">{{ $berita->kategori->nama_kategori }}</a>
-                                            <a href="#" class="h4 d-block mb-3">{{ Str::limit($berita->judul, 60) }}</a>
+                                            <a href="{{ route('artikel.show', $berita->slug) }}"class="h4 d-block mb-3">{{ Str::limit($berita->judul, 60) }}</a>
                                             <div class="d-flex justify-content-between">
                                                 <a href="#" class="small text-body link-hover">by {{ $berita->user->name }}</a>
                                                 <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->format('d M Y') }}</small>
@@ -278,12 +279,11 @@
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col-lg-7">
-                        <h1 class="mb-4 text-primary">Newsers</h1>
-                        <h1 class="mb-4">Get Every Weekly Updates</h1>
+                        <h1 class="mb-4 text-primary">Artikel </h1>
+                        <h1 class="mb-4">Ikuti Kegiatan Kami</h1>
                         <p class="text-dark mb-4 pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text
-                        ever since the 1500s, when an unknown printer took a galley
+                            Sekarang informasi terkait posyandu, pengumuman dan semua ada dalam website ini
+                            ayo ikuti perkembangan kami
                         </p>
                         <div class="position-relative mx-auto">
                             <input

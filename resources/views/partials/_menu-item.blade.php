@@ -24,7 +24,8 @@
         if ($menu->url) {
             $menuUrl = $menu->url;
         } elseif ($menu->halaman) {
-            $menuUrl = route('halaman.show', $menu->halaman->slug);
+            // Ganti di sini untuk menggunakan nama rute yang BARU
+            $menuUrl = route('halaman.tampil', $menu->halaman);
         }
     @endphp
 

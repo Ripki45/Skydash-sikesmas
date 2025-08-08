@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css') }}">
   <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
-  <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" />
 </head>
 
 <body>
@@ -19,10 +19,27 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                {{-- Anda bisa ganti logo ini --}}
-                <img src="{{ asset('images/logo.svg') }}" alt="logo">
-              </div>
+                <div class="brand-logo d-flex align-items-center justify-content-center mb-4">
+                    {{-- Tampilkan logo jika ada --}}
+                    @if(!empty($settings['logo_puskesmas']))
+                        <img src="{{ asset('storage/' . $settings['logo_puskesmas']) }}" alt="logo" style="height: 60px; width: auto; margin-right: 15px;">
+                    @endif
+
+                    {{-- Tampilkan Nama dan Kecamatan --}}
+                    <div style="text-align: left; line-height: 1.2;">
+                        <h4 class="mb-0 font-weight-bold">{{ $settings['nama_puskesmas'] ?? 'Nama Puskesmas' }}</h4>
+                        <p class="text-muted mb-0">{{ $settings['kecamatan'] ?? 'Kecamatan' }}</p>
+                    </div>
+                </div>
+                {{-- <a class="navbar-brand brand-logo mr-5" href="{{ route('dashboard') }}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                    @if(!empty($settings['logo_puskesmas']))
+                        <img src="{{ asset('storage/' . $settings['logo_puskesmas']) }}" class="mr-3" alt="logo" style="height: 50px; width: auto;">
+                    @endif
+                    <div style="text-align: left; line-height: 1.2;">
+                        <h5 class="mb-0" style="font-weight: 600; font-size: 0.9rem;">{{ Str::limit($settings['nama_puskesmas'] ?? 'Puskesmas', 15) }}</h5>
+                        <small class="text-muted" style="font-size: 0.75rem;">{{ $settings['kecamatan'] ?? '' }}</small>
+                    </div>
+                </a> --}}
               <h4>Halo! Mari kita mulai</h4>
               <h6 class="font-weight-light">Masuk untuk melanjutkan.</h6>
 

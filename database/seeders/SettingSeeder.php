@@ -11,13 +11,13 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            'nama_puskesmas' => 'Puskesmas Kecamatan Setiabudi',
+            'nama_puskesmas' => 'Puskesmas',
             'logo_puskesmas' => null,
             'foto_puskesmas' => null,
             'deskripsi' => 'Deskripsi singkat tentang puskesmas...',
             'visi' => 'Visi puskesmas...',
             'misi' => 'Misi puskesmas...',
-            'kecamatan' => 'Setiabudi',
+            'kecamatan' => 'Kecamatan Panjalu',
             'kepala_puskesmas' => 'Nama Kepala Puskesmas',
             'alamat_lengkap' => 'Alamat lengkap puskesmas...',
             'email' => 'puskesmas@email.com',
