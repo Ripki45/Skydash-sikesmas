@@ -17,6 +17,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\GaleriKategoriController;
 use App\Http\Controllers\JadwalPosyanduController;
@@ -40,6 +41,9 @@ Route::get('/artikel', [HomeController::class, 'semuaBerita'])->name('berita.sem
 Route::get('/artikel/{berita:slug}', [HomeController::class, 'showBerita'])->name('artikel.show');
 Route::get('/lihat/{halaman:slug}', [HomeController::class, 'tampilHalamanPublik'])->name('halaman.tampil');
 
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
 
 
 Route::get('/api/jadwal', [HomeController::class, 'getJadwalByFilter'])->name('api.jadwal.filter');
@@ -51,6 +55,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
