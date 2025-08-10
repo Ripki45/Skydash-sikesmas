@@ -20,7 +20,7 @@
                     Kelola semua data dusun di wilayah kerja Anda.
                 </p>
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('dusun.create') }}" class="btn btn-primary">Tambah Dusun Baru</a>
+                    <a href="{{ route('admin.dusun.create') }}" class="btn btn-primary">Tambah Dusun Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -38,14 +38,24 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $dusun->nama_dusun }}</td>
                                     <td>{{ $dusun->desa->nama_desa }}</td>
-                                    <td>
-                                        <a href="{{ route('dusun.edit', $dusun->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    {{-- <td>
+                                        <a href="{{ route('admin.dusun.edit', $dusun->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <button type="button" class="btn btn-danger btn-sm"
                                                 data-toggle="modal"
                                                 data-target="#deleteModal"
-                                                data-url="{{ route('dusun.destroy', $dusun->id) }}">
+                                                data-url="{{ route('admin.dusun.destroy', $dusun->id) }}">
                                             Hapus
                                         </button>
+                                    </td> --}}
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.dusun.edit', $dusun->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                        data-url="{{ route('admin.dusun.destroy', $dusun->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

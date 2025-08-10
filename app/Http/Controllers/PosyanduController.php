@@ -31,7 +31,7 @@ class PosyanduController extends Controller
 
         Posyandu::create($request->all());
 
-        return redirect()->route('posyandu.index')
+        return redirect()->route('admin.posyandu.index')
                          ->with('success', 'Posyandu baru berhasil ditambahkan.');
     }
 
@@ -50,14 +50,14 @@ class PosyanduController extends Controller
 
         $posyandu->update($request->all());
 
-        return redirect()->route('posyandu.index')
+        return redirect()->route('admin.posyandu.index')
                          ->with('success', 'Data posyandu berhasil diperbarui.');
     }
 
     public function destroy(Posyandu $posyandu)
     {
         $posyandu->delete();
-        return redirect()->route('posyandu.index')
+        return redirect()->route('admin.posyandu.index')
                          ->with('success', 'Data posyandu berhasil dihapus.');
     }
 }

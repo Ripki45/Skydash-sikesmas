@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Edit Jadwal</h4>
-        <form class="forms-sample" action="{{ route('jadwal-posyandu.update', $jadwalPosyandu->id) }}" method="POST">
+        <form class="forms-sample" action="{{ route('admin.jadwal-posyandu.update', $jadwalPosyandu->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -53,7 +53,7 @@
                 <textarea class="form-control" id="keterangan" name="keterangan" rows="3">{{ old('keterangan', $jadwalPosyandu->keterangan) }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>
-            <a href="{{ route('jadwal-posyandu.index') }}" class="btn btn-light">Batal</a>
+            <a href="{{ route('admin.jadwal-posyandu.index') }}" class="btn btn-light">Batal</a>
         </form>
     </div>
 </div>

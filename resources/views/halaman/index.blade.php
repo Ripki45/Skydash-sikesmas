@@ -20,7 +20,7 @@
                     <p class="card-description">
                         Kelola semua halaman konten dinamis untuk website Anda.
                     </p>
-                    <a href="{{ route('halaman.create') }}" class="btn btn-primary">Buat Halaman Baru</a>
+                    <a href="{{ route('admin.halaman.create') }}" class="btn btn-primary">Buat Halaman Baru</a>
                 </div>
 
                 {{-- REVISI #1: Menambahkan Dropdown untuk Filter Status --}}
@@ -59,15 +59,14 @@
                                     </td>
                                     <td>{{ $halaman->created_at->format('d M Y, H:i') }}</td>
                                     <td>
-                                        <a href="{{ route('halaman.show', $halaman->id) }}" class="btn btn-info btn-sm">View</a>
-                                        <a href="{{ route('halaman.edit', $halaman->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        {{-- Tombol Hapus Baru --}}
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                                data-toggle="modal"
-                                                data-target="#deleteModal"
-                                                data-url="{{ route('halaman.destroy', $halaman->id) }}">
-                                            Delete
-                                        </button>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.halaman.edit', $halaman->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                        data-url="{{ route('admin.halaman.destroy', $halaman->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

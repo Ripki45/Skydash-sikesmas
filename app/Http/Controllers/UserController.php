@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Desa;
-use App\Models\Role;
-use App\Models\User;
 use App\Models\Dusun;
 use App\Models\Posyandu;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
-        // 'with()' akan mengambil semua data relasi dalam satu query, sangat efisien!
-        $users = User::with('roles', 'desa', 'dusun', 'posyandu.dusun.desa')->latest()->get();
+        $users = User::with(['roles', 'desa', 'dusun', 'posyandu'])->latest()->get();
         return view('users.index', compact('users'));
     }
 
@@ -31,12 +30,12 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role_id' => ['required', 'exists:roles,id'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role_name' => ['required', 'exists:roles,name'],
             'desa_id' => ['nullable', 'exists:desas,id'],
             'dusun_id' => ['nullable', 'exists:dusuns,id'],
-            'posyandu_id' => ['nullable', 'exists:posyandus,id'], // <-- Validasi baru
+            'posyandu_id' => ['nullable', 'exists:posyandus,id'],
         ]);
 
         $user = User::create([
@@ -45,71 +44,81 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'desa_id' => $request->desa_id,
             'dusun_id' => $request->dusun_id,
-            'posyandu_id' => $request->posyandu_id, // <-- Simpan posyandu_id
+            'posyandu_id' => $request->posyandu_id,
         ]);
 
-        $user->roles()->attach($request->role_id);
+        $user->assignRole($request->role_name);
 
-        return redirect()->route('users.index')
-                            ->with('success', 'Pengguna baru berhasil dibuat.');
+        return redirect()->route('admin.users.index')->with('success', 'Pengguna baru berhasil ditambahkan.');
     }
 
     public function edit(User $user)
     {
         $roles = Role::all();
         $desas = Desa::all();
-        // Ambil dusun yang satu desa dengan user, untuk mengisi dropdown dusun
+        // Logika ini sudah bagus, kita ambil data dusun dan posyandu
+        // yang relevan dengan data user saat ini.
         $dusuns = $user->desa_id ? Dusun::where('desa_id', $user->desa_id)->get() : collect();
-        // Ambil posyandu yang satu dusun dengan user, untuk mengisi dropdown posyandu
         $posyandus = $user->dusun_id ? Posyandu::where('dusun_id', $user->dusun_id)->get() : collect();
-
 
         return view('users.edit', compact('user', 'roles', 'desas', 'dusuns', 'posyandus'));
     }
 
     public function update(Request $request, User $user)
     {
+        // 1. Validasi disamakan dengan 'store', menggunakan 'role_name'
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            // Pastikan email unik, kecuali untuk user ini sendiri
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'role_id' => ['required', 'exists:roles,id'],
+            // Password sekarang boleh kosong (nullable)
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+            'role_name' => ['required', 'exists:roles,name'],
             'desa_id' => ['nullable', 'exists:desas,id'],
             'dusun_id' => ['nullable', 'exists:dusuns,id'],
             'posyandu_id' => ['nullable', 'exists:posyandus,id'],
         ]);
 
-        $userData = $request->except(['password', 'role_id', 'password_confirmation']);
+        // 2. Update data dasar pengguna
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'desa_id' => $request->desa_id,
+            'dusun_id' => $request->dusun_id,
+            'posyandu_id' => $request->posyandu_id,
+        ]);
 
-        // Hanya update password jika diisi
+        // 3. Hanya update password jika kolomnya diisi
         if ($request->filled('password')) {
-            $userData['password'] = Hash::make($request->password);
+            $user->password = Hash::make($request->password);
+            $user->save();
         }
 
-        $user->update($userData);
-        $user->roles()->sync($request->role_id); // 'sync' akan memperbarui role
+        // 4. Gunakan 'syncRoles' dari Spatie untuk memperbarui peran.
+        // Ini lebih aman daripada sync() biasa.
+        $user->syncRoles($request->role_name);
 
-        return redirect()->route('users.index')
-                         ->with('success', 'Data pengguna berhasil diperbarui.');
+        return redirect()->route('admin.users.index')->with('success', 'Data pengguna berhasil diperbarui.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-
-        return redirect()->route('users.index')
-                        ->with('success', 'Akun berhasil dihapus.');
+        return redirect()->route('admin.users.index')->with('success', 'Akun berhasil dihapus.');
     }
 
-    // Fungsi API untuk mengambil dusun berdasarkan desa
-    public function getDusunsByDesa(Desa $desa)
+    // PERBAIKAN #3: Fungsi API disesuaikan untuk menerima POST request
+    public function getDusunsByDesa(Request $request)
     {
-        return response()->json($desa->dusuns);
+        $request->validate(['desa_id' => 'required|exists:desas,id']);
+        $dusuns = Dusun::where('desa_id', $request->desa_id)->get();
+        return response()->json($dusuns);
     }
 
-    // Fungsi API baru untuk mengambil posyandu berdasarkan dusun
-    public function getPosyandusByDusun(Dusun $dusun)
+    public function getPosyandusByDusun(Request $request)
     {
-        return response()->json($dusun->posyandus);
+        $request->validate(['dusun_id' => 'required|exists:dusuns,id']);
+        $posyandus = Posyandu::where('dusun_id', $request->dusun_id)->get();
+        return response()->json($posyandus);
     }
 }

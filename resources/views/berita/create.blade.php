@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="forms-sample" action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+<form class="forms-sample" action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 <div class="row">
     {{-- KOLOM KIRI --}}

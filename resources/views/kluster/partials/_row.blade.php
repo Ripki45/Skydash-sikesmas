@@ -25,8 +25,8 @@
 
     {{-- Kolom Aksi --}}
     <td class="d-flex">
-        <a href="{{ route('kluster.edit', $kluster->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
-        <form action="{{ route('kluster.destroy', $kluster->id) }}" method="POST">
+        <a href="{{ route('admin.kluster.edit', $kluster->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
+        <form action="{{ route('admin.kluster.destroy', $kluster->id) }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin?')">

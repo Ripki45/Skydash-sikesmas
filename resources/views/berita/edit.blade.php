@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="forms-sample" action="{{ route('berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
+<form class="forms-sample" action="{{ route('admin.berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 <div class="row">

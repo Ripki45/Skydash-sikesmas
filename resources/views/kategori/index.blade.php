@@ -38,7 +38,7 @@
 
                 {{-- Action form juga berubah secara dinamis --}}
                 <form class="forms-sample"
-                      action="{{ isset($kategoriToEdit) ? route('kategori.update', $kategoriToEdit->id) : route('kategori.store') }}"
+                      action="{{ isset($kategoriToEdit) ? route('admin.kategori.update', $kategoriToEdit->id) : route('admin.kategori.store') }}"
                       method="POST">
                     @csrf
                     {{-- Jika ini form edit, tambahkan method PUT --}}
@@ -58,7 +58,7 @@
                     </button>
                     {{-- Jika sedang mengedit, tampilkan tombol Batal --}}
                     @if(isset($kategoriToEdit))
-                        <a href="{{ route('kategori.index') }}" class="btn btn-light">Batal</a>
+                        <a href="{{ route('admin.kategori.index') }}" class="btn btn-light">Batal</a>
                     @endif
                 </form>
             </div>
@@ -86,14 +86,34 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $kategori->nama_kategori }}</td>
                                 <td>{{ $kategori->slug }}</td>
-                                <td>
-                                <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                {{-- <td>
+                                {{-- <a href="{{ route('admin.kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <button type-="button" class="btn btn-danger btn-sm"
                                     data-toggle="modal" data-target="#deleteModal"
-                                        data-url="{{ route('kategori.destroy', $kategori->id) }}">
+                                        data-url="{{ route('admin.kategori.destroy', $kategori->id) }}">
                                         Hapus
-                                </button>
-                            </td>
+                                </button> --}}
+                                {{-- </td> --}}
+                                {{-- <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('admin.kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                data-toggle="modal" data-target="#deleteModal"
+                                                    data-url="{{ route('admin.kategori.destroy', $kategori->id) }}">
+                                                    Hapus
+                                            </button>
+                                    </div>
+                                </td> --}}
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('admin.kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                data-toggle="modal" data-target="#deleteModal"
+                                                    data-url="{{ route('admin.kategori.destroy', $kategori->id) }}">
+                                                    Hapus
+                                            </button>
+                                    </div>
+                                </td>
                             </tr>
                             @empty
                             <tr>

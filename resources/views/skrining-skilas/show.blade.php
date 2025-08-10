@@ -8,8 +8,8 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h4 class="card-title">Detail Hasil Skrining SKILAS</h4>
                     <div>
-                        <a href="{{ route('skrining-skilas.index') }}" class="btn btn-light">Kembali</a>
-                        <a href="{{ route('skrining-skilas.edit', $skrining->id) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ route('admin.skrining-skilas.index') }}" class="btn btn-light">Kembali</a>
+                        <a href="{{ route('admin.skrining-skilas.edit', $skrining->id) }}" class="btn btn-warning">Edit</a>
                         <button onclick="window.print()" class="btn btn-primary">Cetak</button>
                     </div>
                 </div>

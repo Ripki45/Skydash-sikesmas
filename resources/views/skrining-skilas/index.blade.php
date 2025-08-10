@@ -13,13 +13,11 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Data Hasil Skrining SKILAS</h4>
         <div class="d-flex justify-content-between align-items-center">
             <p class="card-description">
                 Semua data hasil skrining kesehatan lansia yang telah diinput.
             </p>
-            {{-- Tombol ini akan kita fungsikan nanti --}}
-            <a href="{{ route('skrining-skilas.create') }}" class="btn btn-primary">Input Skrining Baru</a>
+            <a href="{{ route('admin.skrining-skilas.create') }}" class="btn btn-primary">Input Skrining Baru</a>
         </div>
         <div class="table-responsive mt-4">
             <table class="table table-striped" id="skilasTable">
@@ -29,8 +27,6 @@
                         <th>Tanggal</th>
                         <th>NIK Pasien</th>
                         <th>Nama Pasien</th>
-                        <th>Usia</th>
-                        <th>Diinput Oleh</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -42,26 +38,20 @@
                             <td>{{ $skrining->nik }}</td>
                             <td>{{ $skrining->nama_lengkap }}</td>
                             <td>
-                                {{-- Menghitung usia otomatis dari tanggal lahir --}}
-                                {{ \Carbon\Carbon::parse($skrining->tanggal_lahir)->age }} Thn
-                            </td>
-                            <td>{{ $skrining->user->name }}</td>
-                            <td>
-                                <a href="{{ route('skrining-skilas.show', $skrining->id) }}" class="btn btn-info btn-sm">Detail</a>
-                                {{-- REVISI: Mengarahkan ke route edit --}}
-                                <a href="{{ route('skrining-skilas.edit', $skrining->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                                {{-- REVISI: Mengaktifkan tombol hapus --}}
-                                <button type="button" class="btn btn-danger btn-sm"
-                                        data-toggle="modal" data-target="#deleteModal"
-                                        data-url="{{ route('skrining-skilas.destroy', $skrining->id) }}">
-                                    Hapus
-                                </button>
+                                <div class="btn-group">
+                                    <a href="{{ route('admin.skrining-skilas.show', $skrining->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                    <a href="{{ route('admin.skrining-skilas.edit', $skrining->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                            data-toggle="modal" data-target="#deleteModal"
+                                            data-url="{{ route('admin.skrining-skilas.destroy', $skrining->id) }}">
+                                        Hapus
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center">Belum ada data skrining yang diinput.</td>
+                            <td colspan="5" class="text-center">Belum ada data skrining yang diinput.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -69,6 +59,8 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Konfirmasi Hapus -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -79,7 +71,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus halaman ini?
+                Apakah Anda yakin ingin menghapus data skrining ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -94,20 +86,30 @@
 </div>
 @endsection
 
-@section('scripts')
-{{-- Mengaktifkan DataTables untuk pencarian dan sorting --}}
+@push('scripts')
+{{-- PASTIKAN SELURUH BLOK SCRIPT INI ADA --}}
 <script>
-    $(document).ready(function() {
-        $('#skilasTable').DataTable({
-            "language": {
-                "search": "Cari (NIK/Nama):",
-                "lengthMenu": "Tampilkan _MENU_ data",
-                "info": "Menampilkan _START_-_END_ dari _TOTAL_ data",
-                "infoEmpty": "Tidak ada data",
-                "infoFiltered": "(difilter dari _MAX_ total data)",
-                "paginate": { "next": "Berikutnya", "previous": "Sebelumnya" }
-            }
-        });
+$(document).ready(function() {
+    // 1. Inisialisasi DataTable
+    $('#skilasTable').DataTable({
+        "language": {
+            "search": "Cari (NIK/Nama):",
+            "lengthMenu": "Tampilkan _MENU_ data",
+            "info": "Menampilkan _START_-_END_ dari _TOTAL_ data",
+            "infoEmpty": "Tidak ada data",
+            "infoFiltered": "(difilter dari _MAX_ total data)",
+            "paginate": { "next": "Berikutnya", "previous": "Sebelumnya" }
+        }
     });
+
+    // 2. "KABEL" UNTUK MODAL HAPUS
+    // Script ini akan mengawasi klik pada tombol hapus
+    $(document).on('click', '.delete-btn', function() {
+        // Ambil URL dari tombol yang diklik
+        var deleteUrl = $(this).data('url');
+        // Atur 'action' dari form di modal menjadi URL tersebut
+        $('#deleteForm').attr('action', deleteUrl);
+    });
+});
 </script>
-@endsection
+@endpush

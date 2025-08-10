@@ -53,7 +53,7 @@ class TenagaKesehatanController extends Controller
             'foto' => $fotoPath,
         ]);
 
-        return redirect()->route('tenaga-kesehatan.index')
+        return redirect()->route('admin.tenaga-kesehatan.index')
                          ->with('success', 'Data tenaga kesehatan berhasil ditambahkan.');
     }
 
@@ -92,7 +92,7 @@ class TenagaKesehatanController extends Controller
 
         $tenagaKesehatan->update($data);
 
-        return redirect()->route('tenaga-kesehatan.index')
+        return redirect()->route('admin.tenaga-kesehatan.index')
                          ->with('success', 'Data tenaga kesehatan berhasil diperbarui.');
     }
 
@@ -108,7 +108,7 @@ class TenagaKesehatanController extends Controller
 
         $tenagaKesehatan->delete();
 
-        return redirect()->route('tenaga-kesehatan.index')
+        return redirect()->route('admin.tenaga-kesehatan.index')
                          ->with('success', 'Data tenaga kesehatan berhasil dihapus.');
     }
 }

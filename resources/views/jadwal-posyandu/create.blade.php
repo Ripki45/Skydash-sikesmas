@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Tambah Jadwal Baru</h4>
-        <form class="forms-sample" action="{{ route('jadwal-posyandu.store') }}" method="POST">
+        <form class="forms-sample" action="{{ route('admin.jadwal-posyandu.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="posyandu_id">Pilih Posyandu</label>
@@ -51,7 +51,7 @@
                 <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-            <a href="{{ route('jadwal-posyandu.index') }}" class="btn btn-light">Batal</a>
+            <a href="{{ route('admin.jadwal-posyandu.index') }}" class="btn btn-light">Batal</a>
         </form>
     </div>
 </div>

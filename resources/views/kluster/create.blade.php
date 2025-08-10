@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form class="forms-sample" action="{{ route('kluster.store') }}" method="POST">
+                <form class="forms-sample" action="{{ route('admin.kluster.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="title">Judul Menu</label>
@@ -62,7 +62,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                    <a href="{{ route('kluster.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.kluster.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

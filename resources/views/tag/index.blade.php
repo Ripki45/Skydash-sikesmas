@@ -27,7 +27,7 @@
             <div class="card-body">
                 <h4 class="card-title">{{ isset($tagToEdit) ? 'Edit Tag' : 'Tambah Tag Baru' }}</h4>
                 <form class="forms-sample"
-                      action="{{ isset($tagToEdit) ? route('tag.update', $tagToEdit->id) : route('tag.store') }}"
+                      action="{{ isset($tagToEdit) ? route('admin.tag.update', $tagToEdit->id) : route('admin.tag.store') }}"
                       method="POST">
                     @csrf
                     @if(isset($tagToEdit))
@@ -44,7 +44,7 @@
                         {{ isset($tagToEdit) ? 'Simpan Perubahan' : 'Simpan' }}
                     </button>
                     @if(isset($tagToEdit))
-                        <a href="{{ route('tag.index') }}" class="btn btn-light">Batal</a>
+                        <a href="{{ route('admin.tag.index') }}" class="btn btn-light">Batal</a>
                     @endif
                 </form>
             </div>
@@ -72,15 +72,25 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tag->nama_tag }}</td>
                                 <td>{{ $tag->slug }}</td>
-                                <td class="d-flex">
-                                    <a href="{{ route('tag.edit', $tag->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
-                                    <form action="{{ route('tag.destroy', $tag->id) }}" method="POST">
+                                {{-- <td class="d-flex">
+                                    <a href="{{ route('admin.tag.edit', $tag->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
+                                    <form action="{{ route('admin.tag.destroy', $tag->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus tag ini?')">
                                             Hapus
                                         </button>
                                     </form>
+                                </td> --}}
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ route('admin.tag.edit', $tag->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                data-toggle="modal" data-target="#deleteModal"
+                                                    data-url="{{ route('admin.tag.destroy', $tag->id) }}">
+                                                    Hapus
+                                            </button>
+                                    </div>
                                 </td>
                             </tr>
                             @empty
@@ -91,6 +101,30 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus halaman ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <form id="deleteForm" action="" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Ya, Hapus!</button>
+                </form>
             </div>
         </div>
     </div>

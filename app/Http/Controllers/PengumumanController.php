@@ -34,6 +34,7 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
@@ -59,7 +60,7 @@ class PengumumanController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('pengumuman.index')
+        return redirect()->route('admin.pengumuman.index')
                          ->with('success', 'Pengumuman baru berhasil dibuat.');
     }
 
@@ -85,6 +86,8 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, Pengumuman $pengumuman)
     {
+        $data = $request->all();
+        $pengumuman->update($data);
         $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
@@ -108,7 +111,7 @@ class PengumumanController extends Controller
 
         $pengumuman->update($pengumumanData);
 
-        return redirect()->route('pengumuman.index')
+        return redirect()->route('admin.pengumuman.index')
                          ->with('success', 'Pengumuman berhasil diperbarui.');
     }
 
@@ -126,7 +129,7 @@ class PengumumanController extends Controller
         // Hapus data dari database
         $pengumuman->delete();
 
-        return redirect()->route('halaman.index')
+        return redirect()->route('admin.pengumuman.index')
                          ->with('success', 'Pengumuman berhasil dihapus.');
     }
 }

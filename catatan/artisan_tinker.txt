@@ -3,3 +3,36 @@
     'email' => 'admin@puskesmas.com',
     'password' => bcrypt('password')
 ]);
+
+# 1. Buka terminal di direktori proyekmu dan masuk ke mode Tinker
+php artisan tinker
+
+# Di dalam Tinker, jalankan perintah PHP berikut satu per satu:
+
+# 2. Buat objek User baru dan isi datanya.
+# Ganti nama, email, dan password sesuai keinginanmu.
+$user = new App\Models\User;
+$user->name = 'Super Admin';
+$user->email = 'admin@puskesmas.com';
+$user->password = Illuminate\Support\Facades\Hash::make('password123');
+
+# 3. Simpan user baru ini ke dalam database.
+$user->save();
+
+# 4. Berikan "Kartu Akses" Super Administrator kepadanya.
+# Pastikan nama perannya sama persis dengan yang ada di seeder.
+$user->assignRole('Super Administrator');
+
+# 5. (Opsional) Verifikasi untuk memastikan peran sudah terpasang.
+$user->getRoleNames();
+
+# Seharusnya akan muncul output seperti ini:
+# => Illuminate\Support\Collection {#...
+#      all: [
+#        "Super Administrator",
+#      ],
+#    }
+
+# 6. Keluar dari Tinker.
+exit
+

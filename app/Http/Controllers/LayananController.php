@@ -52,7 +52,7 @@ class LayananController extends Controller
             'is_active' => $request->is_active,
         ]);
 
-        return redirect()->route('layanan.index')
+        return redirect()->route('admin.layanan.index')
                          ->with('success', 'Layanan baru berhasil ditambahkan.');
     }
 
@@ -94,7 +94,7 @@ class LayananController extends Controller
 
         $layanan->update($layananData);
 
-        return redirect()->route('layanan.index')
+        return redirect()->route('admin.layanan.index')
                         ->with('success', 'Layanan berhasil diperbarui.');
     }
 
@@ -112,7 +112,7 @@ class LayananController extends Controller
         $layanan->delete();
 
         // 3. Kembali ke halaman index dengan pesan sukses
-        return redirect()->route('layanan.index')
+        return redirect()->route('admin.layanan.index')
                         ->with('success', 'Layanan berhasil dihapus.');
     }
 }

@@ -23,7 +23,7 @@
         <h4 class="card-title">Manajemen Jadwal Kegiatan</h4>
         <div class="d-flex justify-content-between align-items-center">
             <p class="card-description">Kelola semua jadwal kegiatan Posyandu, Posbindu, dll.</p>
-            <a href="{{ route('jadwal-posyandu.create') }}" class="btn btn-primary">Tambah Jadwal Baru</a>
+            <a href="{{ route('admin.jadwal-posyandu.create') }}" class="btn btn-primary">Tambah Jadwal Baru</a>
         </div>
         <div class="table-responsive mt-4">
             <table class="table table-striped">
@@ -47,13 +47,23 @@
                         <td>{{ $jadwal->nama_kegiatan }}</td>
                         <td>{{ \Carbon\Carbon::parse($jadwal->tanggal_kegiatan)->format('d M Y') }}</td>
                         <td>{{ $jadwal->waktu_mulai ? \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H:i') . ' - ' . \Carbon\Carbon::parse($jadwal->waktu_selesai)->format('H:i') : '-' }}</td>
-                        <td>
-                            <a href="{{ route('jadwal-posyandu.edit', $jadwal->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        {{-- <td>
+                            <a href="{{ route('admin.jadwal-posyandu.edit', $jadwal->id) }}" class="btn btn-warning btn-sm">Edit</a>
                             <button type-="button" class="btn btn-danger btn-sm"
                                 data-toggle="modal" data-target="#deleteModal"
-                                    data-url="{{ route('jadwal-posyandu.destroy', $jadwal->id) }}">
+                                    data-url="{{ route('admin.jadwal-posyandu.destroy', $jadwal->id) }}">
                                     Hapus
                             </button>
+                        </td> --}}
+                        <td>
+                            <div class="btn-group">
+                                <a href="{{ route('admin.jadwal-posyandu.edit', $jadwal->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                        data-toggle="modal" data-target="#deleteModal"
+                                            data-url="{{ route('admin.jadwal-posyandu.destroy', $jadwal->id) }}">
+                                            Hapus
+                                    </button>
+                            </div>
                         </td>
 
                     </tr>

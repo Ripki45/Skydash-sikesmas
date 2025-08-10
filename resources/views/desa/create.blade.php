@@ -17,14 +17,14 @@
                     </div>
                 @endif
 
-                <form class="forms-sample" action="{{ route('desa.store') }}" method="POST">
+                <form class="forms-sample" action="{{ route('admin.desa.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="nama_desa">Nama Desa</label>
                         <input type="text" class="form-control" id="nama_desa" name="nama_desa" value="{{ old('nama_desa') }}" placeholder="Contoh: Cigugur" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                    <a href="{{ route('desa.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.desa.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

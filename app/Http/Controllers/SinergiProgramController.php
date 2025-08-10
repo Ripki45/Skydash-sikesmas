@@ -52,7 +52,7 @@ class SinergiProgramController extends Controller
             'is_active' => $request->is_active,
         ]);
 
-        return redirect()->route('sinergi-program.index')
+        return redirect()->route('admin.sinergi-program.index')
                          ->with('success', 'Program baru berhasil ditambahkan.');
     }
 
@@ -94,7 +94,7 @@ class SinergiProgramController extends Controller
 
         $sinergiProgram->update($programData);
 
-        return redirect()->route('sinergi-program.index')
+        return redirect()->route('admin.sinergi-program.index')
                         ->with('success', 'Program berhasil diperbarui.');
     }
 
@@ -112,7 +112,7 @@ class SinergiProgramController extends Controller
         $program->delete();
 
         // 3. Kembali ke halaman index dengan pesan sukses
-        return redirect()->route('sinergi-program.index')
+        return redirect()->route('admin.sinergi-program.index')
                         ->with('success', 'Layanan berhasil dihapus.');
     }
 }

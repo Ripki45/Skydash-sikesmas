@@ -2,55 +2,28 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// 1. Impor Model yang Benar
+// Kita hanya butuh Seeder dan Model 'Role' dari package Spatie.
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Jalankan seeder untuk membuat peran (roles) awal dalam sistem.
+     * Kode ini dirancang khusus untuk package spatie/laravel-permission.
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
-        DB::table('roles')->truncate();
-        DB::table('role_user')->truncate();
-        Schema::enableForeignKeyConstraints();
 
-        DB::table('roles')->insert([
-            [
-                'name' => 'superadmin',
-                'display_name' => 'Super Administrator',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            // PENAMBAHAN BARU
-            [
-                'name' => 'penulis',
-                'display_name' => 'Penulis',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'bidan',
-                'display_name' => 'Bidan',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'ketua-posyandu',
-                'display_name' => 'Ketua Posyandu',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'anggota-posyandu',
-                'display_name' => 'Anggota Posyandu',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        Role::query()->delete();
+
+
+        Role::create(['name' => 'Super Administrator']);
+        Role::create(['name' => 'Penulis']);
+        Role::create(['name' => 'Bidan']);
+        Role::create(['name' => 'Ketua Posyandu']);
+        Role::create(['name' => 'Anggota Posyandu']);
+        Role::create(['name' => 'Masyarakat']);
     }
 }

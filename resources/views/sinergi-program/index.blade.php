@@ -21,7 +21,7 @@
                 </p>
                 <div class="d-flex justify-content-end mb-3">
                     {{-- Tombol ini akan kita fungsikan nanti --}}
-                    <a href="{{ route('sinergi-program.create') }}" class="btn btn-primary">Tambah Program Baru</a>
+                    <a href="{{ route('admin.sinergi-program.create') }}" class="btn btn-primary">Tambah Program Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -51,13 +51,23 @@
                                             <span class="badge badge-danger">Tidak Aktif</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <a href="{{ route('sinergi-program.edit', $program->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    {{-- <td>
+                                        <a href="{{ route('admin.sinergi-program.edit', $program->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <button type="button" class="btn btn-danger btn-sm"
                                                 data-toggle="modal" data-target="#deleteModal"
-                                                data-url="{{ route('sinergi-program.destroy', $program->id) }}">
+                                                data-url="{{ route('admin.sinergi-program.destroy', $program->id) }}">
                                             Hapus
                                         </button>
+                                    </td> --}}
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href={{ route('admin.sinergi-program.edit', $program->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                        data-url="{{ route('admin.sinergi-program.destroy', $program->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty
@@ -83,15 +93,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus data ini?
+                Apakah Anda yakin ingin menghapus halaman ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                {{--
-                    REVISI PENTING #2: Form Hapus
-                    Pastikan form ini ada di dalam file Blade dan memiliki @csrf serta @method('DELETE')
-                    Ini adalah penyebab utama error Anda.
-                --}}
                 <form id="deleteForm" action="" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')

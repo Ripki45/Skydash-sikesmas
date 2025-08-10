@@ -24,7 +24,7 @@
         <h4 class="card-title">Semua Berita</h4>
         <div class="d-flex justify-content-between align-items-center">
             <p class="card-description">Daftar semua berita yang telah dipublikasikan atau disimpan sebagai draft.</p>
-            <a href="{{ route('berita.create') }}" class="btn btn-primary">Buat Berita Baru</a>
+            <a href="{{ route('admin.berita.create') }}" class="btn btn-primary">Buat Berita Baru</a>
         </div>
 
         {{-- Filter --}}
@@ -82,13 +82,23 @@
                                 @endif
                             </td>
                             <td>{{ \Carbon\Carbon::parse($berita->published_at)->format('d M Y') }}</td>
-                            <td>
-                                <a href="{{ route('berita.edit', $berita->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            {{-- <td>
+                                <a href="{{ route('admin.berita.edit', $berita->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <button type="button" class="btn btn-danger btn-sm"
                                         data-toggle="modal" data-target="#deleteModal"
-                                        data-url="{{ route('berita.destroy', $berita->id) }}">
+                                        data-url="{{ route('admin.berita.destroy', $berita->id) }}">
                                     Hapus
                                 </button>
+                            </td> --}}
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{{ route('admin.berita.edit', $berita->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                            data-toggle="modal" data-target="#deleteModal"
+                                                data-url="{{ route('admin.berita.destroy', $berita->id) }}">
+                                                Hapus
+                                        </button>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Edit Foto Galeri</h4>
-                <form class="forms-sample" action="{{ route('galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" action="{{ route('admin.galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -45,7 +45,7 @@
                         <input type="number" class="form-control" id="urutan" name="urutan" value="{{ old('urutan', $galeri->urutan) }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>
-                    <a href="{{ route('galeri.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.galeri.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

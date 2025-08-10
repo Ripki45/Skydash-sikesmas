@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h4 class="card-title">Edit Data Pustu: {{ $pustu->nama_pustu }}</h4>
 
-                <form class="forms-sample" action="{{ route('pustu.update', $pustu->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" action="{{ route('admin.pustu.update', $pustu->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -59,7 +59,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>
-                    <a href="{{ route('pustu.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.pustu.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

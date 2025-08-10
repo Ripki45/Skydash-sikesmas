@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
   <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" alt='icon' />
   <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
   <div class="container-scroller">
@@ -44,18 +46,21 @@
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
     <script src="{{ asset('js/file-upload.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            // Script untuk modal konfirmasi hapus
-            // Script ini akan otomatis bekerja pada tombol apapun yang memiliki
-            // atribut data-toggle="modal" dan data-target="#deleteModal"
-            $('#deleteModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var url = button.data('url');
-                var modal = $(this);
-                modal.find('#deleteForm').attr('action', url);
+            // 2. "KABEL" UNIVERSAL UNTUK MODAL HAPUS
+            // Script ini akan mengawasi SELURUH halaman untuk klik pada tombol '.delete-btn'
+            $(document).on('click', '.delete-btn', function() {
+                // Ambil URL dari atribut data-url tombol yang baru saja diklik
+                var deleteUrl = $(this).data('url');
+
+                // Atur 'action' dari form di dalam modal menjadi URL tersebut
+                $('#deleteForm').attr('action', deleteUrl);
             });
-        });
+        })
     </script>
 
 
@@ -64,6 +69,7 @@
         Ini adalah "placeholder" untuk menampung semua script tambahan
         dari halaman lain, seperti script modal hapus dari index.blade.php.
     --}}
+    @stack('scripts')
     @yield('scripts')
 
   </body>

@@ -120,7 +120,7 @@ class SkriningSkilasController extends Controller
 
         SkriningSkilas::create($validatedData);
 
-        return redirect()->route('skrining-skilas.index')
+        return redirect()->route('admin.skrining-skilas.index')
                          ->with('success', 'Data skrining baru berhasil disimpan.');
     }
 
@@ -183,7 +183,7 @@ class SkriningSkilasController extends Controller
 
         $skriningSkila->update($validatedData);
 
-        return redirect()->route('skrining-skilas.index')
+        return redirect()->route('admin.skrining-skilas.index')
                          ->with('success', 'Data skrining berhasil diperbarui.');
     }
 
@@ -194,7 +194,7 @@ class SkriningSkilasController extends Controller
     public function destroy(SkriningSkilas $skriningSkila)
     {
         $skriningSkila->delete();
-        return redirect()->route('skrining-skilas.index')
+        return redirect()->route('admin.skrining-skilas.index')
                          ->with('success', 'Data skrining berhasil dihapus.');
     }
 }

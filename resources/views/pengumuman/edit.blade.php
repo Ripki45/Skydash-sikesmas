@@ -2,7 +2,8 @@
 
 @section('content')
 
-<form class="forms-sample" action="{{ route('pengumuman.update', $pengumuman->id) }}" method="POST" enctype="multipart/form-data">
+{{-- Arahkan form ke route 'update' dan gunakan method 'PUT' --}}
+<form class="forms-sample" action="{{ route('admin.pengumuman.update', $pengumuman->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 
@@ -11,9 +12,10 @@
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                {{-- Judul diubah menjadi dinamis --}}
                 <h4 class="card-title">Edit Pengumuman</h4>
                 <p class="card-description">
-                    Perbarui detail pengumuman yang akan ditampilkan.
+                    Ubah detail pengumuman di bawah ini.
                 </p>
 
                 @if ($errors->any())
@@ -28,11 +30,13 @@
 
                 <div class="form-group">
                     <label for="judul">Judul Pengumuman</label>
+                    {{-- Isi value dengan data lama dari $pengumuman --}}
                     <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul', $pengumuman->judul) }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="isi">Isi Pengumuman</label>
+                    {{-- Isi textarea dengan data lama --}}
                     <textarea class="form-control" id="isi" name="isi" rows="15">{{ old('isi', $pengumuman->isi) }}</textarea>
                 </div>
             </div>
@@ -47,6 +51,7 @@
                 <div class="form-group">
                     <label for="tipe">Tipe Tampilan</label>
                     <select class="form-control" id="tipe" name="tipe" required>
+                        {{-- Tambahkan logika 'selected' untuk setiap opsi --}}
                         <option value="info" {{ old('tipe', $pengumuman->tipe) == 'info' ? 'selected' : '' }}>Info Biasa</option>
                         <option value="popup" {{ old('tipe', $pengumuman->tipe) == 'popup' ? 'selected' : '' }}>Pop-up</option>
                         <option value="banner" {{ old('tipe', $pengumuman->tipe) == 'banner' ? 'selected' : '' }}>Banner Atas</option>
@@ -67,7 +72,9 @@
                         <option value="draft" {{ old('status', $pengumuman->status) == 'draft' ? 'selected' : '' }}>Draft</option>
                     </select>
                 </div>
+
                 <hr>
+                {{-- Ubah teks tombol --}}
                 <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
             </div>
         </div>
@@ -77,9 +84,10 @@
                 <h4 class="card-title">Lampiran (Opsional)</h4>
                 @if($pengumuman->lampiran)
                     <p>File saat ini: <a href="{{ asset('storage/' . $pengumuman->lampiran) }}" target="_blank">Lihat Lampiran</a></p>
+                    <small class="text-muted">Mengunggah file baru akan menggantikan file lama.</small>
                 @endif
-                <div class="form-group">
-                    <label>Ganti File Lampiran</label>
+                <div class="form-group mt-2">
+                    <label>Upload File Baru (PDF, Word, Gambar)</label>
                     <input type="file" name="lampiran" class="file-upload-default">
                     <div class="input-group col-xs-12">
                         <input type="text" class="form-control file-upload-info" disabled placeholder="Pilih File...">
@@ -87,7 +95,6 @@
                             <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                         </span>
                     </div>
-                    <small class="form-text text-muted">Kosongkan jika tidak ingin mengganti lampiran.</small>
                 </div>
             </div>
         </div>
@@ -97,7 +104,8 @@
 </form>
 @endsection
 
-@section('scripts')
+@push('scripts')
+{{-- JavaScript yang sama persis dengan halaman 'create' bisa digunakan di sini --}}
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
@@ -105,5 +113,18 @@
         .catch( error => {
             console.error( error );
         } );
+
+    (function($) {
+        'use strict';
+        $(function() {
+            $('.file-upload-browse').on('click', function() {
+                var file = $(this).parent().parent().parent().find('.file-upload-default');
+                file.trigger('click');
+            });
+            $('.file-upload-default').on('change', function() {
+                $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+            });
+        });
+    })(jQuery);
 </script>
-@endsection
+@endpush

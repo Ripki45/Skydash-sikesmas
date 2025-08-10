@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tambah Layanan Baru</h4>
-                <form class="forms-sample" action="{{ route('layanan.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" action="{{ route('admin.layanan.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="nama_layanan">Nama Layanan</label>
@@ -38,7 +38,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                    <a href="{{ route('layanan.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.layanan.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

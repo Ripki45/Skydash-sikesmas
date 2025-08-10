@@ -63,7 +63,7 @@ class BeritaController extends Controller
             $berita->tags()->attach($request->tags);
         }
 
-        return redirect()->route('berita.index')
+        return redirect()->route('admin.berita.index')
                         ->with('success', 'Berita baru berhasil dipublikasikan.');
     }
 
@@ -111,7 +111,7 @@ class BeritaController extends Controller
             $berita->tags()->detach();
         }
 
-        return redirect()->route('berita.index')
+        return redirect()->route('admin.berita.index')
                          ->with('success', 'Berita berhasil diperbarui.');
     }
 
@@ -132,7 +132,7 @@ class BeritaController extends Controller
         $berita->delete();
 
         // 4. Kembali ke halaman index dengan pesan sukses
-        return redirect()->route('berita.index')
+        return redirect()->route('admin.berita.index')
                          ->with('success', 'Berita berhasil dihapus.');
     }
 }

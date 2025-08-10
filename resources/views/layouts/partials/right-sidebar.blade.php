@@ -94,7 +94,7 @@
         </div>
         <ul class="chat-list">
           <li class="list active">
-            <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+
             <div class="info">
               <p>Thomas Douglas</p>
               <p>Available</p>

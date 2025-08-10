@@ -27,7 +27,7 @@
                   Methodnya POST, tetapi di dalamnya kita tambahkan @method('PUT')
                   agar Laravel tahu ini adalah proses UPDATE.
                 --}}
-                <form class="forms-sample" action="{{ route('kluster.update', $kluster->id) }}" method="POST">
+                <form class="forms-sample" action="{{ route('admin.kluster.update', $kluster->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -86,7 +86,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>
-                    <a href="{{ route('kluster.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.kluster.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tambah Banner Baru</h4>
-                <form class="forms-sample" action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" action="{{ route('admin.banner.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="gambar_banner">Gambar Banner</label>
@@ -23,7 +23,7 @@
                         <input type="number" class="form-control" id="urutan_tampil" name="urutan_tampil" value="{{ old('urutan_tampil', 0) }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan Banner</button>
-                    <a href="{{ route('banner.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.banner.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

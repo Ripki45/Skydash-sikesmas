@@ -21,7 +21,7 @@
                     Atur semua menu yang akan ditampilkan di halaman depan website.
                 </p>
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('kluster.create') }}" class="btn btn-primary">Tambah Menu Baru</a>
+                    <a href="{{ route('admin.kluster.create') }}" class="btn btn-primary">Tambah Menu Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">

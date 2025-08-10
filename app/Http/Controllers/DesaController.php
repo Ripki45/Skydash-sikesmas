@@ -38,7 +38,7 @@ class DesaController extends Controller
 
         Desa::create($request->all());
 
-        return redirect()->route('desa.index')
+        return redirect()->route('admin.desa.index')
                          ->with('success', 'Desa baru berhasil ditambahkan.');
     }
 
@@ -70,7 +70,7 @@ class DesaController extends Controller
 
         $desa->update($request->all());
 
-        return redirect()->route('desa.index')
+        return redirect()->route('admin.desa.index')
                          ->with('success', 'Data desa berhasil diperbarui.');
     }
 
@@ -82,7 +82,7 @@ class DesaController extends Controller
     {
         $desa->delete();
 
-        return redirect()->route('desa.index')
+        return redirect()->route('admin.desa.index')
                         ->with('success', 'Desa berhasil dihapus.');
     }
 }

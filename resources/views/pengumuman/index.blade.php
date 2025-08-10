@@ -21,7 +21,7 @@
                         Kelola semua pengumuman (Info, Pop-up, Banner).
                     </p>
                     {{-- Tombol ini akan kita fungsikan nanti --}}
-                    <a href="{{ route('pengumuman.create') }}" class="btn btn-primary">Buat Pengumuman Baru</a>
+                    <a href="{{ route('admin.pengumuman.create') }}" class="btn btn-primary">Buat Pengumuman Baru</a>
                 </div>
 
                 <div class="form-group mt-3">
@@ -41,29 +41,19 @@
                                 <th>No.</th>
                                 <th>Judul</th>
                                 <th>Tipe</th>
-                                <th>Periode Tampil</th>
                                 <th>Status</th>
+                                {{-- REVISI #1: Judul kolom diperpendek --}}
+                                <th>Mulai</th>
+                                <th>Selesai</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($pengumumans as $pengumuman)
+                            @foreach ($pengumumans as $pengumuman)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $pengumuman->judul }}</td>
-                                    <td>
-                                        @if($pengumuman->tipe == 'popup')
-                                            <span class="badge badge-primary">Pop-up</span>
-                                        @elseif($pengumuman->tipe == 'banner')
-                                            <span class="badge badge-danger">Banner</span>
-                                        @else
-                                            <span class="badge badge-info">Info</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ \Carbon\Carbon::parse($pengumuman->tanggal_mulai)->format('d M Y') }} -
-                                        {{ \Carbon\Carbon::parse($pengumuman->tanggal_selesai)->format('d M Y') }}
-                                    </td>
+                                    <td><span class="badge badge-info">{{ $pengumuman->tipe }}</span></td>
                                     <td>
                                         @if($pengumuman->status == 'published')
                                             <span class="badge badge-success">Published</span>
@@ -71,22 +61,22 @@
                                             <span class="badge badge-warning">Draft</span>
                                         @endif
                                     </td>
+                                    <td>{{ \Carbon\Carbon::parse($pengumuman->tanggal_mulai)->format('d M Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($pengumuman->tanggal_selesai)->format('d M Y') }}</td>
                                     <td>
-                                        <a href="{{ route('pengumuman.edit', $pengumuman->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        {{-- Tombol Hapus Baru --}}
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                                data-toggle="modal"
-                                                data-target="#deleteModal"
-                                                data-url="{{ route('pengumuman.destroy', $pengumuman->id) }}">
-                                            Delete
-                                        </button>
+                                        {{-- REVISI #2: Tombol dikelompokkan agar lebih rapi --}}
+                                        <div class="btn-group" role="group" aria-label="Aksi Pengguna">
+                                            <a href="{{ route('admin.pengumuman.edit', $pengumuman->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            {{-- Tambahkan class 'delete-btn' untuk JavaScript --}}
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                    data-url="{{ route('admin.pengumuman.destroy', $pengumuman->id) }}">
+                                                Hapus
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">Belum ada pengumuman yang dibuat.</td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

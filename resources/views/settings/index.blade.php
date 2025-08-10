@@ -21,8 +21,11 @@
     </div>
 @endif
 
-<form action="{{ route('settings.update') }}" method="POST" enctype="multipart/form-data">
+{{-- PERBAIKAN #1: Tambahkan @method('PUT') untuk rute resource update --}}
+<form action="{{ route('admin.settings.update', ['setting' => 1]) }}" method="POST" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
+
     <div class="row">
         {{-- KOLOM KIRI --}}
         <div class="col-md-8">
@@ -148,3 +151,28 @@
     </div>
 </form>
 @endsection
+
+@push('scripts')
+{{-- PERBAIKAN #2: Tambahkan CKEditor & script file upload --}}
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script>
+    // Inisialisasi CKEditor untuk textarea yang lebih kompleks
+    ClassicEditor.create( document.querySelector( '#deskripsi' ) ).catch( error => console.error( error ) );
+    ClassicEditor.create( document.querySelector( '#visi' ) ).catch( error => console.error( error ) );
+    ClassicEditor.create( document.querySelector( '#misi' ) ).catch( error => console.error( error ) );
+
+    // Script untuk membuat tombol upload file berfungsi
+    (function($) {
+        'use strict';
+        $(function() {
+            $('.file-upload-browse').on('click', function() {
+                var file = $(this).parent().parent().parent().find('.file-upload-default');
+                file.trigger('click');
+            });
+            $('.file-upload-default').on('change', function() {
+                $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+            });
+        });
+    })(jQuery);
+</script>
+@endpush

@@ -40,7 +40,7 @@ class KategoriController extends Controller
             'slug' => Str::slug($request->nama_kategori, '-'), // Slug otomatis
         ]);
 
-        return redirect()->route('kategori.index')
+        return redirect()->route('admin.kategori.index')
                          ->with('success', 'Kategori baru berhasil ditambahkan.');
     }
     /**
@@ -72,7 +72,7 @@ class KategoriController extends Controller
             'slug' => Str::slug($request->nama_kategori, '-'),
         ]);
 
-        return redirect()->route('kategori.index')
+        return redirect()->route('admin.kategori.index')
                          ->with('success', 'Kategori berhasil diperbarui.');
     }
 
@@ -84,14 +84,14 @@ class KategoriController extends Controller
         // REVISI: Cek dulu apakah kategori ini punya berita
         if ($kategori->beritas()->count() > 0) {
             // Jika ada, kembalikan dengan pesan error
-            return redirect()->route('kategori.index')
+            return redirect()->route('admin.kategori.index')
                              ->with('error', 'Kategori ini tidak dapat dihapus karena masih digunakan oleh berita.');
         }
 
         // Jika tidak ada berita yang terhubung, barulah hapus
         $kategori->delete();
 
-        return redirect()->route('kategori.index')
+        return redirect()->route('admin.kategori.index')
                          ->with('success', 'Kategori berhasil dihapus.');
     }
 }

@@ -17,7 +17,7 @@
                     </div>
                 @endif
 
-                <form class="forms-sample" action="{{ route('pustu.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" action="{{ route('admin.pustu.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="nama_pustu">Nama Pustu</label>
@@ -56,7 +56,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                    <a href="{{ route('pustu.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.pustu.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

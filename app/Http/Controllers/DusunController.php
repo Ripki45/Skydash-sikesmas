@@ -31,7 +31,7 @@ class DusunController extends Controller
 
         Dusun::create($request->all());
 
-        return redirect()->route('dusun.index')
+        return redirect()->route('admin.dusun.index')
                          ->with('success', 'Dusun baru berhasil ditambahkan.');
     }
 
@@ -50,14 +50,14 @@ class DusunController extends Controller
 
         $dusun->update($request->all());
 
-        return redirect()->route('dusun.index')
+        return redirect()->route('admin.dusun.index')
                          ->with('success', 'Data dusun berhasil diperbarui.');
     }
 
     public function destroy(Dusun $dusun)
     {
         $dusun->delete();
-        return redirect()->route('dusun.index')
+        return redirect()->route('admin.dusun.index')
                          ->with('success', 'Data dusun berhasil dihapus.');
     }
 }

@@ -21,7 +21,7 @@ class TagController extends Controller
             'nama_tag' => $request->nama_tag,
             'slug' => Str::slug($request->nama_tag, '-'),
         ]);
-        return redirect()->route('tag.index')->with('success', 'Tag baru berhasil ditambahkan.');
+        return redirect()->route('admin.tag.index')->with('success', 'Tag baru berhasil ditambahkan.');
     }
 
     public function edit(Tag $tag)
@@ -37,12 +37,12 @@ class TagController extends Controller
             'nama_tag' => $request->nama_tag,
             'slug' => Str::slug($request->nama_tag, '-'),
         ]);
-        return redirect()->route('tag.index')->with('success', 'Tag berhasil diperbarui.');
+        return redirect()->route('admin.tag.index')->with('success', 'Tag berhasil diperbarui.');
     }
 
     public function destroy(Tag $tag)
     {
         $tag->delete();
-        return redirect()->route('tag.index')->with('success', 'Tag berhasil dihapus.');
+        return redirect()->route('admin.tag.index')->with('success', 'Tag berhasil dihapus.');
     }
 }

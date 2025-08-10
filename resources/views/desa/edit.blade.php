@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h4 class="card-title">Edit Desa: {{ $desa->nama_desa }}</h4>
 
-                <form class="forms-sample" action="{{ route('desa.update', $desa->id) }}" method="POST">
+                <form class="forms-sample" action="{{ route('admin.desa.update', $desa->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -15,7 +15,7 @@
                         <input type="text" class="form-control" id="nama_desa" name="nama_desa" value="{{ old('nama_desa', $desa->nama_desa) }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>
-                    <a href="{{ route('desa.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.desa.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

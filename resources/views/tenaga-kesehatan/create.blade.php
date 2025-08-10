@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Tambah Data SDM Baru</h4>
-        <form class="forms-sample" action="{{ route('tenaga-kesehatan.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="forms-sample" action="{{ route('admin.tenaga-kesehatan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-            <a href="{{ route('tenaga-kesehatan.index') }}" class="btn btn-light">Batal</a>
+            <a href="{{ route('admin.tenaga-kesehatan.index') }}" class="btn btn-light">Batal</a>
         </form>
     </div>
 </div>

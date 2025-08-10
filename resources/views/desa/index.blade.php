@@ -21,7 +21,7 @@
                 </p>
                 <div class="d-flex justify-content-end mb-3">
                     {{-- Tombol ini akan kita fungsikan nanti --}}
-                    <a href="{{ route('desa.create') }}" class="btn btn-primary">Tambah Desa Baru</a>
+                    <a href="{{ route('admin.desa.create') }}" class="btn btn-primary">Tambah Desa Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -39,13 +39,23 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $desa->nama_desa }}</td>
                                     <td>{{ $desa->created_at->format('d M Y, H:i') }}</td>
-                                    <td>
-                                        <a href="{{ route('desa.edit', $desa->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    {{-- <td>
+                                        <a href="{{ route('admin.desa.edit', $desa->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <button type-="button" class="btn btn-danger btn-sm"
                                                     data-toggle="modal" data-target="#deleteModal"
-                                                    data-url="{{ route('desa.destroy', $desa->id) }}">
+                                                    data-url="{{ route('admin.desa.destroy', $desa->id) }}">
                                                 Hapus
                                         </button>
+                                    </td> --}}
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.desa.edit', $desa->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                        data-url="{{ route('admin.desa.destroy', $desa->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

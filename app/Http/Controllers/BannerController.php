@@ -56,7 +56,7 @@ class BannerController extends Controller
             'urutan_tampil' => $request->urutan_tampil,
         ]);
 
-        return redirect()->route('banner.index')
+        return redirect()->route('admin.banner.index')
                          ->with('success', 'Banner baru berhasil ditambahkan.');
     }
 
@@ -97,7 +97,7 @@ class BannerController extends Controller
 
         $banner->update($bannerData);
 
-        return redirect()->route('banner.index')
+        return redirect()->route('admin.banner.index')
                         ->with('success', 'Banner berhasil diperbarui.');
     }
 
@@ -111,7 +111,7 @@ class BannerController extends Controller
         // Hapus data dari database
         $banner->delete();
 
-        return redirect()->route('banner.index')
+        return redirect()->route('admin.banner.index')
                         ->with('success', 'Banner berhasil dihapus.');
     }
 
@@ -126,7 +126,7 @@ class BannerController extends Controller
         $runningText = RunningText::find(1);
         $runningText->update($request->all());
 
-        return redirect()->route('banner.index')
+        return redirect()->route('admin.banner.index')
                         ->with('success', 'Running text berhasil diperbarui.');
     }
 

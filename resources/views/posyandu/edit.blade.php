@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Edit Posyandu: {{ $posyandu->nama_posyandu }}</h4>
-        <form class="forms-sample" action="{{ route('posyandu.update', $posyandu->id) }}" method="POST">
+        <form class="forms-sample" action="{{route('admin.posyandu.update', $posyandu->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -23,7 +23,7 @@
                 <input type="text" class="form-control" id="nama_posyandu" name="nama_posyandu" value="{{ old('nama_posyandu', $posyandu->nama_posyandu) }}" required>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>
-            <a href="{{ route('posyandu.index') }}" class="btn btn-light">Batal</a>
+            <a href="{{route('admin.posyandu.index') }}" class="btn btn-light">Batal</a>
         </form>
     </div>
 </div>

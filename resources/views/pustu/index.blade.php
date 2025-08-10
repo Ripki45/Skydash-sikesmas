@@ -20,7 +20,7 @@
                     Kelola semua data puskesmas pembantu di wilayah Anda.
                 </p>
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('pustu.create') }}" class="btn btn-primary">Tambah Pustu Baru</a>
+                    <a href="{{ route('admin.pustu.create') }}" class="btn btn-primary">Tambah Pustu Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -48,15 +48,25 @@
                                     <td>
                                         <a href="{{ $pustu->lokasi_map }}" target="_blank" class="btn btn-info btn-sm">Lihat Peta</a>
                                     </td>
-                                    <td>
-                                        <a href="{{ route('pustu.edit', $pustu->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    {{-- <td>
+                                        <a href="{{ route('admin.pustu.edit', $pustu->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         {{-- Tombol Hapus Baru --}}
-                                        <button type="button" class="btn btn-danger btn-sm"
+                                        {{-- <button type="button" class="btn btn-danger btn-sm"
                                                 data-toggle="modal"
                                                 data-target="#deleteModal"
-                                                data-url="{{ route('pustu.destroy', $pustu->id) }}">
+                                                data-url="{{ route('admin.pustu.destroy', $pustu->id) }}">
                                             Delete
-                                        </button>
+                                        </button> --}}
+                                    {{-- </td> --}}
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.pustu.edit', $pustu->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                        data-url="{{ route('admin.pustu.destroy', $pustu->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

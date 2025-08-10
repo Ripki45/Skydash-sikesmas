@@ -23,7 +23,7 @@
             <div class="card-body">
                 <h4 class="card-title">{{ $kategoriToEdit ? 'Edit Kategori' : 'Tambah Kategori Baru' }}</h4>
                 <form class="forms-sample"
-                      action="{{ $kategoriToEdit ? route('galeri-kategori.update', $kategoriToEdit->id) : route('galeri-kategori.store') }}"
+                      action="{{ $kategoriToEdit ?route('admin.galeri-kategori.update', $kategoriToEdit->id) :route('admin.galeri-kategori.store') }}"
                       method="POST">
                     @csrf
                     @if($kategoriToEdit)
@@ -42,7 +42,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">{{ $kategoriToEdit ? 'Simpan Perubahan' : 'Simpan' }}</button>
                     @if($kategoriToEdit)
-                        <a href="{{ route('galeri-kategori.index') }}" class="btn btn-light">Batal</a>
+                        <a href="{{route('admin.galeri-kategori.index') }}" class="btn btn-light">Batal</a>
                     @endif
                 </form>
             </div>
@@ -72,13 +72,23 @@
                                 <td>{{ $kategori->nama_kategori }}</td>
                                 <td>{{ $kategori->slug }}</td>
                                 <td>{{ $kategori->galeris()->count() }}</td>
-                                <td class="d-flex">
-                                    <a href="{{ route('galeri-kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
+                                {{-- <td class="d-flex">
+                                    <a href="{{route('admin.galeri-kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm mr-2">Edit</a>
                                     <button type="button" class="btn btn-danger btn-sm"
                                             data-toggle="modal" data-target="#deleteModal"
-                                            data-url="{{ route('galeri-kategori.destroy', $kategori->id) }}">
+                                            data-url="{{route('admin.galeri-kategori.destroy', $kategori->id) }}">
                                         Hapus
                                     </button>
+                                </td> --}}
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{route('admin.galeri-kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                data-toggle="modal" data-target="#deleteModal"
+                                                    data-url="{{route('admin.galeri-kategori.destroy', $kategori->id) }}">
+                                                    Hapus
+                                            </button>
+                                    </div>
                                 </td>
                             </tr>
                             @empty
@@ -89,6 +99,29 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus halaman ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <form id="deleteForm" action="" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Ya, Hapus!</button>
+                </form>
             </div>
         </div>
     </div>

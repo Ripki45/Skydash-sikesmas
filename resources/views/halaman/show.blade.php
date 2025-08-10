@@ -15,7 +15,7 @@
             {!! $halaman->konten !!}
         </div>
 
-        <a href="{{ route('halaman.index') }}" class="btn btn-light mt-4">Kembali ke Daftar Halaman</a>
+        <a href="{{ route('admin.halaman.index') }}" class="btn btn-light mt-4">Kembali ke Daftar Halaman</a>
     </div>
 </div>
 @endsection

@@ -676,7 +676,7 @@
                         <ul class="icon-data-list">
                             <li>
                                 <div class="d-flex">
-                                    <img src="images/faces/face1.jpg" alt="user">
+
                                     <div>
                                         <p class="text-info mb-1">Isabella Becker</p>
                                         <p class="mb-0">Sales dashboard have been created</p>

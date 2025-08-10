@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('skrining-skilas.store') }}" method="POST">
+<form action="{{ route('admin.skrining-skilas.store') }}" method="POST">
     @csrf
     <div class="row">
         <div class="col-12 grid-margin">
@@ -305,7 +305,7 @@
 
         <div class="col-12">
             <button type="submit" class="btn btn-primary btn-lg">Simpan Hasil Skrining</button>
-            <a href="{{ route('skrining-skilas.index') }}" class="btn btn-light">Batal</a>
+            <a href="{{ route('admin.skrining-skilas.index') }}" class="btn btn-light">Batal</a>
         </div>
     </div>
 </form>

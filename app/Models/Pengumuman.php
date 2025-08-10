@@ -11,5 +11,23 @@ class Pengumuman extends Model
 
      protected $table = 'pengumumans'; // <--- TAMBAHKAN INI
 
+     protected $fillable = [
+    'judul',
+    'isi',
+    'lampiran',
+    'tipe',
+    'tanggal_mulai',
+    'tanggal_selesai',
+    'status',
+    'konfirmasi_diperlukan', // <-- TAMBAHKAN INI
+];
+
     protected $guarded = ['id'];
+
+    public function attendees()
+    {
+        return $this->belongsToMany(User::class, 'pengumuman_user');
+    }
+
+
 }

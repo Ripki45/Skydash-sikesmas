@@ -147,7 +147,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="py-1">
-                                            <img src="../../images/faces/face1.jpg" alt="image" />
+
                                         </td>
                                         <td>
                                             Herman Beck

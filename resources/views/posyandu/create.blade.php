@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Tambah Posyandu Baru</h4>
-        <form class="forms-sample" action="{{ route('posyandu.store') }}" method="POST">
+        <form class="forms-sample" action="{{route('admin.posyandu.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="dusun_id">Pilih Dusun</label>
@@ -20,7 +20,7 @@
                 <input type="text" class="form-control" id="nama_posyandu" name="nama_posyandu" placeholder="Contoh: Posyandu Melati 1" required>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-            <a href="{{ route('posyandu.index') }}" class="btn btn-light">Batal</a>
+            <a href="{{route('admin.posyandu.index') }}" class="btn btn-light">Batal</a>
         </form>
     </div>
 </div>

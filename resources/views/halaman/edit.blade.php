@@ -4,7 +4,7 @@
 
 {{-- Form diarahkan ke route 'halaman.update' dan harus menggunakan method 'POST' --}}
 {{-- Kita juga menambahkan @method('PUT') untuk memberitahu Laravel ini adalah proses UPDATE --}}
-<form class="forms-sample" action="{{ route('halaman.update', $halaman->id) }}" method="POST" enctype="multipart/form-data">
+<form class="forms-sample" action="{{ route('admin.halaman.update', $halaman->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 
@@ -60,7 +60,7 @@
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
-                <a href="{{ route('halaman.index') }}" class="btn btn-light btn-block mt-2">Batal</a>
+                <a href="{{ route('admin.halaman.index') }}" class="btn btn-light btn-block mt-2">Batal</a>
             </div>
         </div>
 

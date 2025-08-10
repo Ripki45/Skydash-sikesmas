@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form class="forms-sample" action="{{ route('pengumuman.store') }}" method="POST" enctype="multipart/form-data">
+<form class="forms-sample" action="{{ route('admin.pengumuman.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 
 <div class="row">
@@ -92,7 +92,8 @@
 </form>
 @endsection
 
-@section('scripts')
+@push('scripts')
+{{-- Script untuk editor teks dan file upload --}}
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
@@ -100,5 +101,19 @@
         .catch( error => {
             console.error( error );
         } );
+
+    // Script untuk membuat tombol upload file berfungsi
+    (function($) {
+        'use strict';
+        $(function() {
+            $('.file-upload-browse').on('click', function() {
+                var file = $(this).parent().parent().parent().find('.file-upload-default');
+                file.trigger('click');
+            });
+            $('.file-upload-default').on('change', function() {
+                $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+            });
+        });
+    })(jQuery);
 </script>
-@endsection
+@endpush

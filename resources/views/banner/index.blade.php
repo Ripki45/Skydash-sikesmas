@@ -21,7 +21,7 @@
                     Atur gambar banner yang akan tampil di halaman depan.
                 </p>
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('banner.create') }}" class="btn btn-primary">Tambah Banner Baru</a>
+                    <a href="{{ route('admin.banner.create') }}" class="btn btn-primary">Tambah Banner Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -42,18 +42,19 @@
                                     </td>
                                     <td>{{ $banner->urutan_tampil }}</td>
                                     {{-- <td>
-                                        <a href="{{ route('banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ route('admin.banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <a href="#" class="btn btn-danger btn-sm">Hapus</a>
                                     </td> --}}
                                     <td>
-                                        <a href="{{ route('banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <button type-="button" class="btn btn-danger btn-sm"
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
                                                     data-toggle="modal" data-target="#deleteModal"
-                                                    data-url="{{ route('banner.destroy', $banner->id) }}">
-                                                Hapus
-                                        </button>
+                                                        data-url="{{ route('admin.users.destroy', $banner->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
                                     </td>
-                                </tr>
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-center">Belum ada banner yang ditambahkan.</td>
@@ -107,15 +108,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus data ini?
+                Apakah Anda yakin ingin menghapus halaman ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                {{--
-                    REVISI PENTING #2: Form Hapus
-                    Pastikan form ini ada di dalam file Blade dan memiliki @csrf serta @method('DELETE')
-                    Ini adalah penyebab utama error Anda.
-                --}}
                 <form id="deleteForm" action="" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')

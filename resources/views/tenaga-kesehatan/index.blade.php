@@ -15,7 +15,7 @@
         <h4 class="card-title">Manajemen Sumber Daya Manusia (SDM)</h4>
         <div class="d-flex justify-content-between align-items-center">
             <p class="card-description">Kelola data semua tenaga kesehatan dan staf.</p>
-            <a href="{{ route('tenaga-kesehatan.create') }}" class="btn btn-primary">Tambah Data Baru</a>
+            <a href="{{ route('admin.tenaga-kesehatan.create') }}" class="btn btn-primary">Tambah Data Baru</a>
         </div>
         <div class="table-responsive mt-4">
             <table class="table table-striped">
@@ -42,13 +42,17 @@
                         <td>{{ $item->jabatan }}</td>
                         <td>{{ $item->jadwal_praktik ?? '-' }}</td>
                         <td>
-                        <a href="{{ route('tenaga-kesehatan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <button type-="button" class="btn btn-danger btn-sm"
-                            data-toggle="modal" data-target="#deleteModal"
-                                data-url="{{ route('tenaga-kesehatan.destroy', $item->id) }}">
-                                Hapus
-                        </button>
-                    </td>
+                                <div class="btn-group">
+                                    <a href="{{ route('admin.tenaga-kesehatan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    {{-- KOMPONEN #1: TOMBOL PEMICU --}}
+                                    {{-- Pastikan rute destroy mengarah ke users.destroy --}}
+                                    <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                            data-toggle="modal" data-target="#deleteModal"
+                                            data-url="{{ route('admin.tenaga-kesehatan.destroy', $item->id) }}">
+                                        Hapus
+                                    </button>
+                                </div>
+                        </td>
                     </tr>
                     @empty
                     <tr>
@@ -70,15 +74,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus halaman ini?
+                Apakah Anda yakin ingin menghapus data pengguna ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+
+                {{-- KOMPONEN #2: MESIN PENGHANCUR (Sudah Benar) --}}
                 <form id="deleteForm" action="" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Ya, Hapus!</button>
                 </form>
+
             </div>
         </div>
     </div>

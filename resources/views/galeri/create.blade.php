@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tambah Foto Baru ke Galeri</h4>
-                <form class="forms-sample" action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label>Gambar</label>
@@ -37,7 +37,7 @@
                         <input type="number" class="form-control" id="urutan" name="urutan" value="0" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                    <a href="{{ route('galeri.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.galeri.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

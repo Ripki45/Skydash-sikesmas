@@ -21,7 +21,7 @@
                 </p>
                 <div class="d-flex justify-content-end mb-3">
                     {{-- Tombol ini akan kita fungsikan nanti --}}
-                    <a href="{{ route('galeri.create') }}" class="btn btn-primary">Tambah Foto Baru</a>
+                    <a href="{{ route('admin.galeri.create') }}" class="btn btn-primary">Tambah Foto Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -48,14 +48,24 @@
                                         <span class="badge badge-info">{{ $galeri->kategori->nama_kategori ?? 'Umum' }}</span>
                                     </td>
                                     <td>{{ $galeri->urutan }}</td>
-                                    <td>
-                                            <a href="{{ route('galeri.edit', $galeri->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    {{-- <td>
+                                            <a href="{{ route('admin.galeri.edit', $galeri->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                             <button type-="button" class="btn btn-danger btn-sm"
                                                     data-toggle="modal" data-target="#deleteModal"
-                                                    data-url="{{ route('galeri.destroy', $galeri->id) }}">
+                                                    data-url="{{ route('admin.galeri.destroy', $galeri->id) }}">
                                                 Hapus
                                             </button>
-                                        </td>
+                                        </td> --}}
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.galeri.edit', $galeri->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                        data-url="{{ route('admin.galeri.destroy', $galeri->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -80,15 +90,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus data ini?
+                Apakah Anda yakin ingin menghapus halaman ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                {{--
-                    REVISI PENTING #2: Form Hapus
-                    Pastikan form ini ada di dalam file Blade dan memiliki @csrf serta @method('DELETE')
-                    Ini adalah penyebab utama error Anda.
-                --}}
                 <form id="deleteForm" action="" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')

@@ -50,7 +50,7 @@ class HalamanController extends Controller
             'kluster_id' => $request->kluster_id,
         ]);
 
-        return redirect()->route('halaman.index')
+        return redirect()->route('admin.halaman.index')
                         ->with('success', 'Halaman baru berhasil dibuat.');
     }
 
@@ -62,7 +62,7 @@ class HalamanController extends Controller
     public function edit(Halaman $halaman)
     {
         $klusters = Kluster::whereNull('parent_id')->get();
-        return view('halaman.edit', compact('halaman', 'klusters'));
+        return view('admin.halaman.edit', compact('halaman', 'klusters'));
     }
 
     public function update(Request $request, Halaman $halaman)
@@ -97,7 +97,7 @@ class HalamanController extends Controller
             Storage::disk('public')->delete($halaman->gambar_unggulan);
         }
         $halaman->delete();
-        return redirect()->route('halaman.index')
+        return redirect()->route('admin.halaman.index')
                          ->with('success', 'Halaman berhasil dihapus.');
     }
 }

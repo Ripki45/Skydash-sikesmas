@@ -116,6 +116,143 @@
 /* === Import template variables === */
 /*-------------------------------------------------------------------*/
 /* === SCSS Compass Functions === */
+/* ============================
+   STYLING FILTER JADWAL
+============================ */
+.jadwal-filter {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.jadwal-filter h5 {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.jadwal-filter .form-label {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.jadwal-filter select.form-control {
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* ============================
+   JADWAL TERDEKAT LIST
+============================ */
+.upcoming-events {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.upcoming-events .event-item {
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.upcoming-events .event-item:last-child {
+    border-bottom: none;
+}
+
+.upcoming-events .event-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.upcoming-events .event-date {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* =======================
+   STYLE FILTER & JADWAL
+   ======================= */
+.jadwal-filter {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.jadwal-filter h5 {
+    font-weight: 600;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+/* =======================
+   STYLE LIST JADWAL
+   ======================= */
+.upcoming-events {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.event-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+    border-left: 5px solid #0d6efd;
+    transition: all 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+}
+
+.event-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.event-date {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.event-location {
+    font-size: 14px;
+    color: #495057;
+}
+
+/* =======================
+   STYLE KALENDER
+   ======================= */
+.calendar-widget {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+}
+
+/* FullCalendar style tweak */
+.fc .fc-toolbar-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.fc .fc-daygrid-day {
+    cursor: pointer;
+}
+
+.fc .fc-daygrid-day:hover {
+    background: #f8f9fa;
+}
+
+
 .table .d-flex {
     align-items: center; /* Memastikan tombol di baris yang sama */
 }

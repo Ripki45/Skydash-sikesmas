@@ -28,4 +28,11 @@ class JadwalPosyandu extends Model
     {
         return $this->belongsTo(Posyandu::class);
     }
+
+    public function attendees()
+    {
+        // Nama tabel pivot 'jadwal_posyandu_user' akan otomatis dideteksi oleh Laravel
+        // karena kita mengikuti konvensi penamaan.
+        return $this->belongsToMany(User::class);
+    }
 }

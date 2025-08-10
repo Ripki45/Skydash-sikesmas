@@ -22,7 +22,7 @@ class GaleriKategoriController extends Controller
             'nama_kategori' => $request->nama_kategori,
             'slug' => Str::slug($request->nama_kategori),
         ]);
-        return redirect()->route('galeri-kategori.index')->with('success', 'Kategori galeri baru berhasil ditambahkan.');
+        return redirect()->route('admin.galeri-kategori.index')->with('success', 'Kategori galeri baru berhasil ditambahkan.');
     }
 
     // FUNGSI INI AKAN MENGIRIM DATA KE FORM EDIT
@@ -44,16 +44,16 @@ class GaleriKategoriController extends Controller
             'nama_kategori' => $request->nama_kategori,
             'slug' => Str::slug($request->nama_kategori),
         ]);
-        return redirect()->route('galeri-kategori.index')->with('success', 'Kategori galeri berhasil diperbarui.');
+        return redirect()->route('admin.galeri-kategori.index')->with('success', 'Kategori galeri berhasil diperbarui.');
     }
 
     // FUNGSI HAPUS
     public function destroy(GaleriKategori $galeriKategori)
     {
         if ($galeriKategori->galeris()->count() > 0) {
-            return redirect()->route('galeri-kategori.index')->with('error', 'Kategori tidak dapat dihapus karena masih digunakan oleh foto di galeri.');
+            return redirect()->route('admin.galeri-kategori.index')->with('error', 'Kategori tidak dapat dihapus karena masih digunakan oleh foto di galeri.');
         }
         $galeriKategori->delete();
-        return redirect()->route('galeri-kategori.index')->with('success', 'Kategori galeri berhasil dihapus.');
+        return redirect()->route('admin.galeri-kategori.index')->with('success', 'Kategori galeri berhasil dihapus.');
     }
 }

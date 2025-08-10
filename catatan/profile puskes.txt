@@ -10,7 +10,7 @@ Kebutuhan untuk Profile Puskesmas
   - Daftar misi (bisa bullet point atau list)
 6. Kecamatan
 7. Kepala Puskesmas
-8. Alamat Lengkap
+8. Alamat Lengkap : https://maps.app.goo.gl/zaEGS1dAUu7qku9q9
 9. Kontak
   - Email
   - Nomor Wa/telp

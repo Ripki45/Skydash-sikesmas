@@ -45,7 +45,7 @@ class GaleriController extends Controller
             'urutan' => $request->urutan,
         ]);
 
-        return redirect()->route('galeri.index')
+        return redirect()->route('admin.galeri.index')
                          ->with('success', 'Foto baru berhasil ditambahkan.');
     }
 
@@ -77,7 +77,7 @@ class GaleriController extends Controller
 
         $galeri->update($galeriData);
 
-        return redirect()->route('galeri.index')
+        return redirect()->route('admin.galeri.index')
                          ->with('success', 'Data foto berhasil diperbarui.');
     }
 
@@ -87,7 +87,7 @@ class GaleriController extends Controller
             Storage::disk('public')->delete($galeri->path_gambar);
         }
         $galeri->delete();
-        return redirect()->route('galeri.index')
+        return redirect()->route('admin.galeri.index')
                          ->with('success', 'Foto berhasil dihapus.');
     }
 }

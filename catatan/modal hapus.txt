@@ -1,10 +1,12 @@
 <td>
-    <a href="{{ route('layanan.edit', $layanan->id) }}" class="btn btn-warning btn-sm">Edit</a>
-    <button type-="button" class="btn btn-danger btn-sm"
-        data-toggle="modal" data-target="#deleteModal"
-            data-url="{{ route('layanan.destroy', $layanan->id) }}">
-            Hapus
-    </button>
+    <div class="btn-group">
+        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
+            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                data-toggle="modal" data-target="#deleteModal"
+                    data-url="{{ route('admin.users.destroy', $user->id) }}">
+                     Hapus
+            </button>
+    </div>
 </td>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

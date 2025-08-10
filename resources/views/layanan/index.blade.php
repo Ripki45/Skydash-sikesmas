@@ -20,7 +20,7 @@
                     Kelola semua layanan yang akan ditampilkan di halaman depan.
                 </p>
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('layanan.create') }}" class="btn btn-primary">Tambah Layanan Baru</a>
+                    <a href="{{ route('admin.layanan.create') }}" class="btn btn-primary">Tambah Layanan Baru</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -50,13 +50,23 @@
                                             <span class="badge badge-danger">Tidak Aktif</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <a href="{{ route('layanan.edit', $layanan->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    {{-- <td>
+                                        <a href="{{ route('admin.layanan.edit', $layanan->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <button type-="button" class="btn btn-danger btn-sm"
                                                     data-toggle="modal" data-target="#deleteModal"
-                                                    data-url="{{ route('layanan.destroy', $layanan->id) }}">
+                                                    data-url="{{ route('admin.layanan.destroy', $layanan->id) }}">
                                                 Hapus
                                         </button>
+                                    </td> --}}
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.layanan.edit', $layanan->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                        data-url="{{ route('admin.layanan.destroy', $layanan->id) }}">
+                                                        Hapus
+                                                </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

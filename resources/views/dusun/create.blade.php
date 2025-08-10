@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tambah Dusun Baru</h4>
-                <form class="forms-sample" action="{{ route('dusun.store') }}" method="POST">
+                <form class="forms-sample" action="{{ route('admin.dusun.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="desa_id">Pilih Desa Induk</label>
@@ -22,7 +22,7 @@
                         <input type="text" class="form-control" id="nama_dusun" name="nama_dusun" placeholder="Contoh: Babakan" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan</button>
-                    <a href="{{ route('dusun.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.dusun.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

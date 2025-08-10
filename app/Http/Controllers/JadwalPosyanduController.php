@@ -36,7 +36,7 @@ class JadwalPosyanduController extends Controller
 
         JadwalPosyandu::create($request->all());
 
-        return redirect()->route('jadwal-posyandu.index')
+        return redirect()->route('admin.jadwal-posyandu.index')
                          ->with('success', 'Jadwal baru berhasil ditambahkan.');
     }
 
@@ -60,14 +60,14 @@ class JadwalPosyanduController extends Controller
 
         $jadwalPosyandu->update($request->all());
 
-        return redirect()->route('jadwal-posyandu.index')
+        return redirect()->route('admin.jadwal-posyandu.index')
                          ->with('success', 'Jadwal berhasil diperbarui.');
     }
 
     public function destroy(JadwalPosyandu $jadwalPosyandu)
     {
         $jadwalPosyandu->delete();
-        return redirect()->route('jadwal-posyandu.index')
+        return redirect()->route('admin.jadwal-posyandu.index')
                          ->with('success', 'Jadwal berhasil dihapus.');
     }
 }

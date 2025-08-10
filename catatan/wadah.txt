@@ -12,3 +12,12 @@ Diinput oleh    : ini menampikan nama dari role pengguna yang dipakai
 IDENTITAS PASIEN
 
 awlm irlf bbol qrpk
+
+        Schema::disableForeignKeyConstraints();
+        DB::table('roles')->truncate();
+        DB::table('role_user')->truncate();
+        Schema::enableForeignKeyConstraints();
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');

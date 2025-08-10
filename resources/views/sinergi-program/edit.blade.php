@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Edit Program: {{ $sinergiProgram->nama_program }}</h4>
-                <form class="forms-sample" action="{{ route('sinergi-program.update', $sinergiProgram->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" action="{{ route('admin.sinergi-program.update', $sinergiProgram->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Simpan Perubahan</button>
-                    <a href="{{ route('sinergi-program.index') }}" class="btn btn-light">Batal</a>
+                    <a href="{{ route('admin.sinergi-program.index') }}" class="btn btn-light">Batal</a>
                 </form>
             </div>
         </div>

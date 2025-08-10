@@ -44,7 +44,7 @@ class PustuController extends Controller
             'lokasi_map' => $request->lokasi_map,
         ]);
 
-        return redirect()->route('pustu.index')
+        return redirect()->route('admin.pustu.index')
                          ->with('success', 'Data Pustu baru berhasil ditambahkan.');
     }
 
@@ -75,7 +75,7 @@ class PustuController extends Controller
 
         $pustu->update($pustuData);
 
-        return redirect()->route('pustu.index')
+        return redirect()->route('admin.pustu.index')
                          ->with('success', 'Data Pustu berhasil diperbarui.');
     }
 
@@ -88,7 +88,7 @@ class PustuController extends Controller
 
         $pustu->delete();
 
-        return redirect()->route('pustu.index')
+        return redirect()->route('admin.pustu.index')
                          ->with('success', 'Data Pustu berhasil dihapus.');
     }
 }

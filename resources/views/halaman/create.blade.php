@@ -3,7 +3,7 @@
 @section('content')
 
 {{-- Form akan membungkus kedua kolom --}}
-<form class="forms-sample" action="{{ route('halaman.store') }}" method="POST" enctype="multipart/form-data">
+<form class="forms-sample" action="{{ route('admin.halaman.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 
 <div class="row">
@@ -60,7 +60,7 @@
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-primary btn-block">Simpan Halaman</button>
-                <a href="{{ route('halaman.index') }}" class="btn btn-light btn-block mt-2">Batal</a>
+                <a href="{{ route('admin.halaman.index') }}" class="btn btn-light btn-block mt-2">Batal</a>
             </div>
         </div>
 
