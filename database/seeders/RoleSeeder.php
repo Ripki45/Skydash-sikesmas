@@ -9,10 +9,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-    /**
-     * Jalankan seeder untuk membuat peran (roles) awal dalam sistem.
-     * Kode ini dirancang khusus untuk package spatie/laravel-permission.
-     */
+
     public function run(): void
     {
 

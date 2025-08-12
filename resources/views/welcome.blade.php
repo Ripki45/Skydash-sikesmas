@@ -90,42 +90,43 @@
 
         <section class="bg-light py-5">
             <div class="container">
-                <h3 class="display-7 text-center fw-bold">Tentang Kami</h3>
-                {{-- <h3 class="display-7">Layanan Unggulan</h3> --}}
+                <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+                    <h3 class="display-7 fw-bold">Tentang Kami</h3>
+                </div>
 
-                {{-- Menampilkan Deskripsi dari database --}}
-                <p class="text-center mb-5" style="max-width: 1000px; margin: auto;">
-                    {{ $settings['deskripsi'] ?? 'Deskripsi tentang Puskesmas belum diisi.' }}
-                </p>
-
-                <div class="row align-items-center g-4">
-                    <div class="col-md-6">
-                        {{-- Menampilkan Foto Gedung dari database --}}
+                <div class="row align-items-center g-5">
+                    {{-- KOLOM KIRI: FOTO PUSKESMAS --}}
+                    <div class="col-lg-6">
                         @if(!empty($settings['foto_puskesmas']))
                             <img src="{{ asset('storage/' . $settings['foto_puskesmas']) }}" alt="Gedung Puskesmas" class="img-fluid rounded shadow-sm w-100">
                         @else
-                            {{-- Gambar placeholder jika foto belum di-upload --}}
-                            <img src="https://via.placeholder.com/600x400.png?text=Foto+Puskesmas" alt="Gedung Puskesmas" class="img-fluid rounded shadow-sm w-100">
+                            <img src="https://placehold.co/600x400/e9ecef/343a40?text=Foto+Puskesmas" alt="Gedung Puskesmas" class="img-fluid rounded shadow-sm w-100">
                         @endif
                     </div>
-                    <div class="col-md-6">
-                        <h4 class="fw-bold">Visi dan Misi</h4>
 
-                        {{-- Menampilkan Visi dari database --}}
-                        <p class="fst-italic large fw-bold">
-                            "{{ $settings['visi'] ?? 'Visi belum diisi.' }}"
-                        </p>
+                    {{-- KOLOM KANAN: DESKRIPSI, VISI, & MISI --}}
+                    <div class="col-lg-6">
+                        {{-- PERBAIKAN #1: Menggunakan {!! !!} untuk merender HTML dari deskripsi --}}
+                        {{-- PERBAIKAN #2: Menghapus class text-center dan menggunakan text-start (rata kiri) --}}
+                        <div class="text-start mb-4">
+                            {!! $settings['deskripsi'] ?? '<p>Deskripsi tentang Puskesmas belum diisi.</p>' !!}
+                        </div>
 
-                        {{-- Menampilkan Misi dari database --}}
-                        {{-- Fungsi nl2br() akan otomatis mengubah setiap baris baru menjadi bullet point --}}
-                        <div class="mt-3">
-                            {!! nl2br(e($settings['misi'] ?? 'Misi belum diisi.')) !!}
+                        <h4 class="fw-bold">Visi</h4>
+                        {{-- PERBAIKAN #3: Menggunakan {!! !!} untuk Visi --}}
+                        <div class="fst-italic text-primary mb-3">
+                            {!! $settings['visi'] ?? '<p>"Visi belum diisi."</p>' !!}
+                        </div>
+
+                        <h4 class="fw-bold">Misi</h4>
+                        {{-- PERBAIKAN #4: Menggunakan {!! !!} untuk Misi --}}
+                        <div class="text-start">
+                            {!! $settings['misi'] ?? '<ul><li>Misi belum diisi.</li></ul>' !!}
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
 
         {{-- pengumuman dan slider berita --}}
         <div class="container-fluid py-2">

@@ -2,14 +2,14 @@
 <div class="container-fluid sticky-top px-0">
     <div class="container-fluid bg-light">
         <div class="container px-0">
-            <nav class="navbar navbar-expand-xl navbar-light bg-light sticky-top py-3">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top py-1">
                 <div class="container-fluid">
                     <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
                         @if(isset($settings['logo_puskesmas']) && $settings['logo_puskesmas'])
-                            <img src="{{ asset('storage/' . $settings['logo_puskesmas']) }}" alt="Logo Puskesmas" style="height: 75px; margin-right: 20px;">
+                            <img src="{{ asset('storage/' . $settings['logo_puskesmas']) }}" alt="Logo Puskesmas" style="height: 60px; margin-right: 18px;">
                         @endif
                         <div>
-                            <p class="text-primary mb-0 display-6">{{ $settings['nama_puskesmas'] ?? 'Puskesmas' }}</p>
+                            <p class="text-primary mb-0 fw-bold">{{ $settings['nama_puskesmas'] ?? 'Puskesmas' }}</p>
                             <small class="text-secondary" style="letter-spacing: 2px; line-height: 2;">{{ $settings['kecamatan'] ?? 'Kecamatan' }}</small>
                         </div>
                     </a>
