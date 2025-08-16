@@ -1,5 +1,93 @@
 /* Mega Menu hanya tampil besar di desktop */
 /* Custom Styles for Jadwal Section */
+/* ==== STRUKTUR & Z-INDEX ==== */
+.sticky-top {
+    z-index: 1030;
+}
+.navbar .nav-link {
+    white-space: nowrap;
+}
+
+/* ======================================================= */
+/* ==== MEGA DROPDOWN (HANYA UNTUK TAMPILAN DESKTOP) ==== */
+/* ======================================================= */
+@media (min-width: 992px) {
+    .navbar {
+        position: relative;
+    }
+
+    .nav-item.dropdown.position-static .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+
+        margin-top: 0;
+        border: 0;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        background: #fff;
+    }
+
+    .nav-item.dropdown.position-static .dropdown-menu .row {
+        width: min(1320px, calc(100vw - 2rem));
+        margin-left: auto;
+        margin-right: auto;
+        padding: 1.5rem 0;
+
+        /* === [IDE BARU: SCROLL DESKTOP] === */
+        /* Atur tinggi maksimal dropdown di desktop. Sesuaikan nilainya. */
+        max-height: 70vh; /* Contoh: 70% dari tinggi viewport */
+        overflow-y: auto; /* Tampilkan scroll jika konten lebih tinggi */
+    }
+
+    .navbar .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+}
+
+/* ==== TIPOGRAFI & STYLE ITEM DROPDOWN ==== */
+.mega-menu-column h6 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.4rem;
+}
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    white-space: normal;
+}
+.dropdown-item:hover {
+    background: rgba(13, 110, 253, 0.08);
+    color: #0d6efd;
+    border-radius: 8px;
+}
+
+/* ==== PERILAKU DI MOBILE (DI BAWAH 992px) ==== */
+@media (max-width: 991.98px) {
+    .nav-item.dropdown.position-static .dropdown-menu {
+        position: static !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border-top: 1px solid #eee !important;
+        border-radius: 0 !important;
+        background-color: #f8f9fa;
+
+        /* === [IDE BARU: SCROLL MOBILE] === */
+        /* Atur tinggi maksimal dropdown di mobile. */
+        max-height: 50vh; /* Contoh: 50% dari tinggi viewport */
+        overflow-y: auto; /* Tampilkan scroll jika konten lebih tinggi */
+    }
+
+    .mega-menu-column {
+        margin-bottom: 1rem;
+    }
+}
+
 .galeri-main-img {
     height: 500px;
     object-fit: cover;
@@ -300,45 +388,6 @@ ul li {
     padding: 0 20px 20px 20px;
 }
 
-/* Navbar */
-.navbar .dropdown-menu {
-    left: 0;
-    right: 0;
-    width: 100%;
-    border-radius: 0;
-}
-
-@media (min-width: 1200px) {
-    .navbar .dropdown:hover > .dropdown-menu {
-        display: block;
-        visibility: visible;
-        opacity: 1;
-        position: absolute;
-        top: 100%;
-        z-index: 1000;
-    }
-}
-
-.mega-menu-column h6 {
-    margin-bottom: 0.75rem;
-    font-size: 14px;
-    color: #000000;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-}
-
-.dropdown-item {
-    padding: 0.4rem 1rem;
-    font-size: 15px;
-    color: #000000;
-    white-space: nowrap;
-}
-
-.dropdown-item:hover {
-    background-color: #f1f1f1;
-    color: #007bff;
-}
-
 /* Custom Berita & Pengumuman Styles */
 .berita-img {
     height: 240px;
@@ -609,65 +658,7 @@ ul li {
 }
 
 /*** Topbar End ***/
-
-/*** Navbar Start ***/
-.navbar .navbar-nav .nav-link {
-    padding: 10px 15px;
-    font-weight: 500;
-    color: #000000;
-    font-family: "Fredoka", sans-serif;
-    font-size: 16px;
-    transition: 0.5s;
-}
-
-.navbar .navbar-nav .nav-link:hover,
-.navbar .navbar-nav .nav-link.active,
-.sticky-top.bg-white .navbar .navbar-nav .nav-link:hover,
-.sticky-top.bg-white .navbar .navbar-nav .nav-link.active {
-    color: var(--bs-primary);
-}
-
-.navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 700;
-    vertical-align: middle;
-    margin-left: 8px;
-}
-
-.dropdown .dropdown-menu a:hover {
-    background: var(--bs-secondary);
-    color: var(--bs-primary);
-}
-
-@media (min-width: 1200px) {
-    .navbar .nav-item .dropdown-menu {
-        display: block;
-        visibility: hidden;
-        top: 100%;
-        font-weight: 400;
-        font-family: "Fredoka", sans-serif;
-        transform: rotateX(-75deg);
-        transform-origin: 0% 0%;
-        border: 0;
-        transition: all 0.5s ease;
-        opacity: 0;
-        margin-top: 0;
-    }
-
-    .navbar .nav-item.dropdown:hover .dropdown-menu {
-        transform: rotateX(0deg);
-        visibility: visible;
-        opacity: 1;
-        background: var(--bs-light) !important;
-        border-radius: 10px !important;
-    }
-
-    .navbar .navbar-collapse .border-top {
-        border-top: none !important;
-    }
-}
+/* navbar */
 
 #searchModal .modal-content {
     background: rgba(255, 255, 255, 0.8);

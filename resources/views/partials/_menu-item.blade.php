@@ -1,39 +1,54 @@
+{{-- _menu-item.blade.php --}}
+
 @if ($menu->childrenRecursive->isNotEmpty())
-    {{-- Jika ini adalah level pertama --}}
     @if (!isset($isChild))
-        <div class="nav-item dropdown position-static">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ $menu->title }}</a>
-            <div class="dropdown-menu m-0 bg-light rounded-0">
+        {{-- Menu level pertama dengan anak --}}
+        <li class="nav-item dropdown position-static">
+            <a href="#" class="nav-link dropdown-toggle fw-bold" data-bs-toggle="dropdown">
+                {{ $menu->title }}
+            </a>
+            <div class="dropdown-menu m-0 bg-light rounded-0 shadow border-0">
                 @foreach ($menu->childrenRecursive as $child)
-                    @include('layouts.partials._menu-item', ['menu' => $child, 'isChild' => true])
+                    @include('layouts.partials._menu-item', [
+                        'menu' => $child,
+                        'isChild' => true
+                    ])
                 @endforeach
             </div>
-        </div>
+        </li>
     @else
-        {{-- Jika ini adalah submenu --}}
-        <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">{{ $menu->title }}</a>
-        <div class="dropdown-menu dropdown-submenu m-0 bg-light rounded-0">
-            @foreach ($menu->childrenRecursive as $child)
-                @include('layouts.partials._menu-item', ['menu' => $child, 'isChild' => true])
-            @endforeach
+        {{-- Submenu --}}
+        <div class="dropdown-submenu">
+            <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">
+                {{ $menu->title }}
+            </a>
+            <div class="dropdown-menu m-0 bg-light rounded-0 shadow border-0">
+                @foreach ($menu->childrenRecursive as $child)
+                    @include('layouts.partials._menu-item', [
+                        'menu' => $child,
+                        'isChild' => true
+                    ])
+                @endforeach
+            </div>
         </div>
     @endif
 @else
     @php
         $menuUrl = '#';
-        if ($menu->url) {
+        if (!empty($menu->url)) {
             $menuUrl = $menu->url;
-        } elseif ($menu->halaman) {
-            // Ganti di sini untuk menggunakan nama rute yang BARU
-            $menuUrl = route('halaman.tampil', $menu->halaman);
+        } elseif (!empty($menu->halaman)) {
+            $menuUrl = route('halaman.tampil', $menu->halaman->slug);
         }
     @endphp
 
     @if (!isset($isChild))
         {{-- Menu utama tanpa anak --}}
-        <a href="{{ $menuUrl }}" class="nav-item nav-link">{{ $menu->title }}</a>
+        <li class="nav-item">
+            <a href="{{ $menuUrl }}" class="nav-link fw-bold">{{ $menu->title }}</a>
+        </li>
     @else
-        {{-- Submenu (dropdown-item) --}}
+        {{-- Submenu item --}}
         <a href="{{ $menuUrl }}" class="dropdown-item">{{ $menu->title }}</a>
     @endif
 @endif
