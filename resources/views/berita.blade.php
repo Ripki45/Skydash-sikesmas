@@ -19,7 +19,7 @@
                             </div>
                             <div class="berita-content-2 p-4">
                                 <a href="#" class="badge badge-primary-soft mb-3">{{ $berita->kategori->nama_kategori }}</a>
-                                <a href="#" class="h5 d-block mb-3">{{ Str::limit($berita->judul, 50) }}</a>
+                                <a href="{{ route('artikel.show', $berita->slug) }}" class="h5 d-block mb-3">{{ Str::limit($berita->judul, 50) }}</a>
                                 <div class="d-flex justify-content-between">
                                     <small class="text-body"><i class="fa fa-user me-2 text-primary"></i>{{ $berita->user->name }}</small>
                                     <small class="text-body d-block"><i class="fas fa-calendar-alt me-2 text-primary"></i>{{ $berita->published_at->format('d M Y') }}</small>

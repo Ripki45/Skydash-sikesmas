@@ -88,29 +88,39 @@ class HomeController extends Controller
 
     public function getJadwalByFilter(Request $request)
     {
-        $query = JadwalPosyandu::with('posyandu.dusun.desa')
-                        ->orderBy('tanggal_kegiatan', 'asc');
+        // "PENJAGA" BARU YANG LEBIH KETAT:
+        // Jika tidak ada posyandu_id yang dikirim, langsung kembalikan hasil kosong.
+        if (!$request->filled('posyandu_id')) {
+            return response()->json([
+                'events' => [],
+                'list_html' => view('partials._jadwal-list', ['jadwals' => collect()])->render(),
+            ]);
+        }
 
+        // Jika ada posyandu_id, lanjutkan dengan logika query yang sudah ada...
+        $query = JadwalPosyandu::with('posyandu.dusun.desa')
+                            ->orderBy('tanggal_kegiatan', 'asc');
+
+        // Filter utama sekarang adalah posyandu_id
+        $query->where('posyandu_id', $request->posyandu_id);
+
+        // Filter tanggal dari kalender (tetap diperlukan)
         if ($request->filled('start') && $request->filled('end')) {
             $query->whereBetween('tanggal_kegiatan', [$request->start, $request->end]);
         } else {
             $query->whereDate('tanggal_kegiatan', '>=', now());
         }
 
+        // Filter desa dan dusun menjadi opsional tambahan jika diperlukan
         if ($request->filled('desa_id')) {
             $query->whereHas('posyandu.dusun', function ($q) use ($request) {
                 $q->where('desa_id', $request->desa_id);
             });
         }
-
         if ($request->filled('dusun_id')) {
             $query->whereHas('posyandu', function ($q) use ($request) {
                 $q->where('dusun_id', $request->dusun_id);
             });
-        }
-
-        if ($request->filled('posyandu_id')) {
-            $query->where('posyandu_id', $request->posyandu_id);
         }
 
         $jadwals = $query->get();
@@ -184,6 +194,57 @@ class HomeController extends Controller
                                 ->get();
 
         return view('berita-detail', compact('berita', 'kategoris', 'trendingTags', 'beritaTerkait'));
+    }
+
+    public function semuaPengumuman()
+    {
+        // 1. Ambil data utama: Pengumuman
+        $pengumumans = Pengumuman::where('status', 'published')
+            ->whereDate('tanggal_selesai', '>=', now())
+            ->latest()
+            ->paginate(10);
+
+        // 2. Ambil data untuk sidebar
+        $kategoris = Kategori::has('beritas')->withCount('beritas')->get();
+        $layanans = Layanan::where('is_active', true)->orderBy('urutan')->get();
+
+        // INILAH PENAMBAHANNYA: Ambil 3 berita terbaru
+        $beritaTerbaru = Berita::where('status', 'published')
+            ->whereDate('published_at', '<=', now())
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        // 3. Kirim semua data ke view
+        return view('pengumuman', compact('pengumumans', 'kategoris', 'layanans', 'beritaTerbaru'));
+    }
+
+    public function showPengumuman(Pengumuman $pengumuman)
+    {
+        // Pastikan pengumuman yang diakses sudah di-publish dan belum kedaluwarsa
+        if ($pengumuman->status !== 'published' || $pengumuman->tanggal_selesai < now()->toDateString()) {
+            abort(404);
+        }
+
+        // Ambil data untuk sidebar
+        $kategoris = Kategori::has('beritas')->withCount('beritas')->get();
+        $layanans = Layanan::where('is_active', true)->orderBy('urutan')->get();
+        $beritaTerbaru = Berita::where('status', 'published')
+            ->whereDate('published_at', '<=', now())
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        // Ambil 3 pengumuman lainnya untuk ditampilkan di sidebar
+        $pengumumanLainnya = Pengumuman::where('status', 'published')
+            ->where('id', '!=', $pengumuman->id) // Jangan tampilkan pengumuman yang sedang dibaca
+            ->whereDate('tanggal_selesai', '>=', now())
+            ->latest()
+            ->take(3)
+            ->get();
+
+        // Kirim semua data ke view
+        return view('pengumuman-detail', compact('pengumuman', 'kategoris', 'layanans', 'beritaTerbaru', 'pengumumanLainnya'));
     }
 
 }

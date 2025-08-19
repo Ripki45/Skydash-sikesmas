@@ -6,7 +6,7 @@
         {{-- Breadcrumb Dinamis --}}
         <ol class="breadcrumb justify-content-start mb-4">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('admin.berita.semua') }}">Artikel</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('berita.semua') }}">Artikel</a></li>
             <li class="breadcrumb-item active text-dark">{{ Str::limit($berita->judul, 50) }}</li>
         </ol>
         <div class="row g-4">
@@ -56,7 +56,7 @@
                             <div class="d-flex align-items-center p-3 bg-white rounded">
                                 <img src="{{ asset('storage/' . $terkait->gambar_unggulan) }}" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;" alt="">
                                 <div class="ms-3">
-                                    <a href="{{ route('admin.berita.show', $terkait->slug) }}" class="h5 mb-2">{{ Str::limit($terkait->judul, 30) }}</a>
+                                    <a href="{{ route('artikel.show', $terkait->slug) }}" class="h5 mb-2">{{ Str::limit($terkait->judul, 30) }}</a>
                                     <p class="text-dark mt-2 mb-0 me-3 small"><i class="fa fa-clock"></i> {{ $terkait->published_at->format('d M Y') }}</p>
                                 </div>
                             </div>

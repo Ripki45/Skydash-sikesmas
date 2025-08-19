@@ -4,7 +4,6 @@
         <div class="container px-0">
             <nav class="navbar navbar-expand-lg navbar-light bg-light py-1">
                 <div class="container-fluid">
-
                     {{-- Logo & Nama Puskesmas --}}
                     <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
                         @if(!empty($settings['logo_puskesmas']))

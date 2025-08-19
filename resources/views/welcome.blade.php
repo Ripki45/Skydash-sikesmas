@@ -129,8 +129,8 @@
         </section>
 
         {{-- pengumuman dan slider berita --}}
-        <div class="container-fluid py-2">
-            <div class="container py-2">
+        <div class="container-fluid py-5">
+            <div class="container py-3">
                 <div class="row">
                     {{-- KOLOM KIRI: SLIDER BERITA --}}
                     <div class="col-lg-7">
@@ -175,15 +175,28 @@
                         </div>
                         <div class="pengumuman-list">
                             @forelse($pengumumans as $item)
-                            <div class="pengumuman-item">
+                            <div class="pengumuman-item mb-3 pb-3 border-bottom">
                                 <div class="pengumuman-content">
+                                    {{-- Arahkan link ini ke halaman detail jika ada, atau biarkan # --}}
                                     <a href="#" class="h6">{{ $item->judul }}</a>
-                                    <small class="text-muted d-block"><i class="fas fa-calendar-alt me-1"></i> Berlaku s/d {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}</small>
+                                    <small class="text-muted d-block">
+                                        <i class="fas fa-calendar-alt me-1"></i>
+                                        Berlaku s/d {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
+                                    </small>
                                 </div>
                             </div>
                             @empty
                             <p>Tidak ada pengumuman.</p>
                             @endforelse
+
+                            {{-- INILAH PENAMBAHANNYA --}}
+                            @if($pengumumans->isNotEmpty())
+                            <div class="mt-2 text-end">
+                                <a href="{{ route('pengumuman.semua') }}" class="text-primary link-hover">
+                                    Lihat Selengkapnya... <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -320,8 +333,8 @@
                     <div class="col-lg-7 col-xl-8 mt-0">
                         @if($beritas->isNotEmpty())
                             @php
-                                $beritaUtama = $beritas->first(); // Berita pertama untuk post utama
-                                $beritaKedua = $beritas->slice(1, 1)->first(); // Berita kedua untuk "Top Story"
+                                $beritaUtama = $beritas->first();
+                                $beritaKedua = $beritas->slice(1, 1)->first();
                             @endphp
 
                             {{-- Berita Utama --}}
@@ -330,18 +343,18 @@
                                 <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
                                     <a href="#" class="text-white me-3 link-hover"><i class="fa fa-user"></i> {{ $beritaUtama->user->name }}</a>
                                     <a href="#" class="text-white me-3 link-hover"><i class="fa fa-folder"></i> {{ $beritaUtama->kategori->nama_kategori }}</a>
-                                    <a href="#" class="text-white me-3 link-hover"><i class="fa fa-comment-dots"></i> 05 Comment</a>
                                 </div>
                             </div>
                             <div class="border-bottom py-3">
-                                <a href="#" class="display-4 text-dark mb-0 link-hover">{{ $beritaUtama->judul }}</a>
+                                {{-- PERBAIKAN #1: Gunakan slug dari $beritaUtama --}}
+                                <a href="{{ route('artikel.show', $beritaUtama->slug) }}" class="display-4 text-dark mb-0 link-hover">{{ $beritaUtama->judul }}</a>
                             </div>
-                            <p class="mt-3 mb-4">{{ Str::limit(strip_tags($beritaUtama->isi_berita), 300) }}</p>
+                            <p class="mt-3 mb-4">{{ Str::limit(strip_tags($beritaUtama->isi_berita), 700) }}</p>
 
                             {{-- Berita Kedua ("Top Story") --}}
                             @if($beritaKedua)
                             <div class="bg-light p-4 rounded">
-                                <div class="news-2"><h3 class="mb-4">Top Story</h3></div>
+                                <div class="news-2"><h3 class="mb-4">Artikel Populer</h3></div>
                                 <div class="row g-4 align-items-center">
                                     <div class="col-md-6">
                                         <div class="rounded overflow-hidden">
@@ -350,7 +363,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="d-flex flex-column">
-                                            <a href="#" class="h3">{{ $beritaKedua->judul }}</a>
+                                            {{-- PERBAIKAN #2: Gunakan slug dari $beritaKedua --}}
+                                            <a href="{{ route('artikel.show', $beritaKedua->slug) }}" class="h3">{{ $beritaKedua->judul }}</a>
                                             <p class="mb-0 fs-5"><i class="fa fa-clock"></i> {{ $beritaKedua->published_at->format('d M Y') }}</p>
                                             <p class="mb-0 fs-5"><i class="fa fa-user"></i> {{ $beritaKedua->user->name }}</p>
                                         </div>
@@ -363,11 +377,12 @@
 
                     {{-- KOLOM KANAN (30%) - Sidebar Berita Lainnya --}}
                     <div class="col-lg-5 col-xl-4">
-                    <div class="bg-light rounded p-4 pt-0">
-                        <h4 class="my-4">Berita Lainnya</h4>
+                        <h4 class="my-5">Berita Lainnya</h4>
+                        <div class="bg-light rounded p-4 pt-0">
                             @php
-                                $sisaBerita = $beritas->slice(2); // Ambil sisa berita (mulai dari berita ke-3)
+                                $sisaBerita = $beritas->slice(2);
                             @endphp
+                            {{-- PERBAIKAN #3: Loop ini sudah benar, tidak perlu diubah --}}
                             @foreach($sisaBerita as $berita)
                                 <div class="row g-4 align-items-center mb-3 pb-3 border-bottom">
                                     <div class="col-5">
@@ -377,13 +392,13 @@
                                     </div>
                                     <div class="col-7">
                                         <div class="features-content d-flex flex-column">
-                                            <a href="#" class="h6">{{ $berita->judul }}</a>
+                                            <a href="{{ route('artikel.show', $berita->slug) }}" class="h6">{{ $berita->judul }}</a>
                                             <small><i class="fa fa-clock"></i> {{ $berita->published_at->format('d M Y') }}</small>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -427,125 +442,130 @@
 
 @push('custom-scripts')
 <script>
-    $(document).ready(function () {
-        var calendarEl = document.querySelector('.calendar-widget');
+$(document).ready(function () {
+    var calendarEl = document.querySelector('.calendar-widget'); // Pastikan class ini ada di HTML-mu
 
-        // Inisialisasi Kalender
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            locale: 'id',
-            initialView: 'dayGridMonth',
-            height: 'auto',
-            headerToolbar: {
-                left: 'prev',
-                center: 'title',
-                right: 'next'
+    // Inisialisasi Kalender
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'id',
+        initialView: 'dayGridMonth',
+        height: 'auto',
+        headerToolbar: {
+            left: 'prev',
+            center: 'title',
+            right: 'next'
+        },
+        events: function (fetchInfo, successCallback, failureCallback) {
+            fetchAndRenderJadwal(fetchInfo.startStr, fetchInfo.endStr, successCallback, failureCallback);
+        },
+        eventDidMount: function(info) {
+            // Tooltip untuk event di kalender
+            new bootstrap.Tooltip(info.el, {
+                title: info.event.extendedProps.posyandu + ' (' + info.event.extendedProps.dusun + '): ' + info.event.title,
+                placement: 'top',
+                trigger: 'hover',
+                container: 'body'
+            });
+        }
+    });
+
+    calendar.render();
+
+    function fetchAndRenderJadwal(start = null, end = null, calendarCallback = null, failureCallback = null) {
+        var desaId = $('#desa_filter').val();
+        var dusunId = $('#dusun_filter').val();
+        var posyanduId = $('#posyandu_filter').val();
+
+        var url = new URL('{{ route("api.jadwal.filter") }}');
+        if (start) url.searchParams.append('start', start);
+        if (end) url.searchParams.append('end', end);
+        if (desaId) url.searchParams.append('desa_id', desaId);
+        if (dusunId) url.searchParams.append('dusun_id', dusunId);
+        if (posyanduId) url.searchParams.append('posyandu_id', posyanduId);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                $('#jadwal-list').html(response.list_html);
+                if (calendarCallback) {
+                    calendarCallback(response.events);
+                }
             },
-            events: function (fetchInfo, successCallback, failureCallback) {
-                var desaId = $('#desa_filter').val();
-                var dusunId = $('#dusun_filter').val();
-                var posyanduId = $('#posyandu_filter').val();
-
-                var url = '{{ route("api.jadwal.filter") }}' +
-                          '?start=' + fetchInfo.startStr +
-                          '&end=' + fetchInfo.endStr +
-                          '&desa_id=' + desaId +
-                          '&dusun_id=' + dusunId +
-                          '&posyandu_id=' + posyanduId;
-
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => successCallback(data.events))
-                    .catch(error => failureCallback(error));
-            },
-            eventDidMount: function(info) {
-                new bootstrap.Tooltip(info.el, {
-                    title: info.event.extendedProps.posyandu + ' (' + info.event.extendedProps.dusun + '): ' + info.event.title,
-                    placement: 'top',
-                    trigger: 'hover',
-                    container: 'body'
-                });
+            error: function() {
+                if (failureCallback) failureCallback();
             }
         });
+    }
 
-        calendar.render();
+    // Trigger reload saat filter berubah
+    $('#desa_filter, #dusun_filter, #posyandu_filter').on('change', function () {
+        calendar.refetchEvents();
+    });
 
-        function reloadJadwalListOnly() {
-            var desaId = $('#desa_filter').val();
-            var dusunId = $('#dusun_filter').val();
-            var posyanduId = $('#posyandu_filter').val();
+    // ======================================================
+    // !! PERBAIKAN UTAMA ADA DI SINI !!
+    // ======================================================
 
-            var url = '{{ route("api.jadwal.filter") }}' +
-                      '?desa_id=' + desaId +
-                      '&dusun_id=' + dusunId +
-                      '&posyandu_id=' + posyanduId;
+    // Desa -> Dusun
+    $('#desa_filter').on('change', function () {
+        var desaId = $(this).val();
+        var dusunSelect = $('#dusun_filter');
+        var posyanduSelect = $('#posyandu_filter');
 
+        dusunSelect.prop('disabled', true).empty().append('<option value="">Semua Dusun</option>');
+        posyanduSelect.prop('disabled', true).empty().append('<option value="">Semua Posyandu</option>');
+
+        if (desaId) {
             $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-                    $('#jadwal-list').html(response.list_html);
+                // PERBAIKAN #1: Gunakan rute API publik yang benar
+                url: '{{ route("api.getDusuns") }}',
+                // PERBAIKAN #2: Gunakan metode POST
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    desa_id: desaId
+                },
+                success: function(data) {
+                    dusunSelect.prop('disabled', false);
+                    $.each(data, function(key, value) {
+                        dusunSelect.append('<option value="' + value.id + '">' + value.nama_dusun + '</option>');
+                    });
                 }
             });
         }
-
-        // Reload seluruh jadwal (event kalender dan list)
-        function reloadSemuaJadwal() {
-            calendar.refetchEvents(); // RELOAD event di kalender
-            reloadJadwalListOnly();   // RELOAD daftar list di kanan
-        }
-
-        // Trigger reload saat filter berubah
-        $('#desa_filter, #dusun_filter, #posyandu_filter').on('change', function () {
-            reloadSemuaJadwal();
-        });
-
-        // Desa -> Dusun
-        $('#desa_filter').on('change', function () {
-            var desaId = $(this).val();
-            var dusunSelect = $('#dusun_filter');
-            var posyanduSelect = $('#posyandu_filter');
-
-            dusunSelect.prop('disabled', true).empty().append('<option value="">Semua Dusun</option>');
-            posyanduSelect.prop('disabled', true).empty().append('<option value="">Semua Posyandu</option>');
-
-            if (desaId) {
-                $.ajax({
-                    url: '/api/dusuns/' + desaId,
-                    type: 'GET',
-                    success: function(data) {
-                        dusunSelect.prop('disabled', false);
-                        $.each(data, function(key, value) {
-                            dusunSelect.append('<option value="' + value.id + '">' + value.nama_dusun + '</option>');
-                        });
-                    }
-                });
-            }
-        });
-
-        // Dusun -> Posyandu
-        $('#dusun_filter').on('change', function () {
-            var dusunId = $(this).val();
-            var posyanduSelect = $('#posyandu_filter');
-
-            posyanduSelect.prop('disabled', true).empty().append('<option value="">Semua Posyandu</option>');
-
-            if (dusunId) {
-                $.ajax({
-                    url: '/api/posyandus/' + dusunId,
-                    type: 'GET',
-                    success: function(data) {
-                        posyanduSelect.prop('disabled', false);
-                        $.each(data, function(key, value) {
-                            posyanduSelect.append('<option value="' + value.id + '">' + value.nama_posyandu + '</option>');
-                        });
-                    }
-                });
-            }
-        });
-
-        // Pertama kali load list juga
-        reloadJadwalListOnly();
     });
+
+    // Dusun -> Posyandu
+    $('#dusun_filter').on('change', function () {
+        var dusunId = $(this).val();
+        var posyanduSelect = $('#posyandu_filter');
+
+        posyanduSelect.prop('disabled', true).empty().append('<option value="">Semua Posyandu</option>');
+
+        if (dusunId) {
+            $.ajax({
+                // PERBAIKAN #3: Gunakan rute API publik yang benar
+                url: '{{ route("api.getPosyandus") }}',
+                // PERBAIKAN #4: Gunakan metode POST
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    dusun_id: dusunId
+                },
+                success: function(data) {
+                    posyanduSelect.prop('disabled', false);
+                    $.each(data, function(key, value) {
+                        posyanduSelect.append('<option value="' + value.id + '">' + value.nama_posyandu + '</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    // Pertama kali load list juga
+    fetchAndRenderJadwal();
+});
 </script>
 <script>
     function changeMainImage(id, newImageSrc, newCaption, newLightboxUrl) {

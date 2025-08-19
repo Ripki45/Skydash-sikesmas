@@ -46,6 +46,8 @@ Route::get('/api/jadwal', [HomeController::class, 'getJadwalByFilter'])->name('a
 Route::post('/get-dusuns', [DependentDropdownController::class, 'getDusuns'])->name('getDusuns');
 Route::post('/api/get-dusuns', [DependentDropdownController::class, 'getDusuns'])->name('api.getDusuns');
 Route::post('/api/get-posyandus', [DependentDropdownController::class, 'getPosyandus'])->name('api.getPosyandus');
+Route::get('/pengumuman', [HomeController::class, 'semuaPengumuman'])->name('pengumuman.semua');
+Route::get('/pengumuman/{pengumuman:slug}', [HomeController::class, 'showPengumuman'])->name('pengumuman.show');
 // Rute Otentikasi Google
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
@@ -126,9 +128,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [MasyarakatDashboardController::class, 'index'])->name('dashboard');
     Route::post('/pengumuman/{pengumuman}/konfirmasi', [MasyarakatDashboardController::class, 'konfirmasiKehadiran'])->name('pengumuman.konfirmasi');
 
-    // ======================================================
-    // !! INILAH PENAMBAHANNYA !!
-    // ======================================================
 
     // Rute untuk menampilkan halaman jadwal
     Route::get('/jadwal', [JadwalMasyarakatController::class, 'index'])->name('jadwal.index');
