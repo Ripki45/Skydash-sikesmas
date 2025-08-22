@@ -36,18 +36,25 @@
         margin-right: auto;
         padding: 1.5rem 0;
 
-        /* === [IDE BARU: SCROLL DESKTOP] === */
-        /* Atur tinggi maksimal dropdown di desktop. Sesuaikan nilainya. */
-        max-height: 70vh; /* Contoh: 70% dari tinggi viewport */
-        overflow-y: auto; /* Tampilkan scroll jika konten lebih tinggi */
+        /* === [PERBAIKAN KLASTER TURUN] === */
+        flex-wrap: nowrap; /* 1. Paksa semua kolom untuk tetap sejajar */
+        overflow-x: auto; /* 2. Aktifkan scroll horizontal jika kolomnya banyak */
+        padding-bottom: 1.5rem; /* 3. Beri ruang untuk scrollbar agar tidak mepet */
     }
 
+    /* Tampilkan dropdown saat hover */
     .navbar .dropdown:hover > .dropdown-menu {
         display: block;
     }
 }
 
 /* ==== TIPOGRAFI & STYLE ITEM DROPDOWN ==== */
+/* === [PERBAIKAN KLASTER TURUN] === */
+/* 4. Beri lebar minimum agar kolom tidak terlalu penyet */
+.mega-menu-column {
+    min-width: 280px;
+}
+
 .mega-menu-column h6 {
     margin: 0 0 0.5rem;
     font-size: 0.9rem;
@@ -76,15 +83,13 @@
         border-top: 1px solid #eee !important;
         border-radius: 0 !important;
         background-color: #f8f9fa;
-
-        /* === [IDE BARU: SCROLL MOBILE] === */
-        /* Atur tinggi maksimal dropdown di mobile. */
-        max-height: 50vh; /* Contoh: 50% dari tinggi viewport */
-        overflow-y: auto; /* Tampilkan scroll jika konten lebih tinggi */
+        max-height: 60vh;
+        overflow-y: auto;
     }
 
     .mega-menu-column {
         margin-bottom: 1rem;
+        min-width: auto; /* Reset min-width di mobile */
     }
 }
 

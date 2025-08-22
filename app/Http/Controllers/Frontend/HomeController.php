@@ -49,6 +49,12 @@ class HomeController extends Controller
                                  ->whereDate('tanggal_kegiatan', '>=', now())
                                  ->orderBy('tanggal_kegiatan', 'asc')
                                  ->get();
+        $popupPengumuman = Pengumuman::where('status', 'published')
+        ->where('tipe', 'popup')
+        ->whereDate('tanggal_mulai', '<=', now())
+        ->whereDate('tanggal_selesai', '>=', now())
+        ->latest()
+        ->first();
 
         $galeriKategoris = GaleriKategori::has('galeris')->with('galeris')->latest()->take(5)->get();
         $galeris = Galeri::latest()->take(12)->get(); // Ambil 12 foto terbaru untuk tampilan awal

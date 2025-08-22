@@ -160,19 +160,5 @@
     ClassicEditor.create( document.querySelector( '#deskripsi' ) ).catch( error => console.error( error ) );
     ClassicEditor.create( document.querySelector( '#visi' ) ).catch( error => console.error( error ) );
     ClassicEditor.create( document.querySelector( '#misi' ) ).catch( error => console.error( error ) );
-
-    // Script untuk membuat tombol upload file berfungsi
-    (function($) {
-        'use strict';
-        $(function() {
-            $('.file-upload-browse').on('click', function() {
-                var file = $(this).parent().parent().parent().find('.file-upload-default');
-                file.trigger('click');
-            });
-            $('.file-upload-default').on('change', function() {
-                $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
-            });
-        });
-    })(jQuery);
 </script>
 @endpush

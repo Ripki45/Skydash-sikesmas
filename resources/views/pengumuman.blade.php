@@ -26,7 +26,7 @@
                                 <div class="mt-auto d-flex justify-content-between align-items-center">
                                     <small class="text-body"><i class="fas fa-calendar-alt me-2 text-primary"></i>{{ $pengumuman->created_at->format('d M Y') }}</small>
                                     {{-- Nanti kita buat link detailnya --}}
-                                    <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">Baca Selengkapnya</a>
+                                    <a href="{{ route('pengumuman.show', $pengumuman->id) }}" class="btn btn-sm btn-outline-primary rounded-pill">Baca Selengkapnya</a>
                                 </div>
                             </div>
                         </div>

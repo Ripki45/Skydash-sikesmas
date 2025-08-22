@@ -9,14 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
+    public function up(): void
     {
         Schema::create('pengumumans', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('isi');
+
+            // !! PERBAIKAN UTAMA ADA DI SINI !!
+            // Beritahu database bahwa kolom ini boleh kosong (null)
+            $table->text('isi')->nullable();
+
             $table->string('lampiran')->nullable();
-            $table->enum('tipe', ['info', 'popup', 'banner'])->default('info'); // <-- Pastikan baris ini ada
+            $table->enum('tipe', ['info', 'popup', 'banner'])->default('info');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->enum('status', ['published', 'draft'])->default('draft');
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengumumen');
+        Schema::dropIfExists('pengumumans');
     }
 };

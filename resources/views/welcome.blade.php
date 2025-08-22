@@ -178,7 +178,7 @@
                             <div class="pengumuman-item mb-3 pb-3 border-bottom">
                                 <div class="pengumuman-content">
                                     {{-- Arahkan link ini ke halaman detail jika ada, atau biarkan # --}}
-                                    <a href="#" class="h6">{{ $item->judul }}</a>
+                                    <a href="{{ route('pengumuman.show', $item->id) }}" class="h6">{{ $item->judul }}</a>
                                     <small class="text-muted d-block">
                                         <i class="fas fa-calendar-alt me-1"></i>
                                         Berlaku s/d {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
@@ -437,7 +437,29 @@
                 </div>
             </div>
         </div>
+        @if(isset($popupPengumuman))
+            <div class="modal fade" id="popupPengumumanModal" tabindex="-1" aria-labelledby="popupPengumumanLabel" aria-hidden="true">
+                {{-- Sesuaikan ukuran modal agar lebih pas untuk gambar --}}
+                <div class="modal-dialog modal-dialog-centered modal-md">
+                    <div class="modal-content" style="background: transparent; border: none;">
+                        <div class="modal-body p-0">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; top: 15px; right: 15px; z-index: 10;"></button>
 
+                            {{-- PERBAIKAN UTAMA: Tampilkan gambar dari kolom 'lampiran' --}}
+                            @if($popupPengumuman->lampiran)
+                                <img src="{{ asset('storage/' . $popupPengumuman->lampiran) }}" class="img-fluid rounded" alt="{{ $popupPengumuman->judul }}">
+                            @else
+                                {{-- Fallback jika gambar tidak ada --}}
+                                <div class="bg-light p-5 rounded text-center">
+                                    <h4>{{ $popupPengumuman->judul }}</h4>
+                                    <p>Gambar tidak tersedia.</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 @endsection
 
 @push('custom-scripts')
@@ -574,6 +596,28 @@ $(document).ready(function () {
         // Update link lightbox juga
         document.getElementById('mainImage-' + id).parentElement.href = newLightboxUrl;
     }
+</script>
+<script>
+    $(document).ready(function(){
+        // ... (script carousel yang sudah ada)
+
+        // ======================================================
+        // !! SCRIPT BARU UNTUK MEMUNCULKAN POP-UP (VERSI LEBIH TANGGUH) !!
+        // ======================================================
+
+        // 1. Cari elemen modal menggunakan JavaScript biasa
+        var popupModalElement = document.getElementById('popupPengumumanModal');
+
+        // 2. Cek apakah elemen modal benar-benar ada di halaman
+        if (popupModalElement) {
+            // 3. Buat instance modal Bootstrap 5 secara resmi.
+            // Ini adalah cara yang paling direkomendasikan.
+            var popupModal = new bootstrap.Modal(popupModalElement);
+
+            // 4. Tampilkan modalnya
+            popupModal.show();
+        }
+    });
 </script>
 @endpush
 

@@ -4,21 +4,22 @@ Kebutuhan untuk Profile Puskesmas
 1. Logo Puskesmas
 2. Nama Puskesmas
 3. Photo Puskesmas
-4. Deskripsi tentang Kami
+4. Deskripsi tentang Kami :
 5. Visi dan Misi
   - Tampilkan satu kalimat visi
+    "Menjadi Pusat Pelayanan Kesehatan Masyarakat yang Profesional, Bermutu, dan Terpercaya Menuju Masyarakat Sehat dan Mandiri."
   - Daftar misi (bisa bullet point atau list)
 6. Kecamatan
 7. Kepala Puskesmas
-8. Alamat Lengkap : https://maps.app.goo.gl/zaEGS1dAUu7qku9q9
+8. Alamat Lengkap : Panjalu, Kec. Panjalu, Kabupaten Ciamis, Jawa Barat 46264
 9. Kontak
   - Email
   - Nomor Wa/telp
 10. Sosial Media
-  - Facebook
+  - Facebook  : https://www.facebook.com/puskesmas.panjalu/
   - Instagram : https://www.instagram.com/pkmpanjalu/
-  - Tiktok
-  - Youtube
-11. Lokasi Google Maps
+  - Tiktok : https://linktr.ee/puskesmas_panjalu
+  - Youtube : https://www.youtube.com/@puskesmaspanjalu2349
+11. Lokasi Google Maps : https://maps.app.goo.gl/zaEGS1dAUu7qku9q9
 12. Legalitas / SK
    - Nomor registrasi, SK pendirian, izin operasional

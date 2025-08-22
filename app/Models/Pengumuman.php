@@ -19,7 +19,6 @@ class Pengumuman extends Model
     'tanggal_mulai',
     'tanggal_selesai',
     'status',
-    'konfirmasi_diperlukan', // <-- TAMBAHKAN INI
 ];
 
     protected $guarded = ['id'];

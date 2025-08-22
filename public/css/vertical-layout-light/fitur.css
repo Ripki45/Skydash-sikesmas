@@ -1,0 +1,41 @@
+.calculator-card {
+    transition: all 0.3s ease-in-out;
+}
+.calculator-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+.result-display {
+    background-color: #f8f9fa;
+    border-left: 5px solid #007bff;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    display: none; /* Awalnya disembunyikan */
+}
+.result-display h3 {
+    color: #007bff;
+}
+.result-display .bmi-category-underweight {
+    border-left-color: #ffc107;
+}
+.result-display .bmi-category-underweight h3 {
+    color: #ffc107;
+}
+.result-display .bmi-category-normal {
+    border-left-color: #28a745;
+}
+.result-display .bmi-category-normal h3 {
+    color: #28a745;
+}
+.result-display .bmi-category-overweight {
+    border-left-color: #fd7e14;
+}
+.result-display .bmi-category-overweight h3 {
+    color: #fd7e14;
+}
+.result-display .bmi-category-obese {
+    border-left-color: #dc3545;
+}
+.result-display .bmi-category-obese h3 {
+    color: #dc3545;
+}
