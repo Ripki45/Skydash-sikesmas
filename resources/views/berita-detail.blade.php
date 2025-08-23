@@ -1,16 +1,46 @@
 @extends('layouts.frontend')
 
+@section('title', $berita->judul)
+
 @section('content')
+
+{{-- ====================================================== --}}
+{{-- !! INILAH HEADER BARU YANG DIADOPSI !! --}}
+{{-- ====================================================== --}}
+{{-- <!-- Header Halaman -->
+<div class="container-fluid page-header py-5">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white mb-4 animated slideInDown">{{ Str::limit($berita->judul, 40) }}</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('berita.semua') }}">Artikel</a></li>
+                <li class="breadcrumb-item text-white" aria-current="page">Detail Berita</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Header Halaman End --> --}}
+<!-- Header Halaman -->
+<div class="container-fluid page-header py-5" style="background-color: #f8f9fa;"> {{-- Memberi latar belakang abu-abu muda --}}
+    <div class="container text-center py-5">
+        {{-- PERBAIKAN: Mengubah warna teks dari putih menjadi gelap --}}
+        <h1 class="display-4 text-dark mb-4 animated slideInDown">{{ Str::limit($berita->judul, 100) }}</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('berita.semua') }}">Pengumuman</a></li>
+                <li class="breadcrumb-item text-dark" aria-current="page">Detail</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Header Halaman End -->
+
 <div class="container-fluid py-5">
     <div class="container py-5">
-        {{-- Breadcrumb Dinamis --}}
-        <ol class="breadcrumb justify-content-start mb-4">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('berita.semua') }}">Artikel</a></li>
-            <li class="breadcrumb-item active text-dark">{{ Str::limit($berita->judul, 50) }}</li>
-        </ol>
         <div class="row g-4">
-            {{-- KOLOM KIRI: KONTEN UTAMA BERITA --}}
+            {{-- KOLOM KIRI: KONTEN UTAMA BERITA (TIDAK DIUBAH) --}}
             <div class="col-lg-8">
                 <div class="mb-4">
                     <h1 class="display-5">{{ $berita->judul }}</h1>
@@ -23,7 +53,7 @@
                 </div>
                 <div class="d-flex justify-content-between text-muted small">
                     <span><i class="fa fa-user"></i> Oleh: {{ $berita->user->name }}</span>
-                    <span><i class="fa fa-calendar-alt"></i> {{ $berita->published_at->format('d M Y') }}</span>
+                    <span><i class="fa fa-calendar-alt"></i> {{ $berita->published_at->isoFormat('dddd, D MMMM YYYY') }}</span>
                     <span><i class="fa fa-eye"></i> 3.5k Views</span>
                 </div>
                 <div class="isi-berita my-4">
@@ -57,7 +87,7 @@
                                 <img src="{{ asset('storage/' . $terkait->gambar_unggulan) }}" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;" alt="">
                                 <div class="ms-3">
                                     <a href="{{ route('artikel.show', $terkait->slug) }}" class="h5 mb-2">{{ Str::limit($terkait->judul, 30) }}</a>
-                                    <p class="text-dark mt-2 mb-0 me-3 small"><i class="fa fa-clock"></i> {{ $terkait->published_at->format('d M Y') }}</p>
+                                    <p class="text-dark mt-2 mb-0 me-3 small"><i class="fa fa-clock"></i> {{ $terkait->published_at->isoFormat('dddd, D MMMM YYYY') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +97,7 @@
                 @endif
             </div>
 
-            {{-- KOLOM KANAN: SIDEBAR --}}
+            {{-- KOLOM KANAN: SIDEBAR (TIDAK DIUBAH) --}}
             <div class="col-lg-4">
                 <div class="sidebar-widget-area">
                     {{-- Widget Search --}}

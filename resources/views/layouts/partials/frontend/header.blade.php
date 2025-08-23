@@ -1,3 +1,56 @@
+<!-- Topbar Start -->
+<div class="container-fluid topbar bg-dark d-none d-lg-block">
+    <div class="container px-0">
+        <div class="d-flex justify-content-between align-items-center">
+
+            {{-- Kolom Kiri: Running Text --}}
+            <div class="top-info d-flex align-items-center">
+                @if(isset($runningText) && $runningText->is_active)
+                <span class="rounded-circle btn-sm-square bg-primary me-2">
+                    <i class="fas fa-bolt text-white"></i>
+                </span>
+                <div class="pe-2 me-3 border-end border-white d-flex align-items-center">
+                    <p class="mb-0 text-white fs-6 fw-normal">Info Terkini</p>
+                </div>
+                <div class="overflow-hidden" style="width: 735px;">
+                    <div id="note" class="ps-2">
+                        @if($runningText->link)
+                            <a href="{{ $runningText->link }}" target="_blank">
+                                <p class="text-white mb-0 link-hover">{{ $runningText->teks }}</p>
+                            </a>
+                        @else
+                            <p class="text-white mb-0">{{ $runningText->teks }}</p>
+                        @endif
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            {{-- ====================================================== --}}
+            {{-- !! PERBAIKAN UTAMA ADA DI SINI !! --}}
+            {{-- ====================================================== --}}
+            {{-- Kolom Kanan: Tanggal & Link Sosial --}}
+            <div class="top-link d-flex align-items-center">
+                {{-- Bagian Tanggal --}}
+                <div class="d-flex align-items-center me-2 pe-2 border-end border-secondary">
+                    <i class="fas fa-calendar-alt text-white me-2"></i>
+                    <span class="text-body">{{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM YYYY') }}</span>
+                </div>
+                {{-- Bagian Sosial Media --}}
+                <div class="d-flex align-items-center">
+                    <p class="mb-0 text-white me-2">Ikuti Kami:</p>
+                    <a href="{{ $settings['sosmed_facebook'] ?? '#' }}" class="me-2"><i class="fab fa-facebook-f text-body link-hover"></i></a>
+                    <a href="{{ $settings['sosmed_instagram'] ?? '#' }}" class="me-2"><i class="fab fa-instagram text-body link-hover"></i></a>
+                    <a href="{{ $settings['sosmed_youtube'] ?? '#' }}" class="me-2"><i class="fab fa-youtube text-body link-hover"></i></a>
+                    <a href="{{ $settings['sosmed_tiktok'] ?? '#' }}" class=""><i class="fab fa-tiktok text-body link-hover"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
 <!-- Navbar Start -->
 <div class="container-fluid sticky-top px-0">
     <div class="container-fluid bg-light">

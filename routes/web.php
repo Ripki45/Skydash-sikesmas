@@ -89,7 +89,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('settings', SettingController::class)->only(['index', 'update']);
 
         // Manajemen Konten
-        Route::resource('berita', BeritaController::class);
+        Route::resource('berita', BeritaController::class)->parameters([
+            'berita' => 'berita' // Artinya: "gunakan 'berita' sebagai nama parameter"
+        ]);
         Route::resource('kategori', KategoriController::class);
         Route::resource('tag', TagController::class);
         Route::resource('halaman', HalamanController::class);

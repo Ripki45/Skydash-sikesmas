@@ -29,6 +29,7 @@ class HomeController extends Controller
         $layanans = Layanan::where('is_active', true)->orderBy('urutan')->get();
         $sinergiPrograms = SinergiProgram::where('is_active', true)->orderBy('urutan')->get();
 
+
         $beritas = Berita::with('kategori', 'user')
                          ->where('status', 'published')
                          ->whereDate('published_at', '<=', now())
@@ -70,9 +71,9 @@ class HomeController extends Controller
             'pengumumans',
             'tenagaKesehatans',
             'desas',
-            'jadwals', // <-- Koma sudah ditambahkan
+            'jadwals',
             'galeris',
-            'galeriKategoris'
+            'galeriKategoris',
         ));
     }
 

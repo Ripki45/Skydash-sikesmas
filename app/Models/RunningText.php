@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class RunningText extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'teks',
+        'link',
+        'is_active',
+    ];
 }

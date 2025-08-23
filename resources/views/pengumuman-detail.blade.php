@@ -8,7 +8,7 @@
 <div class="container-fluid page-header py-5" style="background-color: #f8f9fa;"> {{-- Memberi latar belakang abu-abu muda --}}
     <div class="container text-center py-5">
         {{-- PERBAIKAN: Mengubah warna teks dari putih menjadi gelap --}}
-        <h1 class="display-4 text-dark mb-4 animated slideInDown">{{ Str::limit($pengumuman->judul, 40) }}</h1>
+        <h1 class="display-4 text-dark mb-4 animated slideInDown">{{ Str::limit($pengumuman->judul, 100) }}</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
@@ -74,7 +74,7 @@
                         <img src="{{ asset('storage/' . $berita->gambar_unggulan) }}" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;" alt="">
                         <div class="ms-3">
                             <a href="{{ route('artikel.show', $berita->slug) }}" class="h6">{{ Str::limit($berita->judul, 45) }}</a>
-                            <small class="d-block text-muted"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->format('d M Y') }}</small>
+                            <small class="d-block text-muted"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->isoFormat('dddd, D MMMM YYYY') }}</small>
                         </div>
                     </div>
                         @empty

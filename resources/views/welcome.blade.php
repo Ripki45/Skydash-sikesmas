@@ -153,7 +153,7 @@
                                             <a href="{{ route('artikel.show', $berita->slug) }}"class="h4 d-block mb-3">{{ Str::limit($berita->judul, 60) }}</a>
                                             <div class="d-flex justify-content-between">
                                                 <a href="#" class="small text-body link-hover">by {{ $berita->user->name }}</a>
-                                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->format('d M Y') }}</small>
+                                                <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->isoFormat('dddd, D MMMM YYYY') }}</small>
                                             </div>
                                         </div>
                                     </div>
@@ -365,7 +365,7 @@
                                         <div class="d-flex flex-column">
                                             {{-- PERBAIKAN #2: Gunakan slug dari $beritaKedua --}}
                                             <a href="{{ route('artikel.show', $beritaKedua->slug) }}" class="h3">{{ $beritaKedua->judul }}</a>
-                                            <p class="mb-0 fs-5"><i class="fa fa-clock"></i> {{ $beritaKedua->published_at->format('d M Y') }}</p>
+                                            <p class="mb-0 fs-5"><i class="fa fa-clock"></i> {{ $beritaKedua->published_at->isoFormat('dddd, D MMMM YYYY') }}</p>
                                             <p class="mb-0 fs-5"><i class="fa fa-user"></i> {{ $beritaKedua->user->name }}</p>
                                         </div>
                                     </div>
@@ -393,7 +393,7 @@
                                     <div class="col-7">
                                         <div class="features-content d-flex flex-column">
                                             <a href="{{ route('artikel.show', $berita->slug) }}" class="h6">{{ $berita->judul }}</a>
-                                            <small><i class="fa fa-clock"></i> {{ $berita->published_at->format('d M Y') }}</small>
+                                            <small><i class="fa fa-clock"></i> {{ $berita->published_at->isoFormat('dddd, D MMMM YYYY') }}</small>
                                         </div>
                                     </div>
                                 </div>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema; // <-- Penting untuk migrasi
 use App\Models\Kluster;
 use App\Models\RunningText;
 use App\Models\Setting;
+use App\Models\Galeri;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,5 +34,16 @@ class AppServiceProvider extends ServiceProvider
             // Ini untuk mencegah error saat menjalankan migrate pertama kali
             // di mana tabel settings belum ada.
         }
+
+        View::composer('layouts.frontend', function ($view) {
+
+            // "...jalankan kode ini:"
+            $footerGaleris = Galeri::latest()->take(6)->get();
+            $klusters = Kluster::whereNull('parent_id')->orderBy('order')->get(); // Ambil menu utama
+
+            // Kirim data ke view tersebut
+            $view->with('footerGaleris', $footerGaleris)
+                 ->with('klusters', $klusters);
+        });
     }
 }

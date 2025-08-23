@@ -21,3 +21,6 @@ awlm irlf bbol qrpk
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+5e70 0a1d 670a 8a08

@@ -24,7 +24,7 @@
                     <a href="{{ route('admin.banner.create') }}" class="btn btn-primary">Tambah Banner Baru</a>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="bannerTable">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -41,20 +41,20 @@
                                         <img src="{{ asset('storage/' . $banner->gambar_banner) }}" alt="Banner" style="width: 150px; height: auto; border-radius: 5px;">
                                     </td>
                                     <td>{{ $banner->urutan_tampil }}</td>
-                                    {{-- <td>
-                                        <a href="{{ route('admin.banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="#" class="btn btn-danger btn-sm">Hapus</a>
-                                    </td> --}}
                                     <td>
                                         <div class="btn-group">
+                                            {{-- PERBAIKAN #1: Perbaiki sintaks kurung kurawal --}}
                                             <a href="{{ route('admin.banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+
+                                            {{-- PERBAIKAN #2: Arahkan ke rute yang benar (banner.destroy) --}}
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
                                                     data-toggle="modal" data-target="#deleteModal"
-                                                        data-url="{{ route('admin.users.destroy', $banner->id) }}">
-                                                        Hapus
-                                                </button>
+                                                    data-url="{{ route('admin.banner.destroy', $banner->id) }}">
+                                                Hapus
+                                            </button>
                                         </div>
                                     </td>
+                                </tr>
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-center">Belum ada banner yang ditambahkan.</td>
@@ -75,21 +75,21 @@
                 <p class="card-description">
                     Atur teks berjalan yang tampil di bagian atas website.
                 </p>
-                <form class="forms-sample" action="#" method="POST">
+                <form class="forms-sample" action="{{ route('admin.running-text.update') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="teks">Teks Berjalan</label>
-                        <textarea class="form-control" name="teks" id="teks" rows="3">{{ $runningText->teks }}</textarea>
+                        <textarea class="form-control" name="teks" id="teks" rows="3">{{ $runningText->teks ?? '' }}</textarea>
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label for="link">Link (Opsional)</label>
-                        <input type="text" class="form-control" id="link" name="link" placeholder="https://contoh.com" value="{{ $runningText->link }}">
+                        <input type="text" class="form-control" id="link" name="link" placeholder="https://contoh.com" value="{{ $runningText->link ?? '' }}">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label for="is_active">Status</label>
                         <select class="form-control" name="is_active" id="is_active">
-                            <option value="1" {{ $runningText->is_active ? 'selected' : '' }}>Aktif</option>
-                            <option value="0" {{ !$runningText->is_active ? 'selected' : '' }}>Tidak Aktif</option>
+                            <option value="1" {{ ($runningText->is_active ?? false) ? 'selected' : '' }}>Aktif</option>
+                            <option value="0" {{ !($runningText->is_active ?? false) ? 'selected' : '' }}>Tidak Aktif</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan Running Text</button>
@@ -108,7 +108,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus halaman ini?
+                Apakah Anda yakin ingin menghapus banner ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -124,12 +124,22 @@
 @endsection
 
 
-@section('scripts')
+@push('scripts')
+{{-- PERBAIKAN #3: Tambahkan JQuery sebelum script custom --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#deleteModal').on('show.bs.modal', function (event) {
-            // ... isi script ...
-        });
+$(document).ready(function() {
+    // Inisialisasi DataTable jika diperlukan
+    // Pastikan library DataTable juga sudah dimuat di layout utama
+    if ($.fn.DataTable) {
+        $('#bannerTable').DataTable();
+    }
+
+    // "Kabel" Universal untuk Tombol Hapus
+    $(document).on('click', '.delete-btn', function() {
+        var deleteUrl = $(this).data('url');
+        $('#deleteForm').attr('action', deleteUrl);
     });
+});
 </script>
-@endsection
+@endpush

@@ -117,17 +117,22 @@ class BannerController extends Controller
 
     public function updateRunningText(Request $request)
     {
-        $request->validate([
+        // 1. Validasi data terlebih dahulu dan simpan hasilnya.
+        $validatedData = $request->validate([
             'teks' => 'required|string',
             'link' => 'nullable|url',
             'is_active' => 'required|boolean',
         ]);
 
-        $runningText = RunningText::find(1);
-        $runningText->update($request->all());
+        // 2. Cari running text yang ada, atau buat baru jika belum ada.
+        // Ini lebih aman daripada menggunakan find(1).
+        $runningText = RunningText::firstOrCreate(['id' => 1]);
+
+        // 3. Update record hanya dengan data yang sudah bersih dan tervalidasi.
+        $runningText->update($validatedData);
 
         return redirect()->route('admin.banner.index')
-                        ->with('success', 'Running text berhasil diperbarui.');
+                         ->with('success', 'Running text berhasil diperbarui.');
     }
 
 }

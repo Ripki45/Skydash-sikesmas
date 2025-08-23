@@ -66,7 +66,7 @@
                             <img src="{{ asset('storage/' . $berita->gambar_unggulan) }}" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;" alt="">
                             <div class="ms-3">
                                 <a href="{{ route('artikel.show', $berita->slug) }}" class="h6">{{ Str::limit($berita->judul, 45) }}</a>
-                                <small class="d-block text-muted"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->format('d M Y') }}</small>
+                                <small class="d-block text-muted"><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->isoFormat('dddd, D MMMM YYYY') }}</small>
                             </div>
                         </div>
                         @empty

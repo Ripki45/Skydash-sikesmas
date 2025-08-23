@@ -45,7 +45,7 @@
                             <div class="col-8">
                                 <div class="features-content d-flex flex-column">
                                     <a href="#" class="h6">{{ Str::limit($berita->judul, 35) }}</a>
-                                    <small><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->format('d M Y') }}</small>
+                                    <small><i class="fas fa-calendar-alt me-1"></i> {{ $berita->published_at->isoFormat('dddd, D MMMM YYYY') }}</small>
                                 </div>
                             </div>
                         </div>
