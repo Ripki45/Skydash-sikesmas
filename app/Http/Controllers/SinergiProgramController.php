@@ -101,18 +101,20 @@ class SinergiProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SinergiProgram $program)
+    public function destroy(SinergiProgram $sinergiProgram)
     {
-        // 1. Hapus file gambar/icon dari folder storage
-        if ($program->sinergi_icon) {
-            Storage::disk('public')->delete($program->sinergi_icon);
+        // PERBAIKAN #1: Hapus file gambar dari storage terlebih dahulu
+        // Pastikan nama kolomnya benar (misalnya 'logo_program')
+        if ($sinergiProgram->logo_program) {
+            Storage::disk('public')->delete($sinergiProgram->logo_program);
         }
 
-        // 2. Hapus data layanan dari database
-        $program->delete();
+        // PERBAIKAN #2: Jalankan perintah delete pada objek yang benar
+        // Laravel secara otomatis menemukan data yang sesuai melalui Route Model Binding.
+        $sinergiProgram->delete();
 
-        // 3. Kembali ke halaman index dengan pesan sukses
+        // Setelah berhasil, baru kirimkan pesan sukses
         return redirect()->route('admin.sinergi-program.index')
-                        ->with('success', 'Layanan berhasil dihapus.');
+                         ->with('success', 'Program berhasil dihapus.');
     }
 }

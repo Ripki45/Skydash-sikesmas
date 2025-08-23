@@ -4,23 +4,6 @@
 
 @section('content')
 
-{{-- ====================================================== --}}
-{{-- !! INILAH HEADER BARU YANG DIADOPSI !! --}}
-{{-- ====================================================== --}}
-{{-- <!-- Header Halaman -->
-<div class="container-fluid page-header py-5">
-    <div class="container text-center py-5">
-        <h1 class="display-4 text-white mb-4 animated slideInDown">{{ Str::limit($berita->judul, 40) }}</h1>
-        <nav aria-label="breadcrumb animated slideInDown">
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('berita.semua') }}">Artikel</a></li>
-                <li class="breadcrumb-item text-white" aria-current="page">Detail Berita</li>
-            </ol>
-        </nav>
-    </div>
-</div>
-<!-- Header Halaman End --> --}}
 <!-- Header Halaman -->
 <div class="container-fluid page-header py-5" style="background-color: #f8f9fa;"> {{-- Memberi latar belakang abu-abu muda --}}
     <div class="container text-center py-5">

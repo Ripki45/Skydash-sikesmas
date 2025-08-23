@@ -51,22 +51,17 @@
                                             <span class="badge badge-danger">Tidak Aktif</span>
                                         @endif
                                     </td>
-                                    {{-- <td>
-                                        <a href="{{ route('admin.sinergi-program.edit', $program->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                                data-toggle="modal" data-target="#deleteModal"
-                                                data-url="{{ route('admin.sinergi-program.destroy', $program->id) }}">
-                                            Hapus
-                                        </button>
-                                    </td> --}}
                                     <td>
                                         <div class="btn-group">
-                                            <a href={{ route('admin.sinergi-program.edit', $program->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                            {{-- PERBAIKAN #1: Perbaiki sintaks kurung kurawal --}}
+                                            <a href="{{ route('admin.sinergi-program.edit', $program->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                                            {{-- PERBAIKAN #2: Arahkan ke rute yang benar (banner.destroy) --}}
+                                            <button type="button" class="btn btn-danger btn-sm delete-btn"
                                                     data-toggle="modal" data-target="#deleteModal"
-                                                        data-url="{{ route('admin.sinergi-program.destroy', $program->id) }}">
-                                                        Hapus
-                                                </button>
+                                                    data-url="{{ route('admin.sinergi-program.destroy', $program->id) }}">
+                                                Hapus
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -93,7 +88,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus halaman ini?
+                Apakah Anda yakin ingin menghapus banner ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -107,3 +102,23 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+{{-- PERBAIKAN #3: Tambahkan JQuery sebelum script custom --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Inisialisasi DataTable jika diperlukan
+    // Pastikan library DataTable juga sudah dimuat di layout utama
+    if ($.fn.DataTable) {
+        $('#bannerTable').DataTable();
+    }
+
+    // "Kabel" Universal untuk Tombol Hapus
+    $(document).on('click', '.delete-btn', function() {
+        var deleteUrl = $(this).data('url');
+        $('#deleteForm').attr('action', deleteUrl);
+    });
+});
+</script>
+@endpush
